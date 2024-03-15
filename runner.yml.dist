@@ -1,0 +1,57 @@
+drupal:
+  root: "web"
+  base_url: "http://localhost:8080"
+  database:
+    scheme: "sqlite"
+    host: "sites/default/files"
+    name: ".ht.drupal"
+    password: ''
+    port: ''
+  site:
+    profile: "minimal"
+    name: "ILO Base Theme"
+  post_install:
+    - "chmod -R 775 web/sites/default/files"
+    - "chown -R www-data:www-data web/sites/default/files"
+    - "./vendor/bin/drush en field_ui -y"
+    - "./vendor/bin/drush en config_devel -y"
+    - "./vendor/bin/drush en toolbar -y"
+    - "./vendor/bin/drush en ui_patterns_library -y"
+    - "./vendor/bin/drush en wingsuit_ui_patterns -y"
+    - "./vendor/bin/drush theme:enable ilo_base_theme -y"
+    - "./vendor/bin/drush theme:enable claro -y"
+    - "./vendor/bin/drush config-set system.theme default ilo_base_theme -y"
+    - "./vendor/bin/drush config-set system.theme admin claro -y"
+    - "./vendor/bin/drush config-set node.settings use_admin_theme 1 -y"
+    - "./vendor/bin/drush role:perm:add anonymous 'access patterns page' -y"
+    - "./vendor/bin/drush cr"
+  settings:
+    settings:
+      file_scan_ignore_directories:
+        - "node_modules"
+        - "vendor"
+        - "${drupal.root}"
+      file_private_path: 'sites/default/files/private'
+
+commands:
+  drupal:site-setup:
+    - { task: "run", command: "drupal:symlink-project" }
+    - { task: "symlink", from: "${drupal.root}/core/.stylelintrc.json", to: ".stylelintrc.json" }
+    - { task: "run", command: "drupal:drush-setup" }
+    - { task: "run", command: "drupal:settings-setup" }
+    # Generate settings.testing.php, it will be used when running functional tests.
+    - { task: "process-php", type: "write", config: "drupal.settings", source: "${drupal.root}/sites/default/default.settings.php", destination: "${drupal.root}/sites/default/settings.testing.php", override: true }
+    - { task: "run", command: "setup:phpunit" }
+  setup:phpunit:
+    - { task: "process", source: "phpunit.xml.dist", destination: "phpunit.xml" }
+
+release:
+  tasks:
+    - task: "append"
+      file: "ilo_base_theme/ilo_base_theme.info.yml"
+      text: |
+
+        # Information added by ILO packaging script on ${release.date} at ${release.time}.
+        project: ilo_base_theme
+        version: ${release.version}
+        datestamp: ${release.timestamp}

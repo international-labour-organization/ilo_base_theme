@@ -1,0 +1,12 @@
+name: ILO base theme
+type: theme
+description: Drupal base theme for the International Labour Organization.
+base theme: false
+core_version_requirement: '^9 || ^10'
+
+logo: logo.png
+screenshot: screenshot.png
+
+dependencies:
+  - ui_patterns:ui_patterns_library
+  - wingsuit_companion:wingsuit_ui_patterns
