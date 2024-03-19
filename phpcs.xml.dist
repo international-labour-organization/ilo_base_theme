@@ -3,6 +3,7 @@
   <description>PHP CodeSniffer configuration for drupal development.</description>
   <file>./</file>
   <file>./modules</file>
+  <file>./tests</file>
   <arg name="extensions" value="php,module,install,profile,drush.inc,yml,theme,test,admin.inc,css"/>
   <arg value="s"/>
   <arg name="colors"/>

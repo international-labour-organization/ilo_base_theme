@@ -10,8 +10,6 @@
   </php>
   <testsuites>
     <testsuite name="ILO">
-      <directory>./modules/**/modules/**/tests/</directory>
-      <directory>./modules/**/tests/</directory>
       <directory>./tests/</directory>
     </testsuite>
   </testsuites>

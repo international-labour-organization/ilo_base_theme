@@ -56,7 +56,7 @@ show-db:
 
 ## up		: Start up containers.
 .PHONY: up
-up:
+up: .env
 	@echo "Starting up containers for $(PROJECT_NAME)..."
 	@$(DOCKER_COMPOSE) up -d --remove-orphans
 
