@@ -1,0 +1,7 @@
+name: ILO base theme companion
+type: module
+description: Companion module for ILO base theme.
+core_version_requirement: '^9 || ^10'
+
+dependencies:
+  - ui_patterns:ui_patterns_library

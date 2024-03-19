@@ -10,9 +10,7 @@
         "cweagans/composer-patches": "~1.4",
         "drupal/components": "^3.0@beta",
         "drupal/core": "^10",
-        "drupal/ui_patterns": "^1.5",
-        "drupal/ui_patterns_extends": "^1.0@beta",
-        "drupal/wingsuit_companion": "^2"
+        "drupal/ui_patterns": "^1.5"
     },
     "require-dev": {
         "composer/installers": "~1.5",
