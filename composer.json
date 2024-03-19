@@ -14,6 +14,7 @@
     },
     "require-dev": {
         "composer/installers": "~1.5",
+        "drupal/coder": "^8.3",
         "drupal/config_devel": "^1.9",
         "drupal/core-composer-scaffold": "^10",
         "drupal/core-utility": "^10",
