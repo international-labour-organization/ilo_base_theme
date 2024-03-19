@@ -17,7 +17,7 @@
         "drupal/config_devel": "^1.9",
         "drupal/core-composer-scaffold": "^10",
         "drupal/core-utility": "^10",
-        "drush/drush": "~11.1",
+        "drush/drush": "~12",
         "mikey179/vfsstream": "^1.6.10",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0.0-beta6",
         "phpspec/prophecy-phpunit": "^2",

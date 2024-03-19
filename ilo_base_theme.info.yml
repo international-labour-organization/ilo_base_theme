@@ -9,3 +9,7 @@ screenshot: screenshot.png
 
 dependencies:
   - ilo_base_theme:ilo_base_theme_companion
+
+components:
+  namespaces:
+    components: dist/twig/src/patterns/components
