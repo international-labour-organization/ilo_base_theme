@@ -88,6 +88,17 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
         $definition['base path'] = dirname($file_path);
         $definition['file name'] = basename($file_path);
         $definition['provider'] = $provider;
+        $definition['libraries'] = [];
+        if (file_exists($definition['base path'] . DIRECTORY_SEPARATOR . $id . '.css')) {
+          $definition['libraries'][0][$id]['css']['component'] = [
+            $id . '.css' => NULL,
+          ];
+        }
+        if (file_exists($definition['base path'] . DIRECTORY_SEPARATOR . $id . '.behavior.js')) {
+          $definition['libraries'][0][$id]['js'] = [
+            $id . '.behavior.js' => NULL,
+          ];
+        }
         $this->removeWingsuitExtensions($definition);
         $patterns[] = $this->getPatternDefinition($definition);
       }
