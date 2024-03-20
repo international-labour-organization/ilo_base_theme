@@ -12,4 +12,4 @@ dependencies:
 
 components:
   namespaces:
-    components: dist/twig/src/patterns/components
+    components: dist/components

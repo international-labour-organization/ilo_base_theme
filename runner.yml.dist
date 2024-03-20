@@ -11,8 +11,7 @@ drupal:
     profile: "minimal"
     name: "ILO Base Theme"
   post_install:
-    - "chmod -R 775 web/sites/default/files"
-    - "chown -R www-data:www-data web/sites/default/files"
+    - "./vendor/bin/run drupal:fix-perms"
     - "./vendor/bin/drush en field_ui -y"
     - "./vendor/bin/drush en config_devel -y"
     - "./vendor/bin/drush en toolbar -y"
@@ -32,6 +31,9 @@ drupal:
         - "vendor"
         - "${drupal.root}"
       file_private_path: 'sites/default/files/private'
+    config:
+      system.logging:
+        error_level: 'verbose'
 
 commands:
   drupal:site-setup:
@@ -42,6 +44,9 @@ commands:
     # Generate settings.testing.php, it will be used when running functional tests.
     - { task: "process-php", type: "write", config: "drupal.settings", source: "${drupal.root}/sites/default/default.settings.php", destination: "${drupal.root}/sites/default/settings.testing.php", override: true }
     - { task: "run", command: "setup:phpunit" }
+  drupal:fix-perms:
+    - "chmod -R 775 web/sites/default/files"
+    - "chown -R www-data:www-data web/sites/default/files"
   setup:phpunit:
     - { task: "process", source: "phpunit.xml.dist", destination: "phpunit.xml" }
 

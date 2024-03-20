@@ -134,6 +134,11 @@ composer:
 drush:
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) php vendor/bin/drush $(filter-out $@,$(MAKECMDGOALS))
 
+## fix-perms		: Fix files permissions
+.PHONY: fix-perms
+fix-perms:
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) php vendor/bin/run drupal:fix-perms
+
 ## cr		: Clears the Drupal cache.
 .PHONY: cr
 cr:
