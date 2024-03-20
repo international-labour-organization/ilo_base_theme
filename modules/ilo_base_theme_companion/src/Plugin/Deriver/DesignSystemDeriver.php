@@ -88,11 +88,43 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
         $definition['base path'] = dirname($file_path);
         $definition['file name'] = basename($file_path);
         $definition['provider'] = $provider;
+        $this->removeWingsuitExtensions($definition);
         $patterns[] = $this->getPatternDefinition($definition);
       }
     }
 
     return $patterns;
+  }
+
+  /**
+   * Removes Wingsuit YAML extensions.
+   */
+  private function removeWingsuitExtensions(&$definition) {
+    if (isset($definition['fields'])) {
+      $fields = &$definition['fields'];
+      foreach ($fields as &$field) {
+        if (isset($field['preview']['faker'])) {
+          unset($field['preview']['faker']);
+          $field['preview'] = 'Faked text';
+          continue;
+        }
+
+        // Remove preview lists.
+        if (isset($field['preview'][0]['id'])) {
+          $field['preview'] = $field['preview'][0];
+        }
+
+        if (isset($field['preview']['id'])) {
+          $field['preview']['theme'] = $field['preview']['id'];
+        }
+
+        foreach (['id', 'settings', 'fields', 'variant'] as $key) {
+          if (isset($field['preview'][$key])) {
+            unset($field['preview'][$key]);
+          }
+        }
+      }
+    }
   }
 
 }

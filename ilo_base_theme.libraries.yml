@@ -1,0 +1,5 @@
+global:
+  css:
+    base:
+      dist/global/styles.css: {}
+

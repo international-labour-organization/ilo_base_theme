@@ -10,6 +10,9 @@ screenshot: screenshot.png
 dependencies:
   - ilo_base_theme:ilo_base_theme_companion
 
+libraries:
+  - 'ilo_base_theme/global'
+
 components:
   namespaces:
     components: dist/components

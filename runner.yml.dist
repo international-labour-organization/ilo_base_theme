@@ -34,6 +34,9 @@ drupal:
     config:
       system.logging:
         error_level: 'verbose'
+      system.performance:
+        css: { preprocess: false }
+        js: { preprocess: false }
 
 commands:
   drupal:site-setup:
