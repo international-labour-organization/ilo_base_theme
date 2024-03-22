@@ -1,0 +1,68 @@
+{#
+/**
+ * @file
+ * UI Pattern meta information.
+ */
+#}
+
+{% if pattern is not empty %}
+  {{ attach_library('ui_patterns/table.table') }}
+
+  {# Pattern name and description. #}
+  <h3 class="pattern-preview__label">{{ pattern.label }}</h3>
+  <p class="pattern-preview__description">{{ pattern.description }}</p>
+  {% if pattern.tags %}
+  <div class="pattern-preview__tags">
+    {{ "Tags:"|t }}
+    <ul>
+    {% for tag in pattern.tags %}
+       <li>{{ tag }}</li>
+    {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {# Pattern fields descriptions. #}
+  {% if pattern.fields or pattern.additional.settings %}
+    <table class="ilo--table--content">
+      <thead class="ilo--table--head">
+        <tr class="ilo--table--head--row">
+          <th class="ilo--table--head--cell">{{ "Type"|t }}</th>
+          <th class="ilo--table--head--cell">{{ "Name"|t }}</th>
+          <th class="ilo--table--head--cell">{{ "Label"|t }}</th>
+          <th class="ilo--table--head--cell">{{ "Type"|t }}</th>
+          <th class="ilo--table--head--cell">{{ "Description"|t }} / {{ "Options"|t }}</th>
+        </tr>
+      </thead>
+      <tbody class="ilo--table--body">
+      {% for field in pattern.fields %}
+        <tr class="ilo--table--body--row">
+          <td class="ilo--table--body--cell">{{ "Field"|t }}</td>
+          <td class="ilo--table--body--cell"><code>{{ field.name }}</code></td>
+          <td class="ilo--table--body--cell">{{ field.label }}</td>
+          <td class="ilo--table--body--cell"><code>{{ field.type }}</code></td>
+          <td class="ilo--table--body--cell">{{ field.description }}</td>
+        </tr>
+      {% endfor %}
+      {% for name, setting in pattern.additional.settings %}
+        <tr class="ilo--table--body--row">
+          <td class="ilo--table--body--cell">{{ "Setting"|t }}</td>
+          <td class="ilo--table--body--cell"><code>{{ name }}</code></td>
+          <td class="ilo--table--body--cell">{{ setting.label }}</td>
+          <td class="ilo--table--body--cell"><code>{{ setting.type }}</code></td>
+          <td class="ilo--table--body--cell">{{ setting.description }}
+            {% if setting.options %}
+              <ul>
+                {% for key, label in setting.options %}
+                  <li>{{ key }}: {{ label }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+
+{% endif %}

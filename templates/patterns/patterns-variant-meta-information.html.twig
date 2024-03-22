@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * UI Pattern variant meta information.
+ */
+#}
+
+{% if variant is not empty %}
+  <table class="ilo--table--content ilo--table--content--variants--{{ variant.name }}">
+    <thead class="ilo--table--head">
+    <tr class="ilo--table--head--row">
+      <th class="ilo--table--head--cell">{{ "Variant"|t }}</th>
+      <th class="ilo--table--head--cell">{{ "Name"|t }}</th>
+      <th class="ilo--table--head--cell">{{ "Description"|t }}</th>
+    </tr>
+    </thead>
+    <tbody class="ilo--table--body">
+    <tr class="ilo--table--body--row">
+      <td class="ilo--table--body--cell">{{ variant.label }}</td>
+      <td class="ilo--table--body--cell"><code>{{ variant.name }}</code></td>
+      <td class="ilo--table--body--cell">{{ variant.description }}</td>
+    </tr>
+    </tbody>
+  </table>
+{% endif %}
