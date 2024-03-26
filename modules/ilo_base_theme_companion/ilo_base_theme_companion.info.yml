@@ -6,3 +6,4 @@ core_version_requirement: '^9 || ^10'
 dependencies:
   - components:components
   - ui_patterns:ui_patterns_library
+  - ui_patterns_settings:ui_patterns_settings

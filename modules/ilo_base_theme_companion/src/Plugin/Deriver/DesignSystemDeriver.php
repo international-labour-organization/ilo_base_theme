@@ -98,6 +98,10 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
           $definition['libraries'][0][$id]['js'] = [
             $id . '.behavior.js' => NULL,
           ];
+          $definition['libraries'][0][$id]['dependencies'] = [
+            'core/drupal',
+            'core/drupalSettings',
+          ];
         }
         $this->removeWingsuitExtensions($definition);
         $patterns[] = $this->getPatternDefinition($definition);
