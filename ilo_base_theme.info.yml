@@ -11,6 +11,7 @@ dependencies:
   - ilo_base_theme:ilo_base_theme_companion
 
 libraries:
+  - 'ilo_base_theme/global'
   - 'ilo_base_theme_companion/global'
 
 components:
