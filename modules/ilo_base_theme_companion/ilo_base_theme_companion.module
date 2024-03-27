@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * ILO base theme companion module.
+ */
+
+use Symfony\Component\Finder\Finder;
+
+/**
+ * Implements hook_library_info_build().
+ */
+function ilo_base_theme_companion_library_info_build() {
+  $styles = [];
+
+  $root = \Drupal::getContainer()->getParameter('app.root');
+  /** @var \Drupal\Core\Extension\ModuleHandler $module_handler */
+  $module_handler = \Drupal::service('module_handler');
+  $directory = $root . DIRECTORY_SEPARATOR . $module_handler->getModule('ilo_base_theme_companion')->getPath() . DIRECTORY_SEPARATOR . 'dist/components';
+
+  // Find CSS files in the directory.
+  $finder = new Finder();
+  $css_files = $finder->files()->name('*.css')->in($directory);
+
+  foreach ($css_files as $css_file) {
+    // Get relative path of CSS file.
+    $relative_path = $css_file->getRelativePathname();
+
+    // Add CSS file to library.
+    $styles['dist/components/' . $relative_path] = [];
+  }
+
+  return [
+    'components' => [
+      'css' => [
+        'base' => $styles,
+      ],
+    ],
+  ];
+}

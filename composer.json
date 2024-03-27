@@ -55,12 +55,7 @@
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"]
         },
-    "patches": {
-        "drupal/wingsuit_companion": {
-            "https://www.drupal.org/project/wingsuit_companion/issues/3425668": "https://www.drupal.org/files/issues/2024-03-05/removed-basebluginid-variabledifiniton-fromlibraryderiver-3425668-1.patch"
-        }
-    },
-    "drupal-scaffold": {
+        "drupal-scaffold": {
             "locations": {
                 "web-root": "./web"
             }
