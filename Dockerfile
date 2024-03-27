@@ -7,7 +7,15 @@ ENV PHP_XDEBUG_IDEKEY=${PHP_XDEBUG_IDEKEY}
 
 # Install extra packages.
 RUN	apt update; \
-	apt install -y zip sqlite3
+	apt install -y \
+    zip \
+    sqlite3 \
+    software-properties-common \
+    npm
+
+RUN npm install npm@latest -g && \
+    npm install n -g && \
+    n latest
 
 FROM base as dev
 
