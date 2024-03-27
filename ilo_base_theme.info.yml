@@ -13,7 +13,3 @@ dependencies:
 libraries:
   - 'ilo_base_theme/global'
   - 'ilo_base_theme_companion/global'
-
-components:
-  namespaces:
-    components: dist/components
