@@ -9,6 +9,8 @@ use Drupal\Core\Extension\ThemeHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\TypedData\TypedDataManager;
+use Drupal\ilo_base_theme_companion\ComponentsLocator;
+use Drupal\ilo_base_theme_companion\ComponentsLocatorInterface;
 use Drupal\ui_patterns\Plugin\Deriver\AbstractYamlPatternsDeriver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -18,18 +20,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
 
   /**
-   * The app root.
+   * Components locator service.
    *
-   * @var string
+   * @var \Drupal\ilo_base_theme_companion\ComponentsLocatorInterface
    */
-  protected $root;
-
-  /**
-   * The theme handler.
-   *
-   * @var \Drupal\Core\Extension\ThemeHandlerInterface
-   */
-  protected $themeHandler;
+  protected ComponentsLocatorInterface $componentsLocator;
 
   /**
    * Constructor.
@@ -42,15 +37,12 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
    *   Messenger.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   File system service.
-   * @param string $root
-   *   Application root directory.
-   * @param \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler
-   *   Theme handler service.
+   * @param \Drupal\ilo_base_theme_companion\ComponentsLocator $components_locator
+   *   Components locator service.
    */
-  public function __construct($base_plugin_id, TypedDataManager $typed_data_manager, MessengerInterface $messenger, FileSystemInterface $file_system, $root, ThemeHandlerInterface $theme_handler) {
+  public function __construct($base_plugin_id, TypedDataManager $typed_data_manager, MessengerInterface $messenger, FileSystemInterface $file_system, ComponentsLocatorInterface $components_locator) {
     parent::__construct($base_plugin_id, $typed_data_manager, $messenger, $file_system);
-    $this->root = $root;
-    $this->themeHandler = $theme_handler;
+    $this->componentsLocator = $components_locator;
   }
 
   /**
@@ -62,8 +54,7 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
       $container->get('typed_data_manager'),
       $container->get('messenger'),
       $container->get('file_system'),
-      $container->getParameter('app.root'),
-      $container->get('theme_handler')
+      $container->get('ilo_base_theme_companion.components_locator')
     );
   }
 
@@ -79,15 +70,14 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
    */
   public function getPatterns() {
     $patterns = [];
-    $provider = 'ilo_base_theme';
-    $directory = $this->root . DIRECTORY_SEPARATOR . $this->themeHandler->getTheme($provider)->getPath() . DIRECTORY_SEPARATOR . 'dist';
+    $directory = $this->componentsLocator->getComponentDirectory();
     foreach (array_keys($this->fileScanDirectory($directory)) as $file_path) {
       $content = file_get_contents($file_path);
       foreach (Yaml::decode($content) as $id => $definition) {
         $definition['id'] = $id;
         $definition['base path'] = dirname($file_path);
         $definition['file name'] = basename($file_path);
-        $definition['provider'] = $provider;
+        $definition['provider'] = 'ilo_base_theme_companion';
         $definition['libraries'] = [];
         $definition['libraries'][0][$id]['dependencies'] = [
           'ilo_base_theme_companion/components',
