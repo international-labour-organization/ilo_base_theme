@@ -21,6 +21,7 @@ drupal:
     - "./vendor/bin/drush config-set system.theme default ilo_base_theme -y"
     - "./vendor/bin/drush config-set system.theme admin claro -y"
     - "./vendor/bin/drush config-set node.settings use_admin_theme 1 -y"
+    - "./vendor/bin/drush config-set system.site page.front /patterns -y"
     - "./vendor/bin/drush role:perm:add anonymous 'access patterns page' -y"
     - "./vendor/bin/drush cr"
   settings:

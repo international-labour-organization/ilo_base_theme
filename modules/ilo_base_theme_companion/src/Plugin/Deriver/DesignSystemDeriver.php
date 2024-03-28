@@ -148,6 +148,9 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
    *   List of fields that must be considered as markup on previews.
    */
   private function createPreviewMarkup(&$preview, array $fields) {
+    if (!is_array($preview)) {
+      return;
+    }
     foreach ($preview as $key => &$value) {
       if (is_array($value)) {
         $this->createPreviewMarkup($value, $fields);

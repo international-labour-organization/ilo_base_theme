@@ -5,6 +5,7 @@
  * ILO base theme companion module.
  */
 
+use Drupal\ui_patterns\UiPatterns;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -29,4 +30,38 @@ function ilo_base_theme_companion_library_info_build() {
       ],
     ],
   ];
+}
+
+/**
+ * Implements hook_ui_pattern_settings_settings_alter().
+ */
+function ilo_base_theme_companion_ui_pattern_settings_settings_alter(array &$settings, array $context) {
+  // Rename setting "theme" into "ds_theme", since "theme" is a reserved word.
+  if (array_key_exists('theme', $settings)) {
+    $settings['ds_theme'] = $settings['theme'];
+    unset($settings['theme']);
+  }
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function ilo_base_theme_companion_preprocess(&$variables, $hook, $info) {
+  if (str_starts_with($hook, 'pattern_')) {
+    // Assign theme's value back to the pattern variable.
+    $variables['theme'] = $variables['ds_theme'];
+  }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function ilo_base_theme_companion_theme_registry_alter(&$theme_registry) {
+  foreach (UiPatterns::getManager()->getPatterns() as $pattern) {
+    $definition = $pattern->getPluginDefinition();
+    if (isset($theme_registry['pattern_' . $definition->id()])) {
+      // Add "ds_theme" variable to all patterns' theme functions.
+      $theme_registry['pattern_' . $definition->id()]['variables']['ds_theme'] = NULL;
+    }
+  }
 }
