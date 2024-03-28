@@ -1,0 +1,13 @@
+{
+  "name": "ilo_base_theme",
+  "description": "Scaffolding tools for ILO Base Theme.",
+  "scripts": {
+    "build": "rm -rf ./modules/ilo_base_theme_companion/dist && cp -r ./node_modules/@ilo-org/twig/dist ./modules/ilo_base_theme_companion"
+  },
+  "dependencies": {
+    "@ilo-org/brand-assets": "^0.4.0",
+    "@ilo-org/fonts": "^0.1.2",
+    "@ilo-org/icons": "^0.2.1",
+    "@ilo-org/twig": "^0.16.3"
+  }
+}
