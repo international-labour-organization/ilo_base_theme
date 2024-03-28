@@ -3,11 +3,13 @@
 namespace Drupal\ilo_base_theme_companion\Plugin\Deriver;
 
 use Drupal\Component\Serialization\Yaml;
+use Drupal\Component\Utility\Random;
 use Drupal\Core\Extension\ExtensionDiscovery;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Extension\ThemeHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\TypedData\TypedDataManager;
 use Drupal\ilo_base_theme_companion\ComponentsLocator;
 use Drupal\ilo_base_theme_companion\ComponentsLocatorInterface;
@@ -27,6 +29,13 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
   protected ComponentsLocatorInterface $componentsLocator;
 
   /**
+   * List of fields that must be considered as markup on previews.
+   *
+   * @var array
+   */
+  protected array $markupPreviewFields = [];
+
+  /**
    * Constructor.
    *
    * @param string $base_plugin_id
@@ -39,10 +48,13 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
    *   File system service.
    * @param \Drupal\ilo_base_theme_companion\ComponentsLocator $components_locator
    *   Components locator service.
+   * @param array $markup_preview_fields
+   *   List of fields that must be considered as markup on previews.
    */
-  public function __construct($base_plugin_id, TypedDataManager $typed_data_manager, MessengerInterface $messenger, FileSystemInterface $file_system, ComponentsLocatorInterface $components_locator) {
+  public function __construct($base_plugin_id, TypedDataManager $typed_data_manager, MessengerInterface $messenger, FileSystemInterface $file_system, ComponentsLocatorInterface $components_locator, array $markup_preview_fields) {
     parent::__construct($base_plugin_id, $typed_data_manager, $messenger, $file_system);
     $this->componentsLocator = $components_locator;
+    $this->markupPreviewFields = $markup_preview_fields;
   }
 
   /**
@@ -54,7 +66,8 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
       $container->get('typed_data_manager'),
       $container->get('messenger'),
       $container->get('file_system'),
-      $container->get('ilo_base_theme_companion.components_locator')
+      $container->get('ilo_base_theme_companion.components_locator'),
+      $container->getParameter('ilo_base_theme_companion.preview_fields_as_markup')
     );
   }
 
@@ -89,7 +102,7 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
           $definition['libraries'][0][$id]['dependencies'][] = 'core/drupal';
           $definition['libraries'][0][$id]['dependencies'][] = 'core/drupalSettings';
         }
-        $this->removeWingsuitExtensions($definition);
+        $this->processFields($definition);
         $patterns[] = $this->getPatternDefinition($definition);
       }
     }
@@ -98,32 +111,37 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
   }
 
   /**
-   * Removes Wingsuit YAML extensions.
+   * Process definition fields.
    */
-  private function removeWingsuitExtensions(&$definition) {
+  private function processFields(&$definition) {
     if (isset($definition['fields'])) {
       $fields = &$definition['fields'];
       foreach ($fields as &$field) {
+        // Make sure we generate random test where necessary.
         if (isset($field['preview']['faker'])) {
           unset($field['preview']['faker']);
-          $field['preview'] = 'Faked text';
-          continue;
+          $field['preview'] = (new Random())->sentences(3, TRUE);
         }
+        $this->createPreviewMarkup($field['preview'], $this->markupPreviewFields);
+      }
+    }
+  }
 
-        // Remove preview lists.
-        if (isset($field['preview'][0]['id'])) {
-          $field['preview'] = $field['preview'][0];
-        }
-
-        if (isset($field['preview']['id'])) {
-          $field['preview']['theme'] = $field['preview']['id'];
-        }
-
-        foreach (['id', 'settings', 'fields', 'variant'] as $key) {
-          if (isset($field['preview'][$key])) {
-            unset($field['preview'][$key]);
-          }
-        }
+  /**
+   * Make sure specific preview fields are considered as markup.
+   *
+   * @param mixed $preview
+   *   Preview value.
+   * @param array $fields
+   *   List of fields that must be considered as markup on previews.
+   */
+  private function createPreviewMarkup(&$preview, array $fields) {
+    foreach ($preview as $key => &$value) {
+      if (is_array($value)) {
+        $this->createPreviewMarkup($value, $fields);
+      }
+      elseif (in_array($key, $fields) && is_string($value)) {
+        $value = Markup::create($value);
       }
     }
   }

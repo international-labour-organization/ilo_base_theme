@@ -1,3 +1,6 @@
+parameters:
+  ilo_base_theme_companion.preview_fields_as_markup:
+    - "content"
 services:
   ilo_base_theme_companion.components_locator:
     class: Drupal\ilo_base_theme_companion\ComponentsLocator
