@@ -33,7 +33,14 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
    *
    * @var array
    */
-  protected array $markupPreviewFields = [];
+  protected array $previewMarkupFields;
+
+  /**
+   * Base URL for image previews.
+   *
+   * @var string
+   */
+  protected string $previewImageBaseUrl;
 
   /**
    * Constructor.
@@ -50,11 +57,14 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
    *   Components locator service.
    * @param array $markup_preview_fields
    *   List of fields that must be considered as markup on previews.
+   * @param string $preview_image_base_url
+   *   Base URL for image previews.
    */
-  public function __construct($base_plugin_id, TypedDataManager $typed_data_manager, MessengerInterface $messenger, FileSystemInterface $file_system, ComponentsLocatorInterface $components_locator, array $markup_preview_fields) {
+  public function __construct($base_plugin_id, TypedDataManager $typed_data_manager, MessengerInterface $messenger, FileSystemInterface $file_system, ComponentsLocatorInterface $components_locator, array $markup_preview_fields, string $preview_image_base_url) {
     parent::__construct($base_plugin_id, $typed_data_manager, $messenger, $file_system);
     $this->componentsLocator = $components_locator;
-    $this->markupPreviewFields = $markup_preview_fields;
+    $this->previewMarkupFields = $markup_preview_fields;
+    $this->previewImageBaseUrl = $preview_image_base_url;
   }
 
   /**
@@ -67,7 +77,8 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
       $container->get('messenger'),
       $container->get('file_system'),
       $container->get('ilo_base_theme_companion.components_locator'),
-      $container->getParameter('ilo_base_theme_companion.preview_fields_as_markup')
+      $container->getParameter('ilo_base_theme_companion.preview_fields_as_markup'),
+      $container->getParameter('ilo_base_theme_companion.preview_image_base_url')
     );
   }
 
@@ -122,7 +133,8 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
           unset($field['preview']['faker']);
           $field['preview'] = (new Random())->sentences(3, TRUE);
         }
-        $this->createPreviewMarkup($field['preview'], $this->markupPreviewFields);
+        $this->createPreviewMarkup($field['preview'], $this->previewMarkupFields);
+        $this->appendImageBaseUrl($field['preview'], $this->previewImageBaseUrl);
       }
     }
   }
@@ -142,6 +154,25 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
       }
       elseif (in_array($key, $fields) && is_string($value)) {
         $value = Markup::create($value);
+      }
+    }
+  }
+
+  /**
+   * Append base URL to preview images.
+   *
+   * @param mixed $preview
+   *   Preview value.
+   * @param string $base_url
+   *   Base URL.
+   */
+  private function appendImageBaseUrl(&$preview, string $base_url) {
+    if (is_scalar($preview) && (str_starts_with($preview, '/images/') || str_starts_with($preview, '/brand-assets/'))) {
+      $preview = $base_url . $preview;
+    }
+    elseif (is_array($preview)) {
+      foreach ($preview as &$value) {
+        $this->appendImageBaseUrl($value, $base_url);
       }
     }
   }

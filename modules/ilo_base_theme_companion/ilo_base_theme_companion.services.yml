@@ -1,4 +1,5 @@
 parameters:
+  ilo_base_theme_companion.preview_image_base_url: 'https://twig.ui.ilo.org'
   ilo_base_theme_companion.preview_fields_as_markup:
     - "content"
 services:
