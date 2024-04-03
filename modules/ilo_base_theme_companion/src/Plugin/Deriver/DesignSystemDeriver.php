@@ -104,7 +104,7 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
         $definition['provider'] = 'ilo_base_theme_companion';
         $definition['libraries'] = [];
         $definition['libraries'][0][$id]['dependencies'] = [
-          'ilo_base_theme_companion/components',
+          'ilo_base_theme_companion/global',
         ];
         if (file_exists($definition['base path'] . DIRECTORY_SEPARATOR . $id . '.behavior.js')) {
           $definition['libraries'][0][$id]['js'] = [

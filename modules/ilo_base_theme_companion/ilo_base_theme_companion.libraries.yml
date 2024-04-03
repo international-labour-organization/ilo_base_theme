@@ -1,6 +1,4 @@
 global:
   css:
     base:
-      dist/global/styles.css: {}
-      dist/components/container/container.css: {}
-      dist/components/heading/heading.css: {}
+      dist/index.css: {}

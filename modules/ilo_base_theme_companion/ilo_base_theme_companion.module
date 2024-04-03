@@ -9,30 +9,6 @@ use Drupal\ui_patterns\UiPatterns;
 use Symfony\Component\Finder\Finder;
 
 /**
- * Implements hook_library_info_build().
- */
-function ilo_base_theme_companion_library_info_build() {
-  /** @var \Drupal\ilo_base_theme_companion\ComponentsLocator $locator */
-  $locator = \Drupal::service('ilo_base_theme_companion.components_locator');
-  $css_files = (new Finder())->files()->name('*.css')->in($locator->getComponentDirectory());
-
-  $styles = [];
-  foreach ($css_files as $css_file) {
-    // Get relative path of CSS file and add CSS file to the library.
-    $relative_path = $css_file->getRelativePathname();
-    $styles['dist/components/' . $relative_path] = [];
-  }
-
-  return [
-    'components' => [
-      'css' => [
-        'base' => $styles,
-      ],
-    ],
-  ];
-}
-
-/**
  * Implements hook_ui_pattern_settings_settings_alter().
  */
 function ilo_base_theme_companion_ui_pattern_settings_settings_alter(array &$settings, array $context) {
@@ -50,6 +26,7 @@ function ilo_base_theme_companion_preprocess(&$variables, $hook, $info) {
   if (str_starts_with($hook, 'pattern_')) {
     // Assign theme's value back to the pattern variable.
     $variables['theme'] = $variables['ds_theme'];
+    $variables['prefix'] = 'ilo';
   }
 }
 

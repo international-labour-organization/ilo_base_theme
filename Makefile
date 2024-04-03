@@ -26,6 +26,15 @@ build/composer:
 	@echo "Building $(PROJECT_NAME) project development environment..."
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) php bash -c "composer install"
 
+# Install design system assets
+## install-design-system		: Copy design system assets in the designated directory.
+.PHONY: install-design-system
+install-design-system:
+	rm -rf ./modules/ilo_base_theme_companion/dist
+	mkdir -p ./modules/ilo_base_theme_companion/dist
+	cp -r ./node_modules/@ilo-org/twig/src/patterns/components ./modules/ilo_base_theme_companion/dist
+	cp ./node_modules/@ilo-org/styles/css/index.css ./modules/ilo_base_theme_companion/dist
+
 # Install test site.
 ## build		: Build the development environment.
 .PHONY: install
