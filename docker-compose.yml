@@ -1,10 +1,10 @@
 services:
   php:
-    build: .
+    build:
+      context: .
+      target: dev
     container_name: "${PROJECT_NAME}_php"
     environment:
-      DRUPAL_USER: "${DRUPAL_USER}"
-      DRUPAL_PASS: "${DRUPAL_PASS}"
 #      PHP_XDEBUG: "debug"
       PHP_XDEBUG: "off"
       PHP_XDEBUG_CLIENT_HOST: 172.17.0.1 # Linux
@@ -16,3 +16,13 @@ services:
       - '8080:80'
     volumes:
       - ./:/opt/drupal
+
+  dist:
+    build:
+      context: .
+      target: dist
+    container_name: "${PROJECT_NAME}_dist"
+    environment:
+      PHP_XDEBUG: "off"
+    ports:
+      - '8081:80'

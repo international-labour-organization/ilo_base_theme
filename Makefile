@@ -44,11 +44,19 @@ install: build
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) php bash -c "drush uli"
 
 # Build tasks for development.
-## build-image	: Build the Docker image.
-.PHONY: build-image
-build-image:
-	@echo "Building $(PROJECT_NAME) Docker image..."
+## build-php	: Build the Docker image.
+.PHONY: build-php
+build-php:
+	@echo "Building $(PROJECT_NAME) php Docker image..."
 	$(DOCKER_COMPOSE) build --no-cache php
+	$(DOCKER_COMPOSE) up -d
+
+# Build tasks for development.
+## build-dist	: Build the Docker image.
+.PHONY: build-dist
+build-dist:
+	@echo "Building $(PROJECT_NAME) dist Docker image..."
+	$(DOCKER_COMPOSE) build --no-cache dist
 	$(DOCKER_COMPOSE) up -d
 
 .PHONY: dev
@@ -113,11 +121,17 @@ ps:
 .PHONY: cli
 cli: shell
 
-## shell		: Access `php` container via shell.
+## shell-dev		: Access `dev` container via shell.
 ##		  You can optionally pass an argument with a service name to open a shell on the specified container
-.PHONY: shell
-shell:
+.PHONY: shell-dev
+shell-dev:
 	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='$(PROJECT_NAME)_$(or $(filter-out $@,$(MAKECMDGOALS)), 'php')' --format "{{ .ID }}") bash
+
+## shell-dist		: Access `dist` container via shell.
+##		  You can optionally pass an argument with a service name to open a shell on the specified container
+.PHONY: shell-dist
+shell-dist:
+	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='$(PROJECT_NAME)_$(or $(filter-out $@,$(MAKECMDGOALS)), 'dist')' --format "{{ .ID }}") bash
 
 ## logs		: View containers logs.
 ##		  You can optionally pass an argument with the service name to limit logs
