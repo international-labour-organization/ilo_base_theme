@@ -1,0 +1,8 @@
+bar:
+  label: Bar
+  fields:
+    label:
+      type: string
+      label: Label
+      preview:
+        faker: abc

@@ -26,6 +26,7 @@ function ilo_base_theme_companion_preprocess(&$variables, $hook, $info) {
   if (str_starts_with($hook, 'pattern_')) {
     // Assign theme's value back to the pattern variable.
     $variables['theme'] = $variables['ds_theme'];
+    // Set CSS prefix to "ilo".
     $variables['prefix'] = 'ilo';
   }
 }
