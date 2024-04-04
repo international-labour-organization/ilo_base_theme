@@ -55,6 +55,19 @@ commands:
 
 release:
   tasks:
+    - "git config --global --add safe.directory /opt/drupal"
+    - { task: "remove", file: "ilo_base_theme/.editorconfig" }
+    - { task: "remove", file: "ilo_base_theme/.env.dist" }
+    - { task: "remove", file: "ilo_base_theme/.gitattributes" }
+    - { task: "remove", file: "ilo_base_theme/.gitignore" }
+    - { task: "remove", file: "ilo_base_theme/docker-compose.dev.yml" }
+    - { task: "remove", file: "ilo_base_theme/docker-compose.yml" }
+    - { task: "remove", file: "ilo_base_theme/Dockerfile" }
+    - { task: "remove", file: "ilo_base_theme/Makefile" }
+    - { task: "remove", file: "ilo_base_theme/phpcs.xml.dist" }
+    - { task: "remove", file: "ilo_base_theme/phpunit.xml.dist" }
+    - { task: "remove", file: "ilo_base_theme/runner.yml.dist" }
+    - { task: "copy", from: "modules/ilo_base_theme_companion/dist", to: "ilo_base_theme/modules/ilo_base_theme_companion/dist" }
     - task: "append"
       file: "ilo_base_theme/ilo_base_theme.info.yml"
       text: |

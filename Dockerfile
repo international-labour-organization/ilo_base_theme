@@ -25,7 +25,8 @@ ENV PHP_XDEBUG_IDEKEY=${PHP_XDEBUG_IDEKEY}
 RUN	apt update; \
 	apt install -y \
     zip \
-    sqlite3
+    sqlite3 \
+    git
 
 # Remove stock Drupal codebase.
 RUN rm -rf /opt/drupal && \

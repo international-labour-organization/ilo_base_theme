@@ -13,6 +13,7 @@ phpunit.xml
 docker-compose.override.yml
 .env
 yarn-error.log
+*.tar.gz
 
 /modules/ilo_base_theme_companion/dist/
 /dist/
