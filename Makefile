@@ -16,7 +16,7 @@ help : Makefile
 	cp .env.dist .env
 
 docker-compose.override.yml:
-	cp docker-compose.yml docker-compose.override.yml
+	cp docker-compose.dev.yml docker-compose.override.yml
 
 # Build tasks for development.
 ## build		: Build the development environment.
@@ -24,7 +24,7 @@ docker-compose.override.yml:
 build: .env dev build/composer
 build/composer:
 	@echo "Building $(PROJECT_NAME) project development environment..."
-	$(DOCKER_COMPOSE) $(DOCKER_CMD) php bash -c "composer install"
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "composer install"
 
 # Install design system assets
 ## install-design-system		: Copy design system assets in the designated directory.
@@ -40,15 +40,15 @@ install-design-system:
 .PHONY: install
 install: build
 	@echo "Installing $(PROJECT_NAME)..."
-	$(DOCKER_COMPOSE) $(DOCKER_CMD) php bash -c "./vendor/bin/run drupal:site-install"
-	$(DOCKER_COMPOSE) $(DOCKER_CMD) php bash -c "drush uli"
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "./vendor/bin/run drupal:site-install"
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "drush uli"
 
 # Build tasks for development.
-## build-php	: Build the Docker image.
-.PHONY: build-php
-build-php:
-	@echo "Building $(PROJECT_NAME) php Docker image..."
-	$(DOCKER_COMPOSE) build --no-cache php
+## build-dev	: Build the Docker image.
+.PHONY: build-dev
+build-dev:
+	@echo "Building $(PROJECT_NAME) dev Docker image..."
+	$(DOCKER_COMPOSE) build --no-cache dev
 	$(DOCKER_COMPOSE) up -d
 
 # Build tasks for development.
@@ -125,7 +125,7 @@ cli: shell
 ##		  You can optionally pass an argument with a service name to open a shell on the specified container
 .PHONY: shell-dev
 shell-dev:
-	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='$(PROJECT_NAME)_$(or $(filter-out $@,$(MAKECMDGOALS)), 'php')' --format "{{ .ID }}") bash
+	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='$(PROJECT_NAME)_$(or $(filter-out $@,$(MAKECMDGOALS)), 'dev')' --format "{{ .ID }}") bash
 
 ## shell-dist		: Access `dist` container via shell.
 ##		  You can optionally pass an argument with a service name to open a shell on the specified container
@@ -135,8 +135,8 @@ shell-dist:
 
 ## logs		: View containers logs.
 ##		  You can optionally pass an argument with the service name to limit logs
-##		  logs php	: View `php` container logs.
-##		  logs nginx php	: View `nginx` and `php` containers logs.
+##		  logs dev	: View `dev` container logs.
+##		  logs nginx dev	: View `nginx` and `dev` containers logs.
 .PHONY: logs
 logs:
 	@$(DOCKER_COMPOSE) logs -f $(filter-out $@,$(MAKECMDGOALS))
@@ -148,19 +148,19 @@ logs:
 ##		  For example: make composer "update drupal/core --with-dependencies"
 .PHONY: composer
 composer:
-	$(DOCKER_COMPOSE) $(DOCKER_CMD) php composer $(filter-out $@,$(MAKECMDGOALS))
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev composer $(filter-out $@,$(MAKECMDGOALS))
 
 ## drush		: Executes `drush` command.
 ##		  To use "--flag" arguments include them in quotation marks.
 ##		  For example: make drush "watchdog:show --type=cron"
 .PHONY: drush
 drush:
-	$(DOCKER_COMPOSE) $(DOCKER_CMD) php vendor/bin/drush $(filter-out $@,$(MAKECMDGOALS))
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev vendor/bin/drush $(filter-out $@,$(MAKECMDGOALS))
 
 ## fix-perms		: Fix files permissions
 .PHONY: fix-perms
 fix-perms:
-	$(DOCKER_COMPOSE) $(DOCKER_CMD) php vendor/bin/run drupal:fix-perms
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev vendor/bin/run drupal:fix-perms
 
 ## cr		: Clears the Drupal cache.
 .PHONY: cr
@@ -170,7 +170,7 @@ cr:
 ## phpunit	: Runs phpunit tests.
 .PHONY: phpunit
 phpunit:
-	$(DOCKER_COMPOSE) $(DOCKER_CMD) php bash -c "vendor/bin/phpunit" $(filter-out $@,$(MAKECMDGOALS))
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "vendor/bin/phpunit" $(filter-out $@,$(MAKECMDGOALS))
 
 ## hosts		: Adds development URLs to your hosts file.
 .PHONY: hosts
@@ -181,16 +181,16 @@ hosts:
 .PHONY: twig-debug-on
 twig-debug-on:
 	@echo "Enabling Twig debug for $(PROJECT_NAME)..."
-	$(DOCKER_COMPOSE) $(DOCKER_CMD) php drush twig:debug on
-	$(DOCKER_COMPOSE) $(DOCKER_CMD) php drush state:set disable_rendered_output_cache_bins 1 --input-format=integer
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev drush twig:debug on
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev drush state:set disable_rendered_output_cache_bins 1 --input-format=integer
 	@$(MAKE) --no-print-directory cr
 
 ## twig-debug-off	: Disable Twig debug.
 .PHONY: twig-debug-off
 twig-debug-off:
 	@echo "Disabling Twig debug for $(PROJECT_NAME)..."
-	$(DOCKER_COMPOSE) $(DOCKER_CMD) php drush twig:debug off
-	$(DOCKER_COMPOSE) $(DOCKER_CMD) php drush state:set disable_rendered_output_cache_bins 0 --input-format=integer
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev drush twig:debug off
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev drush state:set disable_rendered_output_cache_bins 0 --input-format=integer
 	@$(MAKE) --no-print-directory cr
 
 # https://stackoverflow.com/a/6273809/1826109

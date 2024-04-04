@@ -57,6 +57,7 @@ FROM base as dist
 COPY ./css ./css
 COPY ./modules ./modules
 COPY ./templates ./templates
+COPY /tests ./tests
 COPY .env.dist .
 COPY composer.json .
 COPY ilo_base_theme.info.yml .
@@ -66,6 +67,7 @@ COPY Makefile .
 COPY runner.yml.dist .
 COPY screenshot.png .
 COPY phpunit.xml.dist .
+COPY phpcs.xml.dist .
 
 # Copy design system assets to the working directory.
 COPY --from=builder /app/modules/ilo_base_theme_companion/dist ./modules/ilo_base_theme_companion/dist
