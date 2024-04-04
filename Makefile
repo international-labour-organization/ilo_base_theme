@@ -32,7 +32,7 @@ build/composer:
 install-design-system:
 	rm -rf ./modules/ilo_base_theme_companion/dist
 	mkdir -p ./modules/ilo_base_theme_companion/dist
-	cp -r ./node_modules/@ilo-org/twig/src/patterns/components ./modules/ilo_base_theme_companion/dist
+	cp -r ./node_modules/@ilo-org/twig/dist/components ./modules/ilo_base_theme_companion/dist
 	cp ./node_modules/@ilo-org/styles/css/index.css ./modules/ilo_base_theme_companion/dist
 
 # Install test site.

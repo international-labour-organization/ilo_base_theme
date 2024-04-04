@@ -5,6 +5,6 @@
     "postinstall": "make install-design-system"
   },
   "dependencies": {
-    "@ilo-org/twig": "0.17.0"
+    "@ilo-org/twig": "^0.18.0"
   }
 }
