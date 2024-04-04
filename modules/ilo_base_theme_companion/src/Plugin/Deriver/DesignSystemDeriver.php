@@ -98,6 +98,10 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
     foreach (array_keys($this->fileScanDirectory($directory)) as $file_path) {
       $content = file_get_contents($file_path);
       foreach (Yaml::decode($content) as $id => $definition) {
+        // Skip forms definitions as forms cannot be handled by UI Patterns.
+        if ($definition['namespace'] == 'Components/Forms') {
+          continue;
+        }
         $definition['id'] = $id;
         $definition['base path'] = dirname($file_path);
         $definition['file name'] = basename($file_path);

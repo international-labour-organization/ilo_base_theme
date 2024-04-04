@@ -1,4 +1,5 @@
 bar:
+  namespace: Components/Test
   label: Bar
   fields:
     label:

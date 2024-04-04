@@ -26,5 +26,8 @@ jobs:
       - run: make up
       - name: install
         run: make install
+      - name: fix permissions
+        run: docker-compose exec -T php chmod -R 777 web/sites
       - name: test
-        run: docker-compose exec -T php ./vendor/bin/phpunit
+        # To avoid file permissions issues, we run the phpunit with user 33, which is the same as the apache user id container.
+        run: docker-compose exec -u 33 -T php ./vendor/bin/phpunit

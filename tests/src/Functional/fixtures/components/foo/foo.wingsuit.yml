@@ -1,4 +1,5 @@
 foo:
+  namespace: Components/Test
   label: Foo
   fields:
     list:
