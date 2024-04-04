@@ -1,0 +1,14 @@
+#block-ilo-base-theme-page-title {
+  margin-bottom: 2rem;
+}
+.pattern-preview,
+.pattern-preview__preview {
+  margin: 2rem 0;
+}
+.pattern-preview__label,
+.pattern-preview__description {
+  margin-bottom: 1rem;
+}
+.pattern-preview__markup {
+  padding: 2rem 0;
+}

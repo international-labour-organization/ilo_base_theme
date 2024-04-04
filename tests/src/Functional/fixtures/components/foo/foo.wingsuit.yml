@@ -1,0 +1,16 @@
+foo:
+  namespace: Components/Test
+  label: Foo
+  fields:
+    list:
+      type: array
+      label: List
+      preview:
+        - label: Item 1
+          content: '<span>content 1</span>'
+        - label: Item 2
+          content: '<span>content 2</span>'
+    image:
+      type: image
+      label: Image
+      preview: '/images/foo.png'

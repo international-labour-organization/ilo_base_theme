@@ -1,0 +1,10 @@
+{
+  "name": "ilo_base_theme",
+  "description": "Scaffolding tools for ILO Base Theme.",
+  "scripts": {
+    "postinstall": "make install-design-system"
+  },
+  "dependencies": {
+    "@ilo-org/twig": "^0.18.0"
+  }
+}

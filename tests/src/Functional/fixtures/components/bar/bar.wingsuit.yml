@@ -1,0 +1,9 @@
+bar:
+  namespace: Components/Test
+  label: Bar
+  fields:
+    label:
+      type: string
+      label: Label
+      preview:
+        faker: abc

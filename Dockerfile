@@ -1,5 +1,21 @@
+# Use Node image to install dependencies.
+FROM node:latest AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Copy necessary files to the container.
+COPY package*.json ./
+COPY .env.dist ./
+COPY Makefile ./
+
+# Install npm dependencies.
+RUN npm install
+
+# Build base Drupal image.
 FROM drupal:10-php8.2-apache-bookworm as base
 
+# Set development ENV variables.
 ENV PHP_XDEBUG=${PHP_XDEBUG}
 ENV PHP_XDEBUG_CLIENT_HOST=${PHP_XDEBUG_CLIENT_HOST}
 ENV PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
@@ -7,7 +23,14 @@ ENV PHP_XDEBUG_IDEKEY=${PHP_XDEBUG_IDEKEY}
 
 # Install extra packages.
 RUN	apt update; \
-	apt install -y zip sqlite3
+	apt install -y \
+    zip \
+    sqlite3 \
+    git
+
+# Remove stock Drupal codebase.
+RUN rm -rf /opt/drupal && \
+    mkdir -p /opt/drupal
 
 FROM base as dev
 
@@ -24,10 +47,31 @@ RUN echo 'zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20220829
 RUN rm /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini; \
     rm /usr/local/etc/php/conf.d/opcache-recommended.ini
 
-# Remove stock Drupal codebase.
-RUN rm -rf /opt/drupal && \
-    mkdir -p /opt/drupal
-
 EXPOSE 9000
 
 VOLUME /opt/drupal
+
+# Build dist image.
+FROM base as dist
+
+# Copy code needed for build in image.
+COPY ./css ./css
+COPY ./modules ./modules
+COPY ./templates ./templates
+COPY /tests ./tests
+COPY .env.dist .
+COPY composer.json .
+COPY ilo_base_theme.info.yml .
+COPY ilo_base_theme.libraries.yml .
+COPY logo.png .
+COPY Makefile .
+COPY runner.yml.dist .
+COPY screenshot.png .
+COPY phpunit.xml.dist .
+COPY phpcs.xml.dist .
+
+# Copy design system assets to the working directory.
+COPY --from=builder /app/modules/ilo_base_theme_companion/dist ./modules/ilo_base_theme_companion/dist
+
+RUN composer install
+RUN ./vendor/bin/run drupal:site-install

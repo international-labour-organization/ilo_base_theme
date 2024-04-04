@@ -1,20 +1,10 @@
-version: "3"
-
 services:
-  php:
-    build: .
-    container_name: "${PROJECT_NAME}_php"
+  dist:
+    build:
+      context: .
+      target: dist
+    container_name: "${PROJECT_NAME}_dist"
     environment:
-      DRUPAL_USER: "${DRUPAL_USER}"
-      DRUPAL_PASS: "${DRUPAL_PASS}"
-#      PHP_XDEBUG: "debug"
       PHP_XDEBUG: "off"
-      PHP_XDEBUG_CLIENT_HOST: 172.17.0.1 # Linux
-#      PHP_XDEBUG_CLIENT_HOST: host.docker.internal # Docker 18.03+ Mac/Win
-#      PHP_XDEBUG_CLIENT_HOST: 10.0.75.1 # Windows
-      PHP_IDE_CONFIG: "serverName=ILO"
-      PHP_XDEBUG_IDEKEY: "PHPSTORM"
     ports:
       - '8080:80'
-    volumes:
-      - ./:/opt/drupal

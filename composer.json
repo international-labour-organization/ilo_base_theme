@@ -11,15 +11,16 @@
         "drupal/components": "^3.0@beta",
         "drupal/core": "^10",
         "drupal/ui_patterns": "^1.5",
-        "drupal/ui_patterns_extends": "^1.0@beta",
-        "drupal/wingsuit_companion": "^2"
+        "drupal/ui_patterns_settings": "^2.1"
     },
     "require-dev": {
         "composer/installers": "~1.5",
+        "drupal/coder": "^8.3",
         "drupal/config_devel": "^1.9",
         "drupal/core-composer-scaffold": "^10",
         "drupal/core-utility": "^10",
-        "drush/drush": "~11.1",
+        "drupal/core-dev": "^10",
+        "drush/drush": "~12",
         "mikey179/vfsstream": "^1.6.10",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0.0-beta6",
         "phpspec/prophecy-phpunit": "^2",
@@ -54,12 +55,7 @@
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"]
         },
-    "patches": {
-        "drupal/wingsuit_companion": {
-            "https://www.drupal.org/project/wingsuit_companion/issues/3425668": "https://www.drupal.org/files/issues/2024-03-05/removed-basebluginid-variabledifiniton-fromlibraryderiver-3425668-1.patch"
-        }
-    },
-    "drupal-scaffold": {
+        "drupal-scaffold": {
             "locations": {
                 "web-root": "./web"
             }
@@ -69,11 +65,13 @@
         "sort-packages": true,
         "allow-plugins": {
             "composer/installers": true,
+            "drupal/core-project-message": true,
             "drupal/core-composer-scaffold": true,
             "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "phpro/grumphp": true,
-            "php-http/discovery": false
+            "php-http/discovery": false,
+            "phpstan/extension-installer": true
         }
     }
 }

@@ -1,0 +1,4 @@
+global:
+  css:
+    base:
+      dist/index.css: {}

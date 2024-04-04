@@ -8,5 +8,8 @@ logo: logo.png
 screenshot: screenshot.png
 
 dependencies:
-  - ui_patterns:ui_patterns_library
-  - wingsuit_companion:wingsuit_ui_patterns
+  - ilo_base_theme:ilo_base_theme_companion
+
+libraries:
+  - 'ilo_base_theme/global'
+  - 'ilo_base_theme_companion/global'

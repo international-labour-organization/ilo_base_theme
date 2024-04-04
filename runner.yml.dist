@@ -11,18 +11,17 @@ drupal:
     profile: "minimal"
     name: "ILO Base Theme"
   post_install:
-    - "chmod -R 775 web/sites/default/files"
-    - "chown -R www-data:www-data web/sites/default/files"
+    - "./vendor/bin/run drupal:fix-perms"
     - "./vendor/bin/drush en field_ui -y"
     - "./vendor/bin/drush en config_devel -y"
     - "./vendor/bin/drush en toolbar -y"
-    - "./vendor/bin/drush en ui_patterns_library -y"
-    - "./vendor/bin/drush en wingsuit_ui_patterns -y"
+    - "./vendor/bin/drush en ilo_base_theme_companion -y"
     - "./vendor/bin/drush theme:enable ilo_base_theme -y"
     - "./vendor/bin/drush theme:enable claro -y"
     - "./vendor/bin/drush config-set system.theme default ilo_base_theme -y"
     - "./vendor/bin/drush config-set system.theme admin claro -y"
     - "./vendor/bin/drush config-set node.settings use_admin_theme 1 -y"
+    - "./vendor/bin/drush config-set system.site page.front /patterns -y"
     - "./vendor/bin/drush role:perm:add anonymous 'access patterns page' -y"
     - "./vendor/bin/drush cr"
   settings:
@@ -32,6 +31,12 @@ drupal:
         - "vendor"
         - "${drupal.root}"
       file_private_path: 'sites/default/files/private'
+    config:
+      system.logging:
+        error_level: 'verbose'
+      system.performance:
+        css: { preprocess: false }
+        js: { preprocess: false }
 
 commands:
   drupal:site-setup:
@@ -42,11 +47,27 @@ commands:
     # Generate settings.testing.php, it will be used when running functional tests.
     - { task: "process-php", type: "write", config: "drupal.settings", source: "${drupal.root}/sites/default/default.settings.php", destination: "${drupal.root}/sites/default/settings.testing.php", override: true }
     - { task: "run", command: "setup:phpunit" }
+  drupal:fix-perms:
+    - "chmod -R 775 web/sites/default/files"
+    - "chown -R www-data:www-data web/sites/default/files"
   setup:phpunit:
     - { task: "process", source: "phpunit.xml.dist", destination: "phpunit.xml" }
 
 release:
   tasks:
+    - "git config --global --add safe.directory /opt/drupal"
+    - { task: "remove", file: "ilo_base_theme/.editorconfig" }
+    - { task: "remove", file: "ilo_base_theme/.env.dist" }
+    - { task: "remove", file: "ilo_base_theme/.gitattributes" }
+    - { task: "remove", file: "ilo_base_theme/.gitignore" }
+    - { task: "remove", file: "ilo_base_theme/docker-compose.dev.yml" }
+    - { task: "remove", file: "ilo_base_theme/docker-compose.yml" }
+    - { task: "remove", file: "ilo_base_theme/Dockerfile" }
+    - { task: "remove", file: "ilo_base_theme/Makefile" }
+    - { task: "remove", file: "ilo_base_theme/phpcs.xml.dist" }
+    - { task: "remove", file: "ilo_base_theme/phpunit.xml.dist" }
+    - { task: "remove", file: "ilo_base_theme/runner.yml.dist" }
+    - { task: "copy", from: "modules/ilo_base_theme_companion/dist", to: "ilo_base_theme/modules/ilo_base_theme_companion/dist" }
     - task: "append"
       file: "ilo_base_theme/ilo_base_theme.info.yml"
       text: |
