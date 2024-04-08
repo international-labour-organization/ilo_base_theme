@@ -32,6 +32,8 @@ RUN	apt update; \
 RUN rm -rf /opt/drupal && \
     mkdir -p /opt/drupal
 
+RUN git config --global --add safe.directory /opt/drupal
+
 FROM base as dev
 
 RUN pecl install xdebug

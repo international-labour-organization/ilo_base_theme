@@ -63,6 +63,12 @@ build-dist:
 dev: docker-compose.override.yml
 	@echo Ensured docker-compose override.
 
+.PHONY: release
+release: docker-compose.override.yml up build install-design-system
+	@echo Building release artifact...
+	$(DOCKER_COMPOSE) exec -T dev ./vendor/bin/run release:ca --tag=$(RELEASE_TAG)
+	$(DOCKER_COMPOSE) exec -T dev ./vendor/bin/run release:ca --tag=$(RELEASE_TAG) --zip
+
 .PHONY: wait-for-db
 wait-for-db:
 	@while [ -z "$$($(DOCKER_COMPOSE) $(DOCKER_CMD) database mysql -u$(DB_USER) -p$(DB_PASSWORD) -N -B -e "SHOW DATABASES;" | grep $(DB_NAME))" ]; do echo "Waiting for database..."; sleep 1; done
