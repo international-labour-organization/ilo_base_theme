@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: clone
         uses: actions/checkout@v2
-      - run: make up
+      - run: make up-dist
       - name: test
         run: docker-compose exec -T dist ./vendor/bin/phpcs
   automated-tests:
@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: clone
         uses: actions/checkout@v2
-      - run: make up
+      - run: make up-dist
       - name: fix permissions
         run: docker-compose exec -T dist chmod -R 777 web/sites
       - name: test

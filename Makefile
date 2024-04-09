@@ -16,12 +16,12 @@ help : Makefile
 	cp .env.dist .env
 
 docker-compose.override.yml:
-	cp docker-compose.dev.yml docker-compose.override.yml
+	cp docker-compose.yml docker-compose.override.yml
 
 # Build tasks for development.
 ## build		: Build the development environment.
 .PHONY: build build/composer
-build: .env dev build/composer
+build: .env build/composer
 build/composer:
 	@echo "Building $(PROJECT_NAME) project development environment..."
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "composer install"
@@ -59,12 +59,8 @@ build-dist:
 	$(DOCKER_COMPOSE) build --no-cache dist
 	$(DOCKER_COMPOSE) up -d
 
-.PHONY: dev
-dev: docker-compose.override.yml
-	@echo Ensured docker-compose override.
-
 .PHONY: release
-release: docker-compose.override.yml up build install-design-system
+release: docker-compose.override.yml up-dev build install-design-system
 	@echo Building release artifact...
 	$(DOCKER_COMPOSE) exec -T dev ./vendor/bin/run release:ca --tag=$(RELEASE_TAG)
 	$(DOCKER_COMPOSE) exec -T dev ./vendor/bin/run release:ca --tag=$(RELEASE_TAG) --zip
@@ -82,6 +78,18 @@ show-db:
 up: .env
 	@echo "Starting up containers for $(PROJECT_NAME)..."
 	@$(DOCKER_COMPOSE) up -d --remove-orphans
+
+## up-dev		: Start dev container.
+.PHONY: up-dev
+up-dev: .env
+	@echo "Starting dev container for $(PROJECT_NAME)..."
+	@$(DOCKER_COMPOSE) up dev -d --remove-orphans
+
+## up-dist		: Start dist container.
+.PHONY: up-dist
+up-dist: .env
+	@echo "Starting dist container for $(PROJECT_NAME)..."
+	@$(DOCKER_COMPOSE) up dist -d --remove-orphans
 
 ## down		: Stop containers.
 .PHONY: down
