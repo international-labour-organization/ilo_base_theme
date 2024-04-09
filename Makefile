@@ -63,7 +63,6 @@ build-dist:
 .PHONY: release
 release: docker-compose.override.yml up-dev build install-design-system
 	@echo Building release artifact...
-	$(DOCKER_COMPOSE) exec -T dev ./vendor/bin/run release:ca --tag=$(RELEASE_TAG)
 	$(DOCKER_COMPOSE) exec -T dev ./vendor/bin/run release:ca --tag=$(RELEASE_TAG) --zip
 
 ## up		: Start up containers.
