@@ -3,8 +3,9 @@ include .env
 DOCKER_COMPOSE ?= docker compose
 DOCKER_CMD ?= exec
 
-## default        : Run `make` without parameters to create the build from scratch.
-default: build site-setup install
+## default        : Run `make` without parameters to create the dist build from scratch.
+default: .env up-dist
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) dist bash -c "drush uli"
 
 ## help		: Print commands help.
 .PHONY: help
@@ -65,14 +66,6 @@ release: docker-compose.override.yml up-dev build install-design-system
 	$(DOCKER_COMPOSE) exec -T dev ./vendor/bin/run release:ca --tag=$(RELEASE_TAG)
 	$(DOCKER_COMPOSE) exec -T dev ./vendor/bin/run release:ca --tag=$(RELEASE_TAG) --zip
 
-.PHONY: wait-for-db
-wait-for-db:
-	@while [ -z "$$($(DOCKER_COMPOSE) $(DOCKER_CMD) database mysql -u$(DB_USER) -p$(DB_PASSWORD) -N -B -e "SHOW DATABASES;" | grep $(DB_NAME))" ]; do echo "Waiting for database..."; sleep 1; done
-
-.PHONY: show-db
-show-db:
-	@$(DOCKER_COMPOSE) $(DOCKER_CMD) database mysql -u$(DB_USER) -p$(DB_PASSWORD) -N -B -e "SHOW DATABASES;"
-
 ## up		: Start up containers.
 .PHONY: up
 up: .env
@@ -111,29 +104,6 @@ stop:
 pull:
 	@echo "Pulling containers..."
 	@$(DOCKER_COMPOSE) pull
-
-## prune		: Remove containers and their volumes.
-##		  You can optionally pass an argument with the service name to prune single container
-##		  prune database	: Prune `database` container and remove its volumes.
-##		  prune database solr	: Prune `database` and `solr` containers and remove their volumes.
-.PHONY: prune
-prune:
-	@echo "Removing containers for $(PROJECT_NAME)..."
-	@$(DOCKER_COMPOSE) down -v $(filter-out $@,$(MAKECMDGOALS))
-
-
-.PHONY: prune-data
-prune-data:
-	@echo "Removing data containers for $(PROJECT_NAME)..."
-	@$(DOCKER_COMPOSE) rm -fsv database mailhog
-
-## ps		: List running containers.
-.PHONY: ps
-ps:
-	@docker ps --filter name='^/$(PROJECT_NAME)*'
-
-.PHONY: cli
-cli: shell
 
 ## shell-dev		: Access `dev` container via shell.
 ##		  You can optionally pass an argument with a service name to open a shell on the specified container
@@ -185,11 +155,6 @@ cr:
 .PHONY: phpunit
 phpunit:
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "vendor/bin/phpunit" $(filter-out $@,$(MAKECMDGOALS))
-
-## hosts		: Adds development URLs to your hosts file.
-.PHONY: hosts
-hosts:
-	echo '127.0.0.1 $(PROJECT_BASE_URL) prod.$(PROJECT_BASE_URL) mailhog.$(PROJECT_BASE_URL) pma.$(PROJECT_BASE_URL)' | sudo tee -a /etc/hosts
 
 ## twig-debug-on	: Enable Twig debug.
 .PHONY: twig-debug-on

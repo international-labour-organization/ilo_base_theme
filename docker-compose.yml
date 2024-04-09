@@ -12,6 +12,7 @@ services:
       #      PHP_XDEBUG_CLIENT_HOST: 10.0.75.1 # Windows
       PHP_IDE_CONFIG: "serverName=ILO"
       PHP_XDEBUG_IDEKEY: "PHPSTORM"
+      DRUSH_OPTIONS_URI: http://localhost:8081
     ports:
       - '8081:80'
     volumes:
@@ -23,5 +24,6 @@ services:
     container_name: "${PROJECT_NAME}_dist"
     environment:
       PHP_XDEBUG: "off"
+      DRUSH_OPTIONS_URI: http://localhost:8080
     ports:
       - '8080:80'
