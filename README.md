@@ -2,7 +2,7 @@
 
 Drupal 10 theme based on the [ILO Design System][1].
 
-This projects ships with a buildable demo site, which allows developers to preview the base theme with ease. To so so run:
+This projects ships with a buildable demo site, which allows developers to preview the base theme with ease. To do so run:
 
 ```
 make
@@ -10,11 +10,11 @@ make
 
 This will build a fully functional Drupal site with the ILO Base Theme enabled by default. After the installation is done visit:
 
-[http://localhost:8080/build](http://localhost:8080/build).
+[http://localhost:8080](http://localhost:8080)
 
 ## Installation
 
-The recommended way of installing the OpenEuropa theme is via [Composer][2].
+The recommended way of installing the ILO Base Theme is via [Composer][2].
 
 Before proceeding, please note that theme releases are built by a continuous integration system, and include code coming
 from third-party libraries, such as [ILO Design System][1] templates and other assets. Simply Running `composer require openeuropa/oe_theme`
@@ -37,7 +37,7 @@ Then add the following section, in your project's `composer.json`:
             "international-labour-organization/ilo_base_theme": {
                 "dist": {
                     "url": "https://github.com/{name}/releases/download/{pretty-version}/{project-name}-{pretty-version}.zip",
-                    "type": "tar"
+                    "type": "zip"
                 }
             }
         },
@@ -56,7 +56,7 @@ This will download the fully built artifact, as opposed to the raw theme source 
 
 In order to enable the theme in your project perform the following steps:
 
-1. Enable the **ILO base theme companion** module ```./vendor/bin/drush en ilo_base_theme_companion```
+1. Enable the **ILO base theme companion** module
 2. Enable the **ILO base theme** and set it as default
 
 ```
