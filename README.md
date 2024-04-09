@@ -4,7 +4,7 @@ Drupal 10 theme based on the [ILO Design System][1]. The project is structured i
 
 - A very basic base theme, with not much in it at the moment. This will change in the future as more and more default
   Drupal templates (e.g. tabs, forms, etc.) will be provided by default, complying with the ILO Design System.
-- A theme companion module `[ilo_base_theme_companion](modules/ilo_base_theme_companion)`, which exposes all compatible
+- A theme companion module [`ilo_base_theme_companion`](modules/ilo_base_theme_companion), which exposes all compatible
   ILO Design System components as Drupal patterns. Check the [UI Patterns][6] and the [UI Patterns Settings][7] modules for more information.
 
 The theme requires the companion module to be enabled, while one could enable the companion module without enabling the base theme.
@@ -24,7 +24,7 @@ This will build a fully functional Drupal site with the ILO Base Theme enabled b
 The recommended way of installing the ILO Base Theme is via [Composer][4].
 
 Before proceeding, please note that theme releases are built by a continuous integration system, and include code coming
-from third-party libraries, such as [ILO Design System][1] templates and other assets. Simply Running `composer require openeuropa/oe_theme`
+from third-party libraries, such as [ILO Design System][1] templates and other assets. Simply Running `composer require international-labour-organization/ilo_base_theme`
 will download the raw theme source code, which misses required third-party code.
 
 In order to instruct Composer to download the actual built artifact, you need to require and configure the
