@@ -19,6 +19,18 @@ This will build a fully functional Drupal site with the ILO Base Theme enabled b
 
 [http://localhost:8080](http://localhost:8080)
 
+Note: the command above builds a demo site as self-contained service. To do so it performs the following commands in the container:
+
+- Run `npm install` to fetch the ILO Design System assets
+- Copy all relevant Drupal-related code in `/opt/drupal`
+- Build and install the Drupal site
+
+This means that, when fetching a newer version, you might need to rebuild the demo site from scratch. To do so, run:
+
+```
+make build-dist
+```
+
 ## Installation
 
 The recommended way of installing the ILO Base Theme is via [Composer][4].
@@ -95,13 +107,19 @@ This contains all the necessary code and tools for an effective development proc
 Development can be set up via [Makefile](Makefile)'s targets, as follows:
 
 - Install Node dependencies by running `npm install`.
-- Start the development environment by running `make up-dev`. This will:
+- Start the development environment by running `make up-dev install`. This will:
   - Build the development Drupal container from the `dev` target of the shipped [Dockerfile](Dockerfile)
   - Build a Drupal target site within the project
   - Symlink the base theme codebase within the target site
   - Mount the target site within the dev container
   - Install the target site
   - Expose the site on [http://localhost:8081](http://localhost:8081)
+
+When working on the theme you might want to enable Drupal Twig debugging by running:
+
+```
+make twig-debug-on
+```
 
 [1]: https://github.com/international-labour-organization/designsystem
 [2]: https://github.com/openeuropa/task-runner
