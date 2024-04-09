@@ -20,6 +20,7 @@ ENV PHP_XDEBUG=${PHP_XDEBUG}
 ENV PHP_XDEBUG_CLIENT_HOST=${PHP_XDEBUG_CLIENT_HOST}
 ENV PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
 ENV PHP_XDEBUG_IDEKEY=${PHP_XDEBUG_IDEKEY}
+ENV DRUSH_OPTIONS_URI=${DRUSH_OPTIONS_URI}
 
 # Install extra packages.
 RUN	apt update; \
@@ -31,6 +32,8 @@ RUN	apt update; \
 # Remove stock Drupal codebase.
 RUN rm -rf /opt/drupal && \
     mkdir -p /opt/drupal
+
+RUN git config --global --add safe.directory /opt/drupal
 
 FROM base as dev
 

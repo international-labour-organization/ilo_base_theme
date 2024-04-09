@@ -1,6 +1,5 @@
 drupal:
   root: "web"
-  base_url: "http://localhost:8080"
   database:
     scheme: "sqlite"
     host: "sites/default/files"
@@ -42,7 +41,6 @@ commands:
   drupal:site-setup:
     - { task: "run", command: "drupal:symlink-project" }
     - { task: "symlink", from: "${drupal.root}/core/.stylelintrc.json", to: ".stylelintrc.json" }
-    - { task: "run", command: "drupal:drush-setup" }
     - { task: "run", command: "drupal:settings-setup" }
     # Generate settings.testing.php, it will be used when running functional tests.
     - { task: "process-php", type: "write", config: "drupal.settings", source: "${drupal.root}/sites/default/default.settings.php", destination: "${drupal.root}/sites/default/settings.testing.php", override: true }
@@ -56,6 +54,7 @@ commands:
 release:
   tasks:
     - "git config --global --add safe.directory /opt/drupal"
+    - { task: "remove", file: "ilo_base_theme/.github" }
     - { task: "remove", file: "ilo_base_theme/.editorconfig" }
     - { task: "remove", file: "ilo_base_theme/.env.dist" }
     - { task: "remove", file: "ilo_base_theme/.gitattributes" }
