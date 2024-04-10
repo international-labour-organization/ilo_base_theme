@@ -9,6 +9,13 @@ Drupal 10 theme based on the [ILO Design System][1]. The project is structured i
 
 The theme requires the companion module to be enabled, while one could enable the companion module without enabling the base theme.
 
+- [Installation](#installation)
+  - [Use the base theme](#use-the-base-theme)
+  - [Use the components without the base theme](#use-the-components-without-the-base-theme)
+- [Run the demo site locally](#run-the-demo-site-locally)
+- [Run the demo site as a Docker service](#run-the-demo-site-as-a-docker-service)
+- [Development](#development)
+
 ## Installation
 
 The recommended way of installing the ILO Base Theme is via [Composer][4].
