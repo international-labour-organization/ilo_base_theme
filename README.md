@@ -9,28 +9,6 @@ Drupal 10 theme based on the [ILO Design System][1]. The project is structured i
 
 The theme requires the companion module to be enabled, while one could enable the companion module without enabling the base theme.
 
-This project also ships with a buildable demo site, which allows developers to preview the base theme with ease. To do so run:
-
-```
-make
-```
-
-This will build a fully functional Drupal site with the ILO Base Theme enabled by default. After the installation is done visit:
-
-[http://localhost:8080](http://localhost:8080)
-
-Note: the command above builds a demo site as self-contained service. To do so it performs the following commands in the container:
-
-- Run `npm install` to fetch the ILO Design System assets
-- Copy all relevant Drupal-related code in `/opt/drupal`
-- Build and install the Drupal site
-
-This means that, when fetching a newer version, you might need to rebuild the demo site from scratch. To do so, run:
-
-```
-make build-dist
-```
-
 ## Installation
 
 The recommended way of installing the ILO Base Theme is via [Composer][4].
@@ -95,6 +73,42 @@ without enabling the theme, like so:
 
 The full list of components is available at `/patterns`.
 
+## Run the demo site locally
+
+This project also ships with a buildable demo site, which allows developers to preview the base theme with ease. To do so run:
+
+```
+make
+```
+
+This will build a fully functional Drupal site with the ILO Base Theme enabled by default. After the installation is done visit:
+
+[http://localhost:8080](http://localhost:8080)
+
+Note: the command above builds a demo site as self-contained service. To do so it performs the following commands in the container:
+
+- Run `npm install` to fetch the ILO Design System assets
+- Copy all relevant Drupal-related code in `/opt/drupal`
+- Build and install the Drupal site
+
+This means that, when fetching a newer version, you might need to rebuild the demo site from scratch. To do so, run:
+
+```
+make build-dist
+```
+
+## Run the demo site as a Docker service
+
+The demo site is also published in the GitHub Docker registry. To run the site use the following command:
+
+```
+docker run -p 8082:80 ghcr.io/international-labour-organization/ilo_base_theme
+```
+
+The site will then be available at http://localhost:8082.
+
+In order to run the command above, you need to be authenticated, please check the related [documentation][8].
+
 ## Development
 
 This contains all the necessary code and tools for an effective development process, meaning:
@@ -128,3 +142,5 @@ make twig-debug-on
 [5]: https://github.com/openeuropa/composer-artifacts
 [6]: https://www.drupal.org/project/ui_patterns
 [7]: https://www.drupal.org/project/ui_patterns_settings
+[8]: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-with-a-personal-access-token-classic
+
