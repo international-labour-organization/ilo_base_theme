@@ -9,6 +9,8 @@ Drupal 10 theme based on the [ILO Design System][1]. The project is structured i
 
 The theme requires the companion module to be enabled, while one could enable the companion module without enabling the base theme.
 
+## Table of contents
+
 - [Installation](#installation)
   - [Use the base theme](#use-the-base-theme)
   - [Use the components without the base theme](#use-the-components-without-the-base-theme)
