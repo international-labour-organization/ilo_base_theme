@@ -120,7 +120,7 @@ In order to run the command above, you need to be authenticated, please check th
 
 ## Development
 
-This contains all the necessary code and tools for an effective development process, meaning:
+The project contains all the necessary code and tools for an effective development process, meaning:
 
 - All PHP development dependencies (Drupal core included) are required in [composer.json](composer.json)
 - All Node.js development dependencies are required in [package.json](package.json)
