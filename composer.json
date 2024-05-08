@@ -11,7 +11,8 @@
         "drupal/components": "^3.0@beta",
         "drupal/core": "^10",
         "drupal/ui_patterns": "^1.5",
-        "drupal/ui_patterns_settings": "^2.1"
+        "drupal/ui_patterns_settings": "^2.1",
+        "squirrelphp/twig-php-syntax": "^1.7"
     },
     "require-dev": {
         "composer/installers": "~1.5",
