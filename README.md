@@ -82,6 +82,37 @@ without enabling the theme, like so:
 
 The full list of components is available at `/patterns`.
 
+### Patterns and cache metadata
+
+Displaying render arrays using patterns requires a careful handing of the render array's cache metadata. For example,
+if you want to use the `card` pattern to render a news content type teaser, you would typically do the following:
+
+```twig
+{{ pattern('card', {
+  title: content.title,
+  link: content.field_link['#url'],
+  size: 'fluid',
+}, 'feature') }}
+```
+
+The problem with the above is that cache tags and contexts (for example from the link at `field_link`) are not bubbled up correctly.
+
+In order to solve the issue it is recommended to explicitly bubble up the cache metadata of the render array at hand.
+You can do that by using the `|cache_metadata` filter exposed by the [Twig Tweak][9] module, as shown below:
+
+```twig
+{{ pattern('card', {
+  title: content.title,
+  link: content.field_link['#url'],
+  size: 'fluid',
+}, 'feature') }}
+
+{{ content|cache_metadata }}
+```
+
+Another recommended module to keep in mind, when working with patterns, is the [Twig Field Value][10], which can help with
+accessing properties and subfields of render arrays and entities when passing them over to patterns.
+
 ## Run the demo site locally
 
 This project also ships with a buildable demo site, which allows developers to preview the base theme with ease. To do so run:
@@ -152,4 +183,5 @@ make twig-debug-on
 [6]: https://www.drupal.org/project/ui_patterns
 [7]: https://www.drupal.org/project/ui_patterns_settings
 [8]: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-with-a-personal-access-token-classic
-
+[9]: https://www.drupal.org/project/twig_tweak
+[10]: https://www.drupal.org/project/twig_field_value
