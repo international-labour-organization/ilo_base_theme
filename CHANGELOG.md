@@ -1,3 +1,7 @@
+## Release 0.2.0 (TBD)
+
+- [GH-13](https://github.com/international-labour-organization/ilo_base_theme/issues/13): Add boolval filter to support ILO Design Kit >=1.1.0
+
 ## Release 0.1.1 (16-04-2024)
 
 - Bump design system version to 1.0.1

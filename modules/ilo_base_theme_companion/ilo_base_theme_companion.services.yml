@@ -7,3 +7,7 @@ services:
     class: Drupal\ilo_base_theme_companion\ComponentsLocator
     arguments: ['%app.root%', '@module_handler']
     public: true
+  ilo_base_theme_companion.twig_extension.php_syntax:
+    class: Squirrel\TwigPhpSyntax\PhpSyntaxExtension
+    tags:
+      - { name: twig.extension }
