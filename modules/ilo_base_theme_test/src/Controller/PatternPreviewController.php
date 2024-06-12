@@ -2,8 +2,8 @@
 
 namespace Drupal\ilo_base_theme_test\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Controller that renders a pattern.
