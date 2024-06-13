@@ -1,7 +1,14 @@
 name: Publish Docker image
 on:
   push:
-    branches: ['0.x']
+    # Docker images will be built for every main branch (0.x, 1.x, 2.x, etc.).branches-ignore:
+    # An image could be previewed from any branch by prefixing that branch with "preview-", for ex.: "preview-GH-123-something".
+    branches:
+      - '[0-9]+.x'
+      - 'preview-.*'
+    # Docker images will be built for tags too, for example: 0.1.0, 1.0.0-beta1, etc.
+    tags:
+      - '[0-9]+.[0-9]+.[0-9](-.*)?'
 # Defines two custom environment variables for the workflow.
 # These are used for the Container registry domain, and a name for the Docker image that this workflow builds.
 env:
