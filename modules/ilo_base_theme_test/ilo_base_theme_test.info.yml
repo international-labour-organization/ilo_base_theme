@@ -2,6 +2,7 @@ name: ILO base theme test
 type: module
 description: A test module to render a pattern preview.
 core_version_requirement: ^9 || ^10
+hidden: true
 
 dependencies:
   - ilo_base_theme:ilo_base_theme_companion
