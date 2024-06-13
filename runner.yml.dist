@@ -22,6 +22,8 @@ drupal:
     - "./vendor/bin/drush config-set node.settings use_admin_theme 1 -y"
     - "./vendor/bin/drush config-set system.site page.front /patterns -y"
     - "./vendor/bin/drush role:perm:add anonymous 'access patterns page' -y"
+    - "./vendor/bin/drush twig:debug on -y"
+    - "./vendor/bin/drush state:set disable_rendered_output_cache_bins 1 --input-format=integer -y"
     - "./vendor/bin/drush cr"
   settings:
     settings:
