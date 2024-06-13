@@ -1,3 +1,7 @@
+## Release 0.3.0 (TBD)
+
+- [GH-10](https://github.com/international-labour-organization/ilo_base_theme/issues/10): Disable caching in the dist docker image
+
 ## Release 0.2.0 (04-06-2024)
 
 - [GH-13](https://github.com/international-labour-organization/ilo_base_theme/issues/13): Add boolval filter to support ILO Design Kit >=1.1.0
