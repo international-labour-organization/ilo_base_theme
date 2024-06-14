@@ -69,6 +69,7 @@ release:
     - { task: "remove", file: "ilo_base_theme/phpcs.xml.dist" }
     - { task: "remove", file: "ilo_base_theme/phpunit.xml.dist" }
     - { task: "remove", file: "ilo_base_theme/runner.yml.dist" }
+    - { task: "remove", file: "ilo_base_theme/modules/ilo_base_theme_test" }
     - { task: "copy", from: "modules/ilo_base_theme_companion/dist", to: "ilo_base_theme/modules/ilo_base_theme_companion/dist" }
     - task: "append"
       file: "ilo_base_theme/ilo_base_theme.info.yml"
