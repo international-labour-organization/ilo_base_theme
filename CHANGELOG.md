@@ -1,6 +1,7 @@
 ## Release 0.3.0 (TBD)
 
 - [GH-10](https://github.com/international-labour-organization/ilo_base_theme/issues/10): Disable caching in the dist docker image
+- [GH-15](https://github.com/international-labour-organization/ilo_base_theme/issues/15): Add a route to render patterns on demand, to test purposes.
 
 ## Release 0.2.0 (04-06-2024)
 
