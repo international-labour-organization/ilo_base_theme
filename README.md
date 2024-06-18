@@ -171,6 +171,31 @@ Encoded, that will look like the following:
 http://localhost:8081/pattern-preview?id=button&fields=%7b%0a%22label%22%3a%20%22Button%22%2c%0a%22type%22%3a%20%22primary%22%2c%0a%22kind%22%3a%20%22button%22%2c%0a%22size%22%3a%20%22medium%22%0a%7d
 ```
 
+Pattern settings need to be passed within the `fields` object. For example, to render a `tooltip` pattern, one would
+use the following:
+
+```json
+{
+  "label": "test",
+  "settings": {
+    "icon": true,
+    "icontheme": "light",
+    "theme": "dark"
+  }
+}
+```
+
+Note that any HTML needs to be set as Drupal `#markup`. For example, to render a `richtext` pattern, one would pass the
+following JSON to the `fields` parameter:
+
+```json
+{
+  "content": {
+    "#markup": "<b>this is bold</b>, this is not"
+  }
+}
+```
+
 The test module above is enabled by default in both `dev` and `dist` Docker images but it is not included in the released package.
 
 ## Development
