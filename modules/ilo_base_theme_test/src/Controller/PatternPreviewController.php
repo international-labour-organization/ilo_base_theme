@@ -33,11 +33,17 @@ class PatternPreviewController extends ControllerBase {
         '#markup' => $this->t('Invalid JSON string.'),
       ];
     }
-    return [
+    $pattern = [
       '#type' => 'pattern',
       '#id' => $id,
       '#fields' => $decoded_fields,
     ];
+
+    if ($request->query->has('variant')) {
+      $pattern['#variant'] = $request->query->get('variant');
+    }
+
+    return $pattern;
   }
 
 }
