@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ilo_base_theme_test\Controller;
+namespace Drupal\ilo_base_theme_preview\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\Request;
