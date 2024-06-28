@@ -1,3 +1,7 @@
+## Release 0.4.0 (TBD)
+
+- [GH-22](https://github.com/international-labour-organization/ilo_base_theme/issues/22): Make sure we automatically load the font package
+
 ## Release 0.3.0 (18-06-2024)
 
 - [GH-10](https://github.com/international-labour-organization/ilo_base_theme/issues/10): Disable caching in the dist docker image

@@ -1,4 +1,6 @@
 global:
   css:
     base:
+      dist/fonts/font-css/fonts.css: {}
+      dist/fonts/font-css/fonts-ar.css: {}
       dist/index.css: {}
