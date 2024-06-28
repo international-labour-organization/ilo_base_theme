@@ -1,9 +1,6 @@
 bar:
   namespace: Components/Test
   label: Bar
-  variants:
-    primary: Primary
-    secondary: Secondary
   fields:
     label:
       type: string

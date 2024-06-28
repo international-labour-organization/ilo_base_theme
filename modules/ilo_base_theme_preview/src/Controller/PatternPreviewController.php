@@ -24,6 +24,12 @@ class PatternPreviewController extends ControllerBase {
     $id = $request->query->get('id');
     $fields = $request->query->get('fields');
 
+    if ($id === NULL || $fields === NULL) {
+      return [
+        '#markup' => $this->t('Missing required parameters "id" and "fields". Parameter "variant" is optional.'),
+      ];
+    }
+
     // Decode the JSON string.
     $decoded_fields = json_decode(urldecode($fields), TRUE);
 

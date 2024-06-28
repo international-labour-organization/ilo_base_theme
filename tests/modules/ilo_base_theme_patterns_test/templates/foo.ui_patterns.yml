@@ -1,0 +1,10 @@
+foo:
+  label: Foo
+  variants:
+    primary: Primary
+    secondary: Secondary
+  fields:
+    label:
+      type: string
+      label: Label
+      preview: abc

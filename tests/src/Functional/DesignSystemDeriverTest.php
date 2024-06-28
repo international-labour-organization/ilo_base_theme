@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\ilo_base_theme\Functional;
 
 use Drupal\Core\Render\Markup;
+use Drupal\ilo_base_theme_companion\ComponentsLocatorInterface;
 use Drupal\ilo_base_theme_companion\Plugin\Deriver\DesignSystemDeriver;
 
 /**
@@ -16,7 +17,19 @@ class DesignSystemDeriverTest extends BrowserTestBase {
    * Tests deriver.
    */
   public function testDeriver(): void {
-    $this->useFixtureComponents();
+    // Mock locator service.
+    $locator = new class implements ComponentsLocatorInterface {
+
+      /**
+       * {@inheritdoc}
+       */
+      public function getComponentDirectory(): string {
+        return __DIR__ . '/fixtures/components';
+      }
+
+    };
+    $this->container->set('ilo_base_theme_companion.components_locator', $locator);
+
     $deriver = DesignSystemDeriver::create($this->container, '');
     $patterns = $deriver->getPatterns();
     $this->assertCount(2, $patterns);

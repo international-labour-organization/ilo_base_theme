@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\ilo_base_theme\Functional;
 
-use Drupal\Core\Render\Markup;
-use Drupal\ilo_base_theme_companion\ComponentsLocatorInterface;
-use Drupal\ilo_base_theme_companion\Plugin\Deriver\DesignSystemDeriver;
 use Drupal\Tests\BrowserTestBase as DrupalBrowserTestBase;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -16,9 +13,7 @@ use Symfony\Component\Filesystem\Filesystem;
 abstract class BrowserTestBase extends DrupalBrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
   protected static $modules = [
     'node',
@@ -42,30 +37,12 @@ abstract class BrowserTestBase extends DrupalBrowserTestBase {
     // Tests are ran as root, here we make sure that Drupal can write as needed.
     $filesystem = new Filesystem();
     foreach ([
-               DRUPAL_ROOT . '/sites/default/files',
-               DRUPAL_ROOT . '/sites/simpletest',
-             ] as $path) {
-      $filesystem->chown($path, 'www-data', true);
-      $filesystem->chgrp($path, 'www-data', true);
+      DRUPAL_ROOT . '/sites/default/files',
+      DRUPAL_ROOT . '/sites/simpletest',
+    ] as $path) {
+      $filesystem->chown($path, 'www-data', TRUE);
+      $filesystem->chgrp($path, 'www-data', TRUE);
     }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function useFixtureComponents(): void {
-    // Mock locator service.
-    $locator = new class implements ComponentsLocatorInterface {
-
-      /**
-       * {@inheritdoc}
-       */
-      public function getComponentDirectory(): string {
-        return __DIR__ . '/fixtures/components';
-      }
-
-    };
-    $this->container->set('ilo_base_theme_companion.components_locator', $locator);
   }
 
 }
