@@ -1,6 +1,7 @@
 ## Release 0.4.0 (TBD)
 
 - [GH-22](https://github.com/international-labour-organization/ilo_base_theme/issues/22): Make sure we automatically load the font package
+- [GH-21](https://github.com/international-labour-organization/ilo_base_theme/issues/21): Make sure we can indicate which variant to render on /pattern-preview
 
 ## Release 0.3.0 (18-06-2024)
 

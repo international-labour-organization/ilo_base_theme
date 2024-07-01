@@ -151,8 +151,8 @@ In order to run the command above, you need to be authenticated, please check th
 
 ## Render patterns on demand
 
-The [`ilo_base_theme_test`](modules/ilo_base_theme_test) module exposes a `/pattern-preview?id=...&fields=...` route
-that allows users to render a pattern on demand, by passing its ID and its fields as an encoded JSON object.
+The [`ilo_base_theme_preview`](modules/ilo_base_theme_preview) module exposes a `/pattern-preview?id=...&variant=...&fields=...` route
+that allows users to render a pattern on demand, by passing its ID, its variant (optional) and its fields as an encoded JSON object.
 
 For example, to render a button, one could pass the following fields as JSON:
 

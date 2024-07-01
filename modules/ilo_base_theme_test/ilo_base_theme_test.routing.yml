@@ -1,7 +1,0 @@
-ilo_base_theme_test.pattern_preview:
-  path: '/pattern-preview'
-  defaults:
-    _controller: '\Drupal\ilo_base_theme_test\Controller\PatternPreviewController::renderPatternPreview'
-    _title: 'Pattern Preview'
-  requirements:
-    _permission: 'access content'
