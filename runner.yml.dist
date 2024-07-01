@@ -15,7 +15,7 @@ drupal:
     - "./vendor/bin/drush en config_devel -y"
     - "./vendor/bin/drush en toolbar -y"
     - "./vendor/bin/drush en ilo_base_theme_companion -y"
-    - "./vendor/bin/drush en ilo_base_theme_test -y"
+    - "./vendor/bin/drush en ilo_base_theme_preview -y"
     - "./vendor/bin/drush theme:enable ilo_base_theme -y"
     - "./vendor/bin/drush theme:enable claro -y"
     - "./vendor/bin/drush config-set system.theme default ilo_base_theme -y"
@@ -69,7 +69,7 @@ release:
     - { task: "remove", file: "ilo_base_theme/phpcs.xml.dist" }
     - { task: "remove", file: "ilo_base_theme/phpunit.xml.dist" }
     - { task: "remove", file: "ilo_base_theme/runner.yml.dist" }
-    - { task: "remove", file: "ilo_base_theme/modules/ilo_base_theme_test" }
+    - { task: "remove", file: "ilo_base_theme/modules/ilo_base_theme_preview" }
     - { task: "copy", from: "modules/ilo_base_theme_companion/dist", to: "ilo_base_theme/modules/ilo_base_theme_companion/dist" }
     - task: "append"
       file: "ilo_base_theme/ilo_base_theme.info.yml"

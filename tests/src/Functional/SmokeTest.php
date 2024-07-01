@@ -4,32 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\ilo_base_theme\Functional;
 
-use Drupal\Tests\BrowserTestBase;
-
 /**
  * Smoke test asserting that components are actually loaded, or correctly ignored.
  */
 class SmokeTest extends BrowserTestBase {
-
-  /**
-   * Modules to enable.
-   *
-   * @var array
-   */
-  protected static $modules = [
-    'node',
-    'system',
-    'ilo_base_theme_companion',
-    'components',
-    'ui_patterns_library',
-    'ui_patterns_settings',
-    'ilo_base_theme_companion',
-  ];
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
 
   /**
    * Tests that components are correctly loaded, or correctly ignored.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ilo_base_theme_test\Controller;
+namespace Drupal\ilo_base_theme_preview\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +24,12 @@ class PatternPreviewController extends ControllerBase {
     $id = $request->query->get('id');
     $fields = $request->query->get('fields');
 
+    if ($id === NULL || $fields === NULL) {
+      return [
+        '#markup' => $this->t('Missing required parameters "id" and "fields". Parameter "variant" is optional.'),
+      ];
+    }
+
     // Decode the JSON string.
     $decoded_fields = json_decode(urldecode($fields), TRUE);
 
@@ -33,11 +39,17 @@ class PatternPreviewController extends ControllerBase {
         '#markup' => $this->t('Invalid JSON string.'),
       ];
     }
-    return [
+    $pattern = [
       '#type' => 'pattern',
       '#id' => $id,
       '#fields' => $decoded_fields,
     ];
+
+    if ($request->query->has('variant')) {
+      $pattern['#variant'] = $request->query->get('variant');
+    }
+
+    return $pattern;
   }
 
 }

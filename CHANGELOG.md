@@ -1,3 +1,7 @@
+## Release 0.4.0 (TBD)
+
+- [GH-21](https://github.com/international-labour-organization/ilo_base_theme/issues/21): Make sure we can indicate which variant to render on /pattern-preview
+
 ## Release 0.3.0 (18-06-2024)
 
 - [GH-10](https://github.com/international-labour-organization/ilo_base_theme/issues/10): Disable caching in the dist docker image
