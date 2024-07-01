@@ -33,8 +33,12 @@ build/composer:
 install-design-system:
 	rm -rf ./modules/ilo_base_theme_companion/dist
 	mkdir -p ./modules/ilo_base_theme_companion/dist
+	mkdir -p ./modules/ilo_base_theme_companion/dist/fonts
 	cp -r ./node_modules/@ilo-org/twig/dist/components ./modules/ilo_base_theme_companion/dist
 	cp ./node_modules/@ilo-org/styles/css/index.css ./modules/ilo_base_theme_companion/dist
+	cp ./node_modules/@ilo-org/styles/css/global.css ./modules/ilo_base_theme_companion/dist
+	cp -r ./node_modules/@ilo-org/fonts/assets ./modules/ilo_base_theme_companion/dist/fonts
+	cp -r ./node_modules/@ilo-org/fonts/font-css ./modules/ilo_base_theme_companion/dist/fonts
 
 # Install test site.
 ## build		: Build the development environment.
