@@ -86,7 +86,7 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
    * {@inheritdoc}
    */
   public function getFileExtensions() {
-    return ['.wingsuit.yml'];
+    return ['.component.yml'];
   }
 
   /**
@@ -112,7 +112,11 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
         ];
         if (file_exists($definition['base path'] . DIRECTORY_SEPARATOR . $id . '.behavior.js')) {
           $definition['libraries'][0][$id]['js'] = [
-            $id . '.behavior.js' => NULL,
+            $id . '.behavior.js' => [
+              'attributes' => [
+                'type' => 'module',
+              ],
+            ],
           ];
           $definition['libraries'][0][$id]['dependencies'][] = 'core/drupal';
           $definition['libraries'][0][$id]['dependencies'][] = 'core/drupalSettings';
