@@ -5,7 +5,7 @@ on:
     # An image could be previewed from any branch by prefixing that branch with "preview-", for ex.: "preview-GH-123-something".
     branches:
       - '[0-9]+.x'
-      - 'preview-.*'
+      - 'preview-*'
     # Docker images will be built for tags too, for example: 0.1.0, 1.0.0-beta1, etc.
     tags:
       - '**'
