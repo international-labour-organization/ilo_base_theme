@@ -86,7 +86,7 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
    * {@inheritdoc}
    */
   public function getFileExtensions() {
-    return ['.wingsuit.yml'];
+    return ['.component.yml'];
   }
 
   /**
