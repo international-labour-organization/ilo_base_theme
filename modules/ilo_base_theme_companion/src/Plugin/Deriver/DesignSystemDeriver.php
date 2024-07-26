@@ -111,13 +111,6 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
           'ilo_base_theme_companion/global',
         ];
         if (file_exists($definition['base path'] . DIRECTORY_SEPARATOR . $id . '.behavior.js')) {
-          $definition['libraries'][0][$id]['js'] = [
-            $id . '.behavior.js' => [
-              'attributes' => [
-                'type' => 'module',
-              ],
-            ],
-          ];
           $definition['libraries'][0][$id]['dependencies'][] = 'core/drupal';
           $definition['libraries'][0][$id]['dependencies'][] = 'core/drupalSettings';
         }
