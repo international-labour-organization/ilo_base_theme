@@ -13,7 +13,7 @@
  */
 #}
 {% apply spaceless %}
-  <select{{ attributes }}>
+  <select{{ attributes.addClass('ilo--dropdown') }}>
     {% for option in options %}
       {% if option.type == 'optgroup' %}
         <optgroup label="{{ option.label }}">

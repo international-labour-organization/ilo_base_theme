@@ -49,7 +49,8 @@
 {%
   set classes = [
     'ilo--form-control',
-    'ilo--form-control__label-placement__top',
+    type == 'checkbox' ? 'ilo--form-control__label-placement__end' : 'ilo--form-control__label-placement__top',
+    errors ? 'ilo--form-control__error',
     'js-form-item',
     'form-item',
     'js-form-type-' ~ type|clean_class,
@@ -79,17 +80,18 @@
       {{ description.content }}
     </div>
   {% endif %}
+  {# The ILO Design System displays errors using the description field. #}
+  {% if errors %}
+    <div{{ description.attributes }}>
+      {{ errors }}
+    </div>
+  {% endif %}
   {{ children }}
   {% if suffix is not empty %}
     <span class="field-suffix">{{ suffix }}</span>
   {% endif %}
   {% if label_display == 'after' %}
     {{ label }}
-  {% endif %}
-  {% if errors %}
-    <div class="form-item--error-message">
-      {{ errors }}
-    </div>
   {% endif %}
   {% if description_display in ['after', 'invisible'] and description.content %}
     <div{{ description.attributes.addClass(description_classes) }}>
