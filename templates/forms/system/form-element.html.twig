@@ -48,6 +48,8 @@
 #}
 {%
   set classes = [
+    'ilo--form-control',
+    'ilo--form-control__label-placement__top',
     'js-form-item',
     'form-item',
     'js-form-type-' ~ type|clean_class,
@@ -60,6 +62,7 @@
 %}
 {%
   set description_classes = [
+    'ilo--form-control--helper',
     'description',
     description_display == 'invisible' ? 'visually-hidden',
   ]
