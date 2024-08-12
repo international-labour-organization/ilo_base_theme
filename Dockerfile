@@ -78,3 +78,6 @@ COPY --from=builder /app/modules/ilo_base_theme_companion/dist ./modules/ilo_bas
 
 RUN composer install
 RUN ./vendor/bin/run drupal:site-install
+
+# This will allow PHPUnit tests to create the web/sites/simpletest directory.
+RUN chown www-data:www-data web/sites
