@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v2
       - run: make up-dist
       - name: test
-        run: docker-compose exec -T dist ./vendor/bin/phpcs
+        run: docker compose exec -T dist ./vendor/bin/phpcs
   automated-tests:
     runs-on: ubuntu-latest
     strategy:
@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v2
       - run: make up-dist
       - name: fix permissions
-        run: docker-compose exec -T dist chmod -R 777 web/sites
+        run: docker compose exec -T dist chmod -R 777 web/sites
       - name: test
         # To avoid file permissions issues, we run the phpunit with user 33, which is the same as the apache user id container.
-        run: docker-compose exec -u 33 -T dist ./vendor/bin/phpunit
+        run: docker compose exec -u 33 -T dist ./vendor/bin/phpunit
