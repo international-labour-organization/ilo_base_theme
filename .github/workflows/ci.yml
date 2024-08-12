@@ -7,7 +7,7 @@ jobs:
       PHP_VERSION: "8.2"
     steps:
       - name: clone
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - run: make up-dist
       - name: test
         run: docker compose exec -T dist ./vendor/bin/phpcs
@@ -20,7 +20,7 @@ jobs:
       PHP_VERSION: ${{ matrix.php_version }}
     steps:
       - name: clone
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - run: make up-dist
       - name: fix permissions
         run: docker compose exec -T dist chmod -R 777 web/sites
