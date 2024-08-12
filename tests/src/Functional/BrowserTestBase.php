@@ -40,8 +40,8 @@ abstract class BrowserTestBase extends DrupalBrowserTestBase {
       DRUPAL_ROOT . '/sites/default/files',
       DRUPAL_ROOT . '/sites/simpletest',
     ] as $path) {
-      $filesystem->chown($path, 'www-data', TRUE);
-      $filesystem->chgrp($path, 'www-data', TRUE);
+      @$filesystem->chown($path, 'www-data', TRUE);
+      @$filesystem->chgrp($path, 'www-data', TRUE);
     }
   }
 
