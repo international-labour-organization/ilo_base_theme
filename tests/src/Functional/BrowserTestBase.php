@@ -29,20 +29,4 @@ abstract class BrowserTestBase extends DrupalBrowserTestBase {
    */
   protected $defaultTheme = 'stark';
 
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-    // Tests are ran as root, here we make sure that Drupal can write as needed.
-    $filesystem = new Filesystem();
-    foreach ([
-      DRUPAL_ROOT . '/sites/default/files',
-      DRUPAL_ROOT . '/sites/simpletest',
-    ] as $path) {
-      $filesystem->chown($path, 'www-data', TRUE);
-      $filesystem->chgrp($path, 'www-data', TRUE);
-    }
-  }
-
 }
