@@ -1,6 +1,6 @@
 include .env
 
-DOCKER_COMPOSE ?= docker compose
+DOCKER_COMPOSE ?= $(DOCKER_COMPOSE)
 DOCKER_CMD ?= exec
 
 ## default        : Run `make` without parameters to create the dist build from scratch.
@@ -28,7 +28,7 @@ build/composer:
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "composer install"
 
 # Install design system assets
-## install-design-system		: Copy design system assets in the designated directory.
+## install-design-system	: Copy design system assets in the designated directory.
 .PHONY: install-design-system
 install-design-system:
 	rm -rf ./modules/ilo_base_theme_companion/dist
@@ -46,6 +46,8 @@ install-design-system:
 install: build
 	@echo "Installing $(PROJECT_NAME)..."
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "./vendor/bin/run drupal:site-install"
+	@$(DOCKER_COMPOSE) up -d --remove-orphans node
+	@$(MAKE) --no-print-directory theme-install
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "drush uli"
 
 # Build tasks for development.
@@ -79,13 +81,13 @@ up: .env
 .PHONY: up-dev
 up-dev: .env
 	@echo "Starting dev container for $(PROJECT_NAME)..."
-	@$(DOCKER_COMPOSE) up dev -d --remove-orphans
+	@$(DOCKER_COMPOSE) up -d --remove-orphans dev
 
-## up-dist		: Start dist container.
+## up-dist	: Start dist container.
 .PHONY: up-dist
 up-dist: .env
 	@echo "Starting dist container for $(PROJECT_NAME)..."
-	@$(DOCKER_COMPOSE) up dist -d --remove-orphans
+	@$(DOCKER_COMPOSE) up -d --remove-orphans dist
 
 ## down		: Stop containers.
 .PHONY: down
@@ -108,17 +110,26 @@ pull:
 	@echo "Pulling containers..."
 	@$(DOCKER_COMPOSE) pull
 
-## shell-dev		: Access `dev` container via shell.
-##		  You can optionally pass an argument with a service name to open a shell on the specified container
-.PHONY: shell-dev
-shell-dev:
+## shell		: Access a container via shell.
+##		  The container to be accessed must be passed as argument (without argument the 'dev' container will be accessed by default, if active)
+.PHONY: shell
+shell:
 	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='$(PROJECT_NAME)_$(or $(filter-out $@,$(MAKECMDGOALS)), 'dev')' --format "{{ .ID }}") bash
 
-## shell-dist		: Access `dist` container via shell.
-##		  You can optionally pass an argument with a service name to open a shell on the specified container
+## shell-dev	: Access `dev` container via shell.
+.PHONY: shell-dev
+shell-dev:
+	@$(MAKE) --no-print-directory shell dev
+
+## shell-dist	: Access `dist` container via shell.
 .PHONY: shell-dist
 shell-dist:
-	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='$(PROJECT_NAME)_$(or $(filter-out $@,$(MAKECMDGOALS)), 'dist')' --format "{{ .ID }}") bash
+	@$(MAKE) --no-print-directory shell dist
+
+## shell-node	: Access `node` container via shell.
+.PHONY: shell-node
+shell-node:
+	@$(MAKE) --no-print-directory shell node
 
 ## logs		: View containers logs.
 ##		  You can optionally pass an argument with the service name to limit logs
@@ -144,7 +155,7 @@ composer:
 drush:
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev vendor/bin/drush $(filter-out $@,$(MAKECMDGOALS))
 
-## fix-perms		: Fix files permissions
+## fix-perms	: Fix files permissions
 .PHONY: fix-perms
 fix-perms:
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev vendor/bin/run drupal:fix-perms
@@ -173,6 +184,13 @@ twig-debug-off:
 	@echo "Disabling Twig debug for $(PROJECT_NAME)..."
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev drush twig:debug off
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev drush state:set disable_rendered_output_cache_bins 0 --input-format=integer
+	@$(MAKE) --no-print-directory cr
+
+## theme-install	: Install all tools for theme development.
+.PHONY: theme-install
+theme-install:
+	@echo "Install all tools for $(PROJECT_NAME) theme development..."
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) node npm install
 	@$(MAKE) --no-print-directory cr
 
 # https://stackoverflow.com/a/6273809/1826109

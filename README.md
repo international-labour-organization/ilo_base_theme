@@ -209,13 +209,14 @@ The project contains all the necessary code and tools for an effective developme
 
 Development can be set up via [Makefile](Makefile)'s targets, as follows:
 
-- Install Node dependencies by running `npm install`.
 - Start the development environment by running `make up-dev install`. This will:
   - Build the development Drupal container from the `dev` target of the shipped [Dockerfile](Dockerfile)
   - Build a Drupal target site within the project
   - Symlink the base theme codebase within the target site
   - Mount the target site within the dev container
   - Install the target site
+  - Install NodeJS dependencies by running `npm install` in the node container.
+  - Install the Design System
   - Expose the site on [http://localhost:8081](http://localhost:8081)
 
 When working on the theme you might want to enable Drupal Twig debugging by running:

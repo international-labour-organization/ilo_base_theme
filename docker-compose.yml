@@ -17,6 +17,7 @@ services:
       - '8081:80'
     volumes:
       - ./:/opt/drupal
+
   dist:
     build:
       context: .
@@ -27,3 +28,14 @@ services:
       DRUSH_OPTIONS_URI: http://localhost:8080
     ports:
       - '8080:80'
+
+  node:
+    image: wodby/node:20-dev-1.36.0
+    container_name: "${PROJECT_NAME}_node"
+    working_dir: /opt/drupal
+    expose:
+      - "3000"
+    volumes:
+      - ./:/opt/drupal
+    command: "sleep infinity"
+#    command: sh -c 'tail -f /dev/null'
