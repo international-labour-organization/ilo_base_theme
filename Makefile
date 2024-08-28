@@ -1,6 +1,6 @@
 include .env
 
-DOCKER_COMPOSE ?= $(DOCKER_COMPOSE)
+DOCKER_COMPOSE ?= docker compose
 DOCKER_CMD ?= exec
 
 ## default        : Run `make` without parameters to create the dist build from scratch.

@@ -30,12 +30,9 @@ services:
       - '8080:80'
 
   node:
-    image: wodby/node:20-dev-1.36.0
+    image: node:20
     container_name: "${PROJECT_NAME}_node"
     working_dir: /opt/drupal
-    expose:
-      - "3000"
     volumes:
       - ./:/opt/drupal
     command: "sleep infinity"
-#    command: sh -c 'tail -f /dev/null'
