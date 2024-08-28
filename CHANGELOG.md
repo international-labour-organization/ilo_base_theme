@@ -1,3 +1,7 @@
+## Release 0.5.0 (TBD)
+
+- [GH-30](https://github.com/international-labour-organization/ilo_base_theme/issues/30): Improve scaffolding and add Node image to docker compose
+
 ## Release 0.4.0 (12-08-2024)
 
 - [GH-22](https://github.com/international-labour-organization/ilo_base_theme/issues/22): Make sure we automatically load the font package
