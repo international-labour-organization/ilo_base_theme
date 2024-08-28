@@ -17,6 +17,7 @@ services:
       - '8081:80'
     volumes:
       - ./:/opt/drupal
+
   dist:
     build:
       context: .
@@ -27,3 +28,11 @@ services:
       DRUSH_OPTIONS_URI: http://localhost:8080
     ports:
       - '8080:80'
+
+  node:
+    image: node:20
+    container_name: "${PROJECT_NAME}_node"
+    working_dir: /opt/drupal
+    volumes:
+      - ./:/opt/drupal
+    command: "sleep infinity"
