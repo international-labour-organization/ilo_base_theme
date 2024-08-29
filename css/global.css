@@ -13,8 +13,6 @@
   padding: 2rem 0;
 }
 
-
-
 /*
  * BUTTONS
  *
@@ -40,7 +38,6 @@ a.button {
   transition-property: color,background-color,border-color;
   transition-duration: .15s;
   transition-timing-function: ease-out;
-
   /* We assign the medium size by default to buttons: */
   padding: calc(2 * var(--ilo-spacing-base)) calc(5 * var(--ilo-spacing-base));
   font-size: 16px;
