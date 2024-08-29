@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Default theme implementation for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="ilo--radio radio">
+  <input{{ attributes }}{{ element['#required'] ? ' required'}} />
+  <span class="ilo--radio--control"></span>
+</div>{{ children }}
