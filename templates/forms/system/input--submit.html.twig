@@ -1,0 +1,50 @@
+{#
+/**
+ * @file
+ * Default theme implementation for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * Default Drupal button types are only 'primary' and 'danger'
+ * ref:
+ * - https://www.drupal.org/docs/develop/user-interface-standards/buttons
+ * - https://agaric.gitlab.io/raw-notes/notes/2019-11-03-what-button-types-are-available-in-drupal-8/
+ * IDS has the following button types:
+ * - primary
+ * - secondary
+ * - tertiary
+ * - alert
+ * - icononly
+ * The logic we apply is this:
+ * - if the defauld 'button--primary' Drupal class is present we map it to 'ilo--button__primary'
+ * - if the defauld 'button--danger' Drupal class is present we map it to 'ilo--button__alert'
+ * - if a specific IDS type is passed, we print it
+ * - as default fallback we map to 'ilo--button__secondary'
+ *
+ * A similar logic is applyed also for IDS button size
+ * (fallback to 'medium', that is the same mapped to defauld Drupal 'button' class)
+ *
+ * @see template_preprocess_input()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'ilo--button',
+    button_size ? 'ilo--button__' ~ button_size : 'ilo--button__medium',
+    attributes.hasClass('button--primary')
+      ? 'ilo--button__primary'
+      : attributes.hasClass('button--danger')
+        ? 'ilo--button__alert'
+        : button_type
+          ? 'ilo--button__' ~ button_type
+          : 'ilo--button__secondary'
+  ]
+%}
+
+<button{{ attributes.addClass(classes).removeClass('button', 'button--primary', 'button--danger') }}>
+  <span class="button__label">{{ element['#value'] }}</span>
+</button>{{ children }}
