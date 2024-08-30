@@ -2,3 +2,11 @@ global:
   css:
     base:
       css/global.css: {}
+
+# Components:
+component.local-tasks:
+  version: VERSION
+  css:
+    component:
+      templates/local-tasks/local-tasks.css: {}
+

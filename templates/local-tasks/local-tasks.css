@@ -1,0 +1,30 @@
+[id$="local-tasks"] .ilo--tabs {
+  margin-bottom: calc(10 * var(--ilo-spacing-base));
+  border-bottom: none;
+}
+
+/* UX improvements starting from here.
+   @TODO: Check whether to bring these improvements
+   back to the original ILO Design System component
+ */
+
+/* UX improvement 1
+   Avoid label "jumping" when hovering an inactive tab.
+ */
+[id$="local-tasks"] .ilo--tabs.tabs--js .ilo--tabs--selection--button[aria-selected="false"]:not(:hover) {
+  /* NOTE: the rem value below is the result of
+     px-to-rem(3px) SASS function.
+     We use the hardcoded value here because SASS is
+     not currently installed, but consider
+     installing it in a @TODO to get its benefit.
+   */
+  border-top: .1607717042rem solid transparent;
+}
+
+/* UX improvement 2
+   When a tab is active it should not be clickable, because its content is already visible.
+   For the same reason it should not show hovering effects.
+ */
+[id$="local-tasks"] .ilo--tabs.tabs--js .ilo--tabs--selection--button[aria-selected="true"] {
+  pointer-events: none;
+}
