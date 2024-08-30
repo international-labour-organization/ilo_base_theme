@@ -9,4 +9,3 @@ component.local-tasks:
   css:
     component:
       templates/local-tasks/local-tasks.css: {}
-
