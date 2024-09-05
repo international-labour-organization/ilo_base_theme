@@ -80,3 +80,22 @@ a.button--small {
   letter-spacing: -.02em;
   line-height: 120%;
 }
+
+
+/*
+ * FORMS
+ *
+ * Forms adjustments.
+ */
+
+/* Fixes and improvements starting from here.
+   @TODO: Check whether to bring these improvements
+   back to the original ILO Design System component
+ */
+
+/* Fix 1
+   Avoid label to be "centered" when the element description/helper has very long text.
+ */
+.ilo--form-control__label-placement__end {
+  grid-template-columns: auto 1fr;
+}
