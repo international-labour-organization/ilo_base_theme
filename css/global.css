@@ -87,6 +87,9 @@ a.button--small {
  *
  * Forms adjustments.
  */
+.ilo--form-control--helper--fieldset {
+  margin-top: 15px;
+}
 
 /* Fixes and improvements starting from here.
    @TODO: Check whether to bring these improvements
