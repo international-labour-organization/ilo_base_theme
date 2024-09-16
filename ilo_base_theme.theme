@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for form_element.
+ */
+function ilo_base_theme_theme_suggestions_form_element_alter(&$suggestions, $variables) {
+  if (!empty($variables['element']['#type'])) {
+    $suggestions[] = 'form_element__' . $variables['element']['#type'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for form_element__password_confirm.
+ */
+function ilo_base_theme_preprocess_form_element__password_confirm(&$variables) {
+  // Add CSS classes needed for theming the password confirm widget.
+  $variables['attributes']['class'][] = 'password-confirm';
+  $variables['attributes']['class'][] = 'is-initial';
+  $variables['attributes']['class'][] = 'is-password-empty';
+  $variables['attributes']['class'][] = 'is-confirm-empty';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for form_element__password.
+ */
+function ilo_base_theme_preprocess_form_element__password(&$variables) {
+  if (!empty($variables['element']['#array_parents']) && in_array('pass1', $variables['element']['#array_parents'], TRUE)) {
+    // This is the main password form element.
+    $variables['attributes']['class'][] = 'password-confirm__password';
+  }
+
+  if (!empty($variables['element']['#array_parents']) && in_array('pass2', $variables['element']['#array_parents'], TRUE)) {
+    // This is the password confirm form element.
+    $variables['attributes']['class'][] = 'password-confirm__confirm';
+  }
+}
