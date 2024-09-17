@@ -1,0 +1,5 @@
+- array:
+    '#plain_text': 'Dummy placeholder for form rendering test.'
+  assert:
+    count:
+      'form.ilo--form': 1
