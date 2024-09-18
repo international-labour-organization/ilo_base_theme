@@ -51,3 +51,50 @@
     </div>
   </main>
 </div>
+{#
+/**
+ * @TODO:
+ * 1. Create a footer_menu via administration UI
+ * 2. Create a footer_menu_secondary via administration UI
+ * 3. Implement code to retrieve above menu labels/urls to populate
+ *    and pass below the "linkgroup/links" and "secondarylins" arrays
+ */
+#}
+{{ include('@ilo_base_theme/patterns/site-footer/site-footer.html.twig', {
+  linkgroup: [
+    {
+      "links": [
+        {
+          "label": "Contact us",
+          "url": "https://www.ilo.org"
+        },
+        {
+          "label": "Contact us",
+          "url": "https://www.ilo.org"
+        },
+        {
+          "label": "Contact us",
+          "url": "https://www.ilo.org"
+        }
+      ]
+    },
+  ],
+  secondarylinks: [
+    {
+      "label": "Rights and permissions",
+      "url": "http://www.cnn.com"
+    },
+    {
+      "label": "Privacy policy",
+      "url": "http://www.bing.com"
+    },
+    {
+      "label": "Fraud alert",
+      "url": "http://www.yahoo.com"
+    },
+    {
+      "label": "Disclaimer",
+      "url": "http://www.askjeeves.com"
+    }
+  ]
+}) }}
