@@ -4,6 +4,12 @@ global:
       css/global.css: {}
 
 # Components:
+component.page-title:
+  version: VERSION
+  css:
+    component:
+      templates/patterns/page-title/page-title.css: {}
+
 component.local-tasks:
   version: VERSION
   css:

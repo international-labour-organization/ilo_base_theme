@@ -14,8 +14,11 @@
  * @ingroup themeable
  */
 #}
+
+{{ attach_library('ilo_base_theme/component.page-title') }}
+
 {{ title_prefix }}
 {% if title %}
-  <h1{{ title_attributes.addClass('ilo--h1') }}>{{ title }}</h1>
+  <h1{{ title_attributes.addClass('ilo--h1', 'page-title') }}>{{ title }}</h1>
 {% endif %}
 {{ title_suffix }}

@@ -1,6 +1,3 @@
-#block-ilo-base-theme-page-title {
-  margin-bottom: 2rem;
-}
 .pattern-preview,
 .pattern-preview__preview {
   margin: 2rem 0;
@@ -101,4 +98,13 @@ a.button--small {
  */
 .ilo--form-control__label-placement__end {
   grid-template-columns: auto 1fr;
+}
+
+/*
+ * OTHER ELEMENTS
+ *
+ * Adjustments for other ilo-- classes.
+ */
+.ilo--footer {
+  margin-top: 3rem;
 }
