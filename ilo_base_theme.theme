@@ -6,6 +6,132 @@
  */
 
 /**
+ * Implements hook_preprocess_HOOK() for page.
+ */
+function ilo_base_theme_preprocess_page(&$variables) {
+  // To populate hedear/footer menu, pass here some hard coded variables just as example.
+  // @TODO: implement proper code to retrieve links from real menu.
+  // For example:
+  // 1. Create the following menus via administration UI:
+  //    - header primary menu
+  //    - header secondary menu
+  //    - footer primary menu
+  //    - footer secondary menu
+  // 2. Implement code to retrieve labels/urls from above menus.
+  // 3. Pass such values to variables below.
+  // 4. Manage the language links in a similar way (a "language_label" and "language_links" need to be passed).
+  // QUESTION: may be it would be better to retrieve such data in specific patterns preprocess ?
+  $variables['primary_nav_items'] = [
+    [
+      "link" => "https://www.ilo.org",
+      "label" => "Topics"
+    ],
+    [
+      "link" => "https://www.ilo.org",
+      "label" => "Countries"
+    ],
+    [
+      "link" => "https://www.ilo.org",
+      "label" => "Standards"
+    ],
+    [
+      "link" => "https://www.ilo.org",
+      "label" => "Statistics"
+    ],
+    [
+      "link" => "https://www.ilo.org",
+      "label" => "About"
+    ]
+  ];
+  $variables['secondary_nav_items'] = [
+    [
+      "link" => "https://www.ilo.org",
+      "label" => "News"
+    ],
+    [
+      "link" => "https://www.ilo.org",
+      "label" => "Meeting & Events"
+    ],
+    [
+      "link" => "https://www.ilo.org",
+      "label" => "Publications"
+    ],
+    [
+      "link" => "https://www.ilo.org",
+      "label" => "Projects"
+    ],
+    [
+      "link" => "https://www.ilo.org",
+      "label" => "Partners"
+    ],
+    [
+      "link" => "https://www.ilo.org",
+      "label" => "Industries & Sectors"
+    ],
+    [
+      "link" => "https://www.ilo.org",
+      "label" => "About the ILO"
+    ]
+  ];
+  $variables['language_label'] = "English";
+  $variables['language_links'] = [
+    [
+      "label" => "Link One",
+      "url" => "https://www.ilo.org"
+    ],
+    [
+      "label" => "Link Two",
+      "url" => "https://www.ilo.org"
+    ],
+    [
+      "endsection" => true,
+      "label" => "Link Three Ends A Section",
+      "url" => "https://www.ilo.org"
+    ],
+    [
+      "label" => "Link Four",
+      "url" => "https://www.ilo.org"
+    ],
+    [
+      "label" => "Link Five Is Slightly Longer",
+      "url" => "https://www.ilo.org"
+    ]
+  ];
+  $variables['footer_primary_links'] = [
+    [
+      "label" => "Contact us",
+      "url" => "https =>//www.ilo.org"
+    ],
+    [
+      "label" => "Contact us",
+      "url" => "https =>//www.ilo.org"
+    ],
+    [
+      "label" => "Contact us",
+      "url" => "https =>//www.ilo.org"
+    ]
+  ];
+  $variables['footer_secondary_links'] = [
+    [
+      "label" => "Rights and permissions",
+      "url" => "http =>//www.cnn.com"
+    ],
+    [
+      "label" => "Privacy policy",
+      "url" => "http =>//www.bing.com"
+    ],
+    [
+      "label" => "Fraud alert",
+      "url" => "http =>//www.yahoo.com"
+    ],
+    [
+      "label" => "Disclaimer",
+      "url" => "http =>//www.askjeeves.com"
+    ]
+  ];
+}
+
+/**
  * Implements hook_theme_suggestions_HOOK_alter() for form_element.
  */
 function ilo_base_theme_theme_suggestions_form_element_alter(&$suggestions, $variables) {
