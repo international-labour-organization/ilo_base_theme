@@ -43,6 +43,94 @@
  * @see html.html.twig
  */
 #}
+{#
+/**
+ * @TODO:
+ * 1. Create a main_menu via administration UI
+ * 2. Create a secondary_menu via administration UI
+ * 3. Implement code to retrieve above menu labels/urls to populate
+ *    and pass below the "primary_nav_items" and "secondary_nav_items" arrays
+ * 4. Manage the language links in a similar way (a "languagelabel" and "languagelinks" need to be passed)
+ */
+#}
+{{ include('@ilo_base_theme/patterns/site-header/site-header.html.twig', {
+  primary_nav_items: [
+    {
+      "link": "https://www.ilo.org",
+      "label": "Topics"
+    },
+    {
+      "link": "https://www.ilo.org",
+      "label": "Countries"
+    },
+    {
+      "link": "https://www.ilo.org",
+      "label": "Standards"
+    },
+    {
+      "link": "https://www.ilo.org",
+      "label": "Statistics"
+    },
+    {
+      "link": "https://www.ilo.org",
+      "label": "About"
+    }
+  ],
+  secondary_nav_items: [
+    {
+      "link": "https://www.ilo.org",
+      "label": "News"
+    },
+    {
+      "link": "https://www.ilo.org",
+      "label": "Meeting & Events"
+    },
+    {
+      "link": "https://www.ilo.org",
+      "label": "Publications"
+    },
+    {
+      "link": "https://www.ilo.org",
+      "label": "Projects"
+    },
+    {
+      "link": "https://www.ilo.org",
+      "label": "Partners"
+    },
+    {
+      "link": "https://www.ilo.org",
+      "label": "Industries & Sectors"
+    },
+    {
+      "link": "https://www.ilo.org",
+      "label": "About the ILO"
+    }
+  ],
+  languagelabel: "English"|t,
+  languagelinks: [
+    {
+      "label": "Link One",
+      "url": "https://www.ilo.org"
+    },
+    {
+      "label": "Link Two",
+      "url": "https://www.ilo.org"
+    },
+    {
+      "endsection": true,
+      "label": "Link Three Ends A Section",
+      "url": "https://www.ilo.org"
+    },
+    {
+      "label": "Link Four",
+      "url": "https://www.ilo.org"
+    },
+    {
+      "label": "Link Five Is Slightly Longer",
+      "url": "https://www.ilo.org"
+    }
+  ]
+}) }}
 <div class="ilo--container">
   <main role="main">
     <a id="main-content" tabindex="-1"></a>
@@ -57,27 +145,23 @@
  * 1. Create a footer_menu via administration UI
  * 2. Create a footer_menu_secondary via administration UI
  * 3. Implement code to retrieve above menu labels/urls to populate
- *    and pass below the "linkgroup/links" and "secondarylins" arrays
+ *    and pass below the "primarylinks" and "secondarylins" arrays
  */
 #}
 {{ include('@ilo_base_theme/patterns/site-footer/site-footer.html.twig', {
-  linkgroup: [
+  primarylinks: [
     {
-      "links": [
-        {
-          "label": "Contact us",
-          "url": "https://www.ilo.org"
-        },
-        {
-          "label": "Contact us",
-          "url": "https://www.ilo.org"
-        },
-        {
-          "label": "Contact us",
-          "url": "https://www.ilo.org"
-        }
-      ]
+      "label": "Contact us",
+      "url": "https://www.ilo.org"
     },
+    {
+      "label": "Contact us",
+      "url": "https://www.ilo.org"
+    },
+    {
+      "label": "Contact us",
+      "url": "https://www.ilo.org"
+    }
   ],
   secondarylinks: [
     {
