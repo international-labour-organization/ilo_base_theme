@@ -1,6 +1,7 @@
 ## Release 0.5.0 (TBD)
 
 - [GH-30](https://github.com/international-labour-organization/ilo_base_theme/issues/30): Improve scaffolding and add Node image to docker compose
+- [GH-23](https://github.com/international-labour-organization/ilo_base_theme/issues/23): Style Drupal forms and local tasks using the ILO Design System
 
 ## Release 0.4.0 (12-08-2024)
 
