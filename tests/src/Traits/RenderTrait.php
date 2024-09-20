@@ -38,14 +38,16 @@ trait RenderTrait {
    *   A render array.
    * @param array $assertions
    *   Test assertions.
+   * @param string $case
+   *   Short description of current test case.
    */
-  protected function assertRendering(string $html, array $assertions): void {
+  protected function assertRendering(string $html, array $assertions, string $case): void {
     $crawler = new Crawler($html);
 
     // Assert presence of given strings.
     if (isset($assertions['contains'])) {
       foreach ($assertions['contains'] as $string) {
-        $message = "String '{$string}' not found in:" . PHP_EOL . $html;
+        $message = "{$case}: String '{$string}' not found in:" . PHP_EOL . $html;
         $this->assertStringContainsString($string, $html, $message);
       }
     }
@@ -53,7 +55,7 @@ trait RenderTrait {
     // Assert occurrences of given elements.
     if (isset($assertions['count'])) {
       foreach ($assertions['count'] as $name => $expected) {
-        $message = "Wrong number of occurrences found for element '{$name}' in:" . PHP_EOL . $html;
+        $message = "{$case}: Wrong number of occurrences found for element '{$name}' in:" . PHP_EOL . $html;
         $this->assertCount($expected, $crawler->filter($name), $message);
       }
     }
@@ -65,7 +67,7 @@ trait RenderTrait {
           $actual = trim($crawler->filter($name)->html());
         }
         catch (\InvalidArgumentException $exception) {
-          $this->fail(sprintf('Element "%s" not found (exception: "%s") in: ' . PHP_EOL . ' %s', $name, $exception->getMessage(), $html));
+          $this->fail(sprintf('%s: Element "%s" not found (exception: "%s") in: ' . PHP_EOL . ' %s', $case, $name, $exception->getMessage(), $html));
         }
         $this->assertEquals($expected, $actual);
       }

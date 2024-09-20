@@ -88,6 +88,8 @@ class RenderingTest extends AbstractKernelTestBase implements FormInterface {
   /**
    * Test rendering of elements.
    *
+   * @param string $case
+   *   Short description of current test case.
    * @param array $structure
    *   A render array.
    * @param array $assertions
@@ -97,7 +99,7 @@ class RenderingTest extends AbstractKernelTestBase implements FormInterface {
    *
    * @dataProvider renderingDataProvider
    */
-  public function testRendering(array $structure, array $assertions): void {
+  public function testRendering(string $case, array $structure, array $assertions): void {
     // Wrap all the test structure inside a form. This will allow proper
     // processing of form elements and invocation of form alter hooks.
     // Even if the elements being tested are not form related, the form can
@@ -107,7 +109,7 @@ class RenderingTest extends AbstractKernelTestBase implements FormInterface {
     $form_state->setProgrammed();
 
     $form = $this->container->get('form_builder')->buildForm($this, $form_state);
-    $this->assertRendering($this->renderRoot($form), $assertions);
+    $this->assertRendering($this->renderRoot($form), $assertions, $case);
   }
 
   /**
