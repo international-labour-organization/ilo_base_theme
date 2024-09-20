@@ -24,15 +24,13 @@ trait RenderTrait {
    *
    * [
    *   'count' => [
-   *     '.ecl-page-header' => 1,
+   *     '.page-header' => 1,
    *   ],
    *   'equals' => [
-   *     '.ecl-page-header__identity' => 'Digital single market',
+   *     '.page-header__tagline' => 'Lorem ipsum',
    *   ],
    *   'contains' => [
-   *     'Digital',
-   *     'single',
-   *     'market',
+   *     'Lorem',
    *   ],
    * ]
    *

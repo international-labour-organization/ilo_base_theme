@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Theme file.
+ */
+
+/**
  * Implements hook_theme_suggestions_HOOK_alter() for form_element.
  */
 function ilo_base_theme_theme_suggestions_form_element_alter(&$suggestions, $variables) {
