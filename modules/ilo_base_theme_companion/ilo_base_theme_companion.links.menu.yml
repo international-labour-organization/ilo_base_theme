@@ -5,5 +5,4 @@ ilo_base_theme_companion.main.more:
   route_name: "<none>"
   menu_name: "main"
   expanded: true
-  enabled: false
   weight: 100

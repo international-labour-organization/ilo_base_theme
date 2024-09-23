@@ -43,11 +43,22 @@
  * @see html.html.twig
  */
 #}
-{{ include('@ilo_base_theme/patterns/site-header/site-header.html.twig', {
-  primary_nav_items: primary_nav_items,
-  secondary_nav_items: secondary_nav_items,
-  languagelabel: language_label,
-  languagelinks: language_links
+{{ pattern('navigation', {
+  logo: {
+    "image": ilo_asset_path ~ "/logo_en_horizontal_white.svg",
+    "alt": "ILO Logo"|t,
+  },
+  mobilelogo: {
+    "image": ilo_asset_path ~ "/logo_en_horizontal_blue.svg",
+    "alt": "ILO Logo"|t,
+  },
+  siteurl: base_path,
+  tagline: {
+    "tag": "Advancing social justice, promoting decent work"|t,
+    "small": "ILO is a specialized agency of the United Nations"|t
+  },
+  menulabel: "Menu"|t,
+  menucloselabel: "Close"|t,
 }) }}
 <div class="ilo--container">
   <main role="main">

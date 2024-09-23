@@ -5,6 +5,9 @@
  * Theme file.
  */
 
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Menu\MenuTreeParameters;
+
 /**
  * Implements hook_preprocess().
  */
@@ -16,9 +19,60 @@ function ilo_base_theme_preprocess(&$variables) {
 /**
  * Implements hook_preprocess_HOOK() for page.
  */
+function ilo_base_theme_preprocess_pattern_navigation(&$variables) {
+  /** @var \Drupal\Core\Menu\MenuLinkTreeInterface $menu_link_tree */
+  $menu_link_tree = \Drupal::service('menu.link_tree');
+  $parameters = new MenuTreeParameters();
+  $parameters->setMinDepth(1);
+  $parameters->setMaxDepth(3);
+  $parameters->onlyEnabledLinks();
+  $manipulators = [
+    ['callable' => 'menu.default_tree_manipulators:checkAccess'],
+    ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
+  ];
+  $tree = $menu_link_tree->load('main', $parameters);
+  $tree = $menu_link_tree->transform($tree, $manipulators);
+  $menu = $menu_link_tree->build($tree);
+
+  // Extract cache metadata from menu and apply it to current render array.
+  $cache = CacheableMetadata::createFromRenderArray($menu);
+  $cache->addCacheTags(['menu_link_content_list']);
+  $cache->applyTo($variables);
+
+  // Process current menu links and pass them to the pattern primary nav field.
+  $variables['primarynav']['items'] = array_map(function ($item) {
+    return [
+      'label' => $item['title'],
+      'link' => $item['url'],
+    ];
+  }, $menu['#items']);
+
+  // Process "More" expandable items  and pass them to the pattern field.
+  if (!empty($menu['#items']['ilo_base_theme_companion.main.more']['below'])) {
+    $variables['subnav'] = [
+      'navlabel' => t("Secondary Navigation"),
+      'buttonlabel' => t("More"),
+      'mobilecloselabel' => t("Close"),
+      'mobilebacklabel' => t("Menu Home"),
+      'items' => array_map(function ($item) {
+        return [
+          'label' => $item['title'],
+          'link' => $item['url'],
+        ];
+      }, $menu['#items']['ilo_base_theme_companion.main.more']['below']),
+    ];
+  }
+
+  // Always remove the convenience "More" menu link.
+  unset($variables['primarynav']['items']['ilo_base_theme_companion.main.more']);
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.
+ */
 function ilo_base_theme_preprocess_page(&$variables) {
+  // @TODO: remove this once pattern preprocess are done.
   // To populate hedear/footer menu, pass here some hard coded variables just as example.
-  // @TODO: implement proper code to retrieve links from real menu.
   // For example:
   // 1. Create the following menus via administration UI:
   //    - header primary menu
@@ -92,7 +146,7 @@ function ilo_base_theme_preprocess_page(&$variables) {
       "url" => "https://www.ilo.org"
     ],
     [
-      "endsection" => true,
+      "endsection" => TRUE,
       "label" => "Link Three Ends A Section",
       "url" => "https://www.ilo.org"
     ],
