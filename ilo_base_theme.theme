@@ -114,45 +114,6 @@ function ilo_base_theme_preprocess_pattern_navigation(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_HOOK() for page.
- */
-function ilo_base_theme_preprocess_page(&$variables) {
-  // @TODO: remove this once pattern preprocess are done.
-  $variables['footer_primary_links'] = [
-    [
-      "label" => "Contact us",
-      "url" => "https =>//www.ilo.org"
-    ],
-    [
-      "label" => "Contact us",
-      "url" => "https =>//www.ilo.org"
-    ],
-    [
-      "label" => "Contact us",
-      "url" => "https =>//www.ilo.org"
-    ]
-  ];
-  $variables['footer_secondary_links'] = [
-    [
-      "label" => "Rights and permissions",
-      "url" => "http =>//www.cnn.com"
-    ],
-    [
-      "label" => "Privacy policy",
-      "url" => "http =>//www.bing.com"
-    ],
-    [
-      "label" => "Fraud alert",
-      "url" => "http =>//www.yahoo.com"
-    ],
-    [
-      "label" => "Disclaimer",
-      "url" => "http =>//www.askjeeves.com"
-    ]
-  ];
-}
-
-/**
  * Implements hook_theme_suggestions_HOOK_alter() for form_element.
  */
 function ilo_base_theme_theme_suggestions_form_element_alter(&$suggestions, $variables) {
