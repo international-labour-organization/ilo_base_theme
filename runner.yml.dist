@@ -17,6 +17,7 @@ drupal:
     - "./vendor/bin/drush en styleguide -y"
     - "./vendor/bin/drush en ilo_base_theme_companion -y"
     - "./vendor/bin/drush en ilo_base_theme_preview -y"
+    - "./vendor/bin/drush en ilo_base_theme_demo -y"
     - "./vendor/bin/drush theme:enable ilo_base_theme -y"
     - "./vendor/bin/drush theme:enable claro -y"
     - "./vendor/bin/drush config-set system.theme default ilo_base_theme -y"
@@ -34,6 +35,11 @@ drupal:
         - "vendor"
         - "${drupal.root}"
       file_private_path: 'sites/default/files/private'
+      cache:
+        bins:
+          render: 'cache.backend.null'
+          page: 'cache.backend.null'
+          dynamic_page_cache: 'cache.backend.null'
     config:
       system.logging:
         error_level: 'verbose'
@@ -48,6 +54,7 @@ commands:
     - { task: "run", command: "drupal:settings-setup" }
     # Generate settings.testing.php, it will be used when running functional tests.
     - { task: "process-php", type: "write", config: "drupal.settings", source: "${drupal.root}/sites/default/default.settings.php", destination: "${drupal.root}/sites/default/settings.testing.php", override: true }
+    - { task: "copy", from: "${drupal.root}/sites/development.services.yml", to: "${drupal.root}/sites/default/services.yml" }
     - { task: "run", command: "setup:phpunit" }
   drupal:fix-perms:
     - "chmod -R 775 web/sites/default/files"
