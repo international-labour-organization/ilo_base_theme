@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: pt
-label: 'Portuguese, International'
+label: 'Portuguese'
 direction: ltr
 weight: 9
 locked: false

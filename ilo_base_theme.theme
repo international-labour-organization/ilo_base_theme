@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Menu\MenuTreeParameters;
 
 /**
@@ -51,10 +52,9 @@ function ilo_base_theme_preprocess_pattern_navigation(&$variables) {
   $tree = $menu_link_tree->transform($tree, $manipulators);
   $menu = $menu_link_tree->build($tree);
 
-  // Extract cache metadata from menu and apply it to current render array.
+  // Extract cache metadata from main menu.
   $cache = CacheableMetadata::createFromRenderArray($menu);
   $cache->addCacheTags(['menu_link_content_list']);
-  $cache->applyTo($variables);
 
   // Process current menu links and pass them to the pattern primary nav field.
   $variables['primarynav']['items'] = array_map(function ($item) {
@@ -82,6 +82,31 @@ function ilo_base_theme_preprocess_pattern_navigation(&$variables) {
 
   // Always remove the convenience "More" menu link.
   unset($variables['primarynav']['items']['ilo_base_theme_companion.main.more']);
+
+  // Only show language switcher if there is more than 1 language enabled.
+  /** @var \Drupal\Core\Language\LanguageManagerInterface $language_manager */
+  $language_manager = \Drupal::service('language_manager');
+  $languages = $language_manager->getLanguages();
+  if (count($languages) > 1) {
+    $variables['languagelabel'] = $language_manager->getCurrentLanguage()->getName();
+    $variables['languagecontextmenu'] = [
+      'links' => [],
+    ];
+    foreach ($languages as $language) {
+      // Do not print link to current language.
+      if ($language->getId() === $variables['current_language_id']) {
+        continue;
+      }
+      $variables['languagecontextmenu']['links'][] = [
+        'label' => $language->getName(),
+        'url' => '',
+      ];
+    }
+  }
+
+  // Add language cache context and apply it to the current render array.
+  $cache->addCacheContexts(['languages:' . LanguageInterface::TYPE_INTERFACE]);
+  $cache->applyTo($variables);
 }
 
 /**
