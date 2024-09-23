@@ -43,23 +43,37 @@
  * @see html.html.twig
  */
 #}
-{{ pattern('navigation', {
-  logo: {
-    "image": ilo_asset_path ~ "/logo_en_horizontal_white.svg",
-    "alt": "ILO Logo"|t,
-  },
-  mobilelogo: {
-    "image": ilo_asset_path ~ "/logo_en_horizontal_blue.svg",
-    "alt": "ILO Logo"|t,
-  },
-  siteurl: base_path,
-  tagline: {
-    "tag": "Advancing social justice, promoting decent work"|t,
-    "small": "ILO is a specialized agency of the United Nations"|t
-  },
-  menulabel: "Menu"|t,
-  menucloselabel: "Close"|t,
-}) }}
+{% block header %}
+  {% set search_form_action = search_form_action|default('/search') %}
+  {{ pattern('navigation', {
+    logo: {
+      "image": ilo_asset_path ~ "/logo_" ~ ilo_logo_language ~ "_horizontal_white.svg",
+      "alt": "ILO Logo"|t,
+    },
+    mobilelogo: {
+      "image": ilo_asset_path ~ "/logo_" ~ ilo_logo_language ~ "_horizontal_blue.svg",
+      "alt": "ILO Logo"|t,
+    },
+    siteurl: base_path,
+    tagline: {
+      "tag": "Advancing social justice, promoting decent work"|t,
+      "small": "ILO is a specialized agency of the United Nations"|t
+    },
+    menulabel: "Menu"|t,
+    menucloselabel: "Close"|t,
+    searchlabel: "Search"|t,
+    searchfield: {
+      "action": search_form_action,
+      "input": {
+        "label": "",
+        "helper": "",
+        "name": "text",
+        "placeholder": "Search"|t,
+        "type": "text"
+      }
+    },
+  }) }}
+{% endblock %}
 <div class="ilo--container">
   <main role="main">
     <a id="main-content" tabindex="-1"></a>

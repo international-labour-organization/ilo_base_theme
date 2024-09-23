@@ -14,6 +14,23 @@ use Drupal\Core\Menu\MenuTreeParameters;
 function ilo_base_theme_preprocess(&$variables) {
   $variables['ilo_asset_path'] = base_path() . \Drupal::service('extension.list.theme')->getPath('ilo_base_theme') . '/dist/assets';
   $variables['current_language_id'] = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  $logo_languages = [
+    'ar' => 'ar',
+    'de' => 'de',
+    'en' => 'en',
+    'es' => 'es',
+    'fr' => 'fr',
+    'it' => 'it',
+    'ja' => 'ja',
+    'nl' => 'nl',
+    'pt' => 'pt',
+    'ru' => 'ru',
+    'tr' => 'tr',
+    'uk' => 'uk',
+    'vi' => 'vi',
+    'zh-hans' => 'zh'
+  ];
+  $variables['ilo_logo_language'] = array_key_exists($variables['current_language_id'], $logo_languages) ? $logo_languages[$variables['current_language_id']] : 'en';
 }
 
 /**
