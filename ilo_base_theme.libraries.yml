@@ -8,16 +8,16 @@ component.page-title:
   version: VERSION
   css:
     component:
-      templates/patterns/page-title/page-title.css: {}
+      templates/page-title/page-title.css: {}
 
 component.local-tasks:
   version: VERSION
   css:
     component:
-      templates/patterns/local-tasks/local-tasks.css: {}
+      templates/local-tasks/local-tasks.css: {}
 
 component.password-confirm:
   version: VERSION
   css:
     component:
-      templates/patterns/password-confirm/password-confirm.css: {}
+      templates/password-confirm/password-confirm.css: {}
