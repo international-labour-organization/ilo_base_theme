@@ -8,6 +8,7 @@
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_preprocess().
@@ -99,7 +100,10 @@ function ilo_base_theme_preprocess_pattern_navigation(&$variables) {
       }
       $variables['languagecontextmenu']['links'][] = [
         'label' => $language->getName(),
-        'url' => '',
+        // @todo: use the actual language switcher here.
+        'url' => Url::fromRoute('<front>', [], [
+          'language' => $language,
+        ]),
       ];
     }
   }
@@ -114,93 +118,6 @@ function ilo_base_theme_preprocess_pattern_navigation(&$variables) {
  */
 function ilo_base_theme_preprocess_page(&$variables) {
   // @TODO: remove this once pattern preprocess are done.
-  // To populate hedear/footer menu, pass here some hard coded variables just as example.
-  // For example:
-  // 1. Create the following menus via administration UI:
-  //    - header primary menu
-  //    - header secondary menu
-  //    - footer primary menu
-  //    - footer secondary menu
-  // 2. Implement code to retrieve labels/urls from above menus.
-  // 3. Pass such values to variables below.
-  // 4. Manage the language links in a similar way (a "language_label" and "language_links" need to be passed).
-  // QUESTION: may be it would be better to retrieve such data in specific patterns preprocess ?
-  $variables['primary_nav_items'] = [
-    [
-      "link" => "https://www.ilo.org",
-      "label" => "Topics"
-    ],
-    [
-      "link" => "https://www.ilo.org",
-      "label" => "Countries"
-    ],
-    [
-      "link" => "https://www.ilo.org",
-      "label" => "Standards"
-    ],
-    [
-      "link" => "https://www.ilo.org",
-      "label" => "Statistics"
-    ],
-    [
-      "link" => "https://www.ilo.org",
-      "label" => "About"
-    ]
-  ];
-  $variables['secondary_nav_items'] = [
-    [
-      "link" => "https://www.ilo.org",
-      "label" => "News"
-    ],
-    [
-      "link" => "https://www.ilo.org",
-      "label" => "Meeting & Events"
-    ],
-    [
-      "link" => "https://www.ilo.org",
-      "label" => "Publications"
-    ],
-    [
-      "link" => "https://www.ilo.org",
-      "label" => "Projects"
-    ],
-    [
-      "link" => "https://www.ilo.org",
-      "label" => "Partners"
-    ],
-    [
-      "link" => "https://www.ilo.org",
-      "label" => "Industries & Sectors"
-    ],
-    [
-      "link" => "https://www.ilo.org",
-      "label" => "About the ILO"
-    ]
-  ];
-  $variables['language_label'] = "English";
-  $variables['language_links'] = [
-    [
-      "label" => "Link One",
-      "url" => "https://www.ilo.org"
-    ],
-    [
-      "label" => "Link Two",
-      "url" => "https://www.ilo.org"
-    ],
-    [
-      "endsection" => TRUE,
-      "label" => "Link Three Ends A Section",
-      "url" => "https://www.ilo.org"
-    ],
-    [
-      "label" => "Link Four",
-      "url" => "https://www.ilo.org"
-    ],
-    [
-      "label" => "Link Five Is Slightly Longer",
-      "url" => "https://www.ilo.org"
-    ]
-  ];
   $variables['footer_primary_links'] = [
     [
       "label" => "Contact us",
