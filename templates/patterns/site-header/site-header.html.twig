@@ -11,14 +11,14 @@
 #}
 {{ pattern('navigation', {
   logo: {
-    "image": "https://twig.ui.ilo.org/images/logo_en_horizontal_white.svg",
+    "image": ilo_asset_path ~ "/logo_en_horizontal_white.svg",
     "alt": "ILO Logo"|t,
   },
   mobilelogo: {
-    "image": "https://twig.ui.ilo.org/images/logo_en_horizontal_blue.svg",
+    "image": ilo_asset_path ~ "/logo_en_horizontal_blue.svg",
     "alt": "ILO Logo"|t,
   },
-  siteurl: "/",
+  siteurl: base_path,
   tagline: {
     "tag": "Advancing social justice, promoting decent work"|t,
     "small": "ILO is a specialized agency of the United Nations"|t

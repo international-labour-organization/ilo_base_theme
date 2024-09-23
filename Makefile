@@ -39,6 +39,9 @@ install-design-system:
 	cp ./node_modules/@ilo-org/styles/css/global.css ./modules/ilo_base_theme_companion/dist
 	cp -r ./node_modules/@ilo-org/fonts/assets ./modules/ilo_base_theme_companion/dist/fonts
 	cp -r ./node_modules/@ilo-org/fonts/font-css ./modules/ilo_base_theme_companion/dist/fonts
+	rm -rf ./dist
+	mkdir -p ./dist
+	cp -r ./node_modules/@ilo-org/brand-assets/dist/assets ./dist/assets
 
 # Install test site.
 ## build		: Build the development environment.

@@ -6,6 +6,14 @@
  */
 
 /**
+ * Implements hook_preprocess().
+ */
+function ilo_base_theme_preprocess(&$variables) {
+  $variables['ilo_asset_path'] = base_path() . \Drupal::service('extension.list.theme')->getPath('ilo_base_theme') . '/dist/assets';
+  $variables['current_language_id'] = \Drupal::languageManager()->getCurrentLanguage()->getId();
+}
+
+/**
  * Implements hook_preprocess_HOOK() for page.
  */
 function ilo_base_theme_preprocess_page(&$variables) {
