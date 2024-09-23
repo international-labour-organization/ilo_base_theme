@@ -1,0 +1,9 @@
+# This menu link is used in the main menu to group all links under the header's expandable "More" panel.
+# If the link does not have any child items, it will not be displayed.
+ilo_base_theme_companion.main.more:
+  title: 'More'
+  route_name: "<none>"
+  menu_name: "main"
+  expanded: true
+  enabled: false
+  weight: 100

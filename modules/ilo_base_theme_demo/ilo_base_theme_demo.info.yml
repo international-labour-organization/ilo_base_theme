@@ -1,0 +1,9 @@
+name: ILO Base Theme Demo
+description: Provides menus and other initial content to showcase the ILO Base theme.
+type: module
+core_version_requirement: '^9 || ^10'
+package: ILO
+dependencies:
+  - drupal:block
+  - styleguide:styleguide
+  - ilo_base_theme:ilo_base_theme_companion
