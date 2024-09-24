@@ -55,8 +55,21 @@ commands:
     - { task: "run", command: "drupal:settings-setup" }
     # Generate settings.testing.php, it will be used when running functional tests.
     - { task: "process-php", type: "write", config: "drupal.settings", source: "${drupal.root}/sites/default/default.settings.php", destination: "${drupal.root}/sites/default/settings.testing.php", override: true }
-    - { task: "copy", from: "${drupal.root}/sites/development.services.yml", to: "${drupal.root}/sites/default/services.yml" }
     - { task: "run", command: "setup:phpunit" }
+    - { task: "remove", file: "${drupal.root}/sites/default/services.yml" }
+# To disable caching copy runner.yml.dist to runner.yml and uncomment these lines.
+#    - task: "append"
+#      file: "${drupal.root}/sites/default/services.yml"
+#      text: |
+#        parameters:
+#          http.response.debug_cacheability_headers: true
+#          twig.config:
+#            debug: true
+#            auto_reload: true
+#            cache: false
+#        services:
+#          cache.backend.null:
+#            class: Drupal\Core\Cache\NullBackendFactory
   drupal:fix-perms:
     - "chmod -R 775 web/sites/default/files"
     - "chown -R www-data:www-data web/sites/default/files"
