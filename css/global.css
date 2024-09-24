@@ -1,3 +1,9 @@
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
+}
+
 .pattern-preview,
 .pattern-preview__preview {
   margin: 2rem 0;
