@@ -1,0 +1,17 @@
+- case: "Form contains ILO classes"
+  array:
+    '#plain_text': 'Dummy placeholder for form rendering test.'
+  assert:
+    count:
+      'form.ilo--form': 1
+- case: "Input text field contains ILO classes"
+  array:
+    '#type': "textfield"
+    '#title': "Input label"
+    '#id': "input-123"
+  assert:
+    count:
+      'div.ilo--form-control.ilo--form-control__label-placement__top input#input-123.ilo--text-input': 1
+      'div.ilo--form-control.ilo--form-control__label-placement__top span.ilo--form-control--label.ilo--form-control--label__size__medium': 1
+    equals:
+      'div.ilo--form-control.ilo--form-control__label-placement__top span.ilo--form-control--label.ilo--form-control--label__size__medium > label': "Input label"

@@ -12,3 +12,93 @@
 .pattern-preview__markup {
   padding: 2rem 0;
 }
+
+/*
+ * BUTTONS
+ *
+ * Map ILO Design System buttons to default Drupal button classes (only applied to links)
+ *
+ * Default Drupal button types are only 'primary' and 'danger'
+ * ref:
+ * - https://www.drupal.org/docs/develop/user-interface-standards/buttons
+ * - https://agaric.gitlab.io/raw-notes/notes/2019-11-03-what-button-types-are-available-in-drupal-8/
+ */
+
+/* .ilo--button to .button */
+a.button {
+  --ilo-button-label-weight: 700;
+  --ilo-button-labels-actionable-color: var(--ilo-color-blue-dark);
+  --ilo-button-labels-active-color: var(--ilo-color-blue-light);
+  --ilo-button-labels-alert-color: var(--ilo-color-white);
+  --ilo-button-labels-hover-color: var(--ilo-color-blue);
+  display: inline-block;
+  font-family: var(--ilo-fonts-display);
+  font-weight: var(--ilo-button-label-weight);
+  border-radius: var(--ilo-border-md);
+  transition-property: color,background-color,border-color;
+  transition-duration: .15s;
+  transition-timing-function: ease-out;
+  /* We assign the medium size by default to buttons: */
+  padding: calc(2 * var(--ilo-spacing-base)) calc(5 * var(--ilo-spacing-base));
+  font-size: 16px;
+  letter-spacing: -.02em;
+  line-height: 120%;
+  /* Btw take in account that to reach the correct spacing,
+     button labels needs to be wrapped in a span, for example:
+     <a class="ilo--button">
+        <span class="link__label">Button</span>
+     </a>
+     (see the next rule)
+   */
+}
+
+a.button .link__label {
+  padding-inline-start: calc(6 * var(--ilo-spacing-base));
+  display: inline-block;
+  position: relative;
+  top: .1071811361rem;
+}
+
+/* .ilo--button__primary to .button--primary */
+a.button--primary {
+  background-color: var(--ilo-color-yellow);
+  border: var(--ilo-border-md) var(--ilo-color-yellow) solid;
+  color: var(--ilo-button-labels-actionable-color);
+}
+
+/* .ilo--button__alert to .button--danger */
+a.button--danger {
+  background-color: var(--ilo-color-red-dark);
+  border: var(--ilo-border-md) var(--ilo-color-red-dark) solid;
+  color: var(--ilo-button-labels-alert-color);
+}
+
+/* .ilo--button__small to .button--small */
+a.button--small {
+  padding: calc(1 * var(--ilo-spacing-base)) calc(4 * var(--ilo-spacing-base));
+  font-size: 14.93px;
+  letter-spacing: -.02em;
+  line-height: 120%;
+}
+
+
+/*
+ * FORMS
+ *
+ * Forms adjustments.
+ */
+.ilo--form-control--helper--fieldset {
+  margin-top: 15px;
+}
+
+/* Fixes and improvements starting from here.
+   @TODO: Check whether to bring these improvements
+   back to the original ILO Design System component
+ */
+
+/* Fix 1
+   Avoid label to be "centered" when the element description/helper has very long text.
+ */
+.ilo--form-control__label-placement__end {
+  grid-template-columns: auto 1fr;
+}

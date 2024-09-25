@@ -2,12 +2,14 @@
 
 Drupal 10 theme based on the [ILO Design System][1]. The project is structured in the following way:
 
-- A very basic base theme, with not much in it at the moment. This will change in the future as more and more default
-  Drupal templates (e.g. tabs, forms, etc.) will be provided by default, complying with the ILO Design System.
+- A Drupal base theme providing pre-styled core Drupal elements (such as forms, tabs, and navigation), all adhering to the ILO’s design guidelines.
 - A theme companion module [`ilo_base_theme_companion`](modules/ilo_base_theme_companion), which exposes all compatible
   ILO Design System components as Drupal patterns. Check the [UI Patterns][6] and the [UI Patterns Settings][7] modules for more information.
 
 The theme requires the companion module to be enabled, while one could enable the companion module without enabling the base theme.
+
+Enabling only the companion module is useful for projects that already have the ILO Design System integrated but have not yet
+adopted patterns, allowing for incremental adoption of the base theme's pattern-based approach.
 
 ## Table of contents
 
