@@ -7,7 +7,6 @@ yarn.lock
 runner.yml
 .idea
 .DS_Store
-package-lock.json
 phpunit.xml
 .stylelintrc.json
 docker-compose.override.yml
@@ -17,5 +16,4 @@ yarn-error.log
 *.zip
 
 /modules/ilo_base_theme_companion/dist/
-/dist/
 /ilo_base_theme/

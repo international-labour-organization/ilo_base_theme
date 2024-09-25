@@ -14,7 +14,7 @@ use Drupal\Core\Url;
  * Implements hook_preprocess().
  */
 function ilo_base_theme_preprocess(&$variables) {
-  $variables['ilo_asset_path'] = base_path() . \Drupal::service('extension.list.theme')->getPath('ilo_base_theme') . '/dist/assets';
+  $variables['ilo_asset_path'] = base_path() . \Drupal::service('extension.list.theme')->getPath('ilo_base_theme') . '/dist/brand-assets';
   $variables['current_language_id'] = \Drupal::languageManager()->getCurrentLanguage()->getId();
   $logo_languages = [
     'ar' => 'ar',
