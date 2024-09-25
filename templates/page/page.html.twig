@@ -43,6 +43,37 @@
  * @see html.html.twig
  */
 #}
+{% block header %}
+  {% set search_form_action = search_form_action|default('/search') %}
+  {{ pattern('navigation', {
+    logo: {
+      "image": ilo_asset_path ~ "/logo_" ~ ilo_logo_language ~ "_horizontal_white.svg",
+      "alt": "ILO Logo"|t,
+    },
+    mobilelogo: {
+      "image": ilo_asset_path ~ "/logo_" ~ ilo_logo_language ~ "_horizontal_blue.svg",
+      "alt": "ILO Logo"|t,
+    },
+    siteurl: base_path,
+    tagline: {
+      "tag": "Advancing social justice, promoting decent work"|t,
+      "small": "ILO is a specialized agency of the United Nations"|t
+    },
+    menulabel: "Menu"|t,
+    menucloselabel: "Close"|t,
+    searchlabel: "Search"|t,
+    searchfield: {
+      "action": search_form_action,
+      "input": {
+        "label": "",
+        "helper": "",
+        "name": "text",
+        "placeholder": "Search"|t,
+        "type": "text"
+      }
+    },
+  }) }}
+{% endblock %}
 <div class="ilo--container">
   <main role="main">
     <a id="main-content" tabindex="-1"></a>
@@ -51,3 +82,98 @@
     </div>
   </main>
 </div>
+{% block footer %}
+  {% set footer_primary_links = footer_primary_links|default([
+    {
+      label: "Contact us"|t,
+      url: "https://www.ilo.org/contact-us"
+    }]) %}
+  {% set footer_secondary_links = footer_secondary_links|default([
+    {
+      label: "Privacy policy"|t,
+      url: "https://www.ilo.org/global/privacy-policy/lang--en/index.htm"
+    },
+    {
+      label: "Disclaimer"|t,
+      url: "https://www.ilo.org/global/disclaimer/lang--en/index.htm"
+    },
+    {
+      label: "Fraud alert"|t,
+      url: "https://www.ilo.org/global/about-the-ilo/fraud-alert/lang--en/index.htm"
+    },
+    {
+      label: "Terms and conditions"|t,
+      url: "https://www.ilo.org/global/terms-and-conditions/lang--en/index.htm"
+    }
+  ]) %}
+  {% set subscribe_link = subscribe_link|default('https://adestra.ilo.org/k/Ilo/news_updates') %}
+  {{ pattern('footer', {
+    logo: {
+      "alt": "ILO Logo"|t,
+      "url": ilo_asset_path ~ "/logo_en_horizontal_white.svg"
+    },
+    tagline: "Advancing social justice, promoting decent work"|t,
+    subtagline: "ILO is a specialized agency of the United Nations"|t,
+    address: [
+      "International Labour Organization"|t,
+      "4 route des Morillons"|t,
+      "CH-1211 Genève 22"|t,
+      "Switzerland"|t
+    ],
+    linkgroup: [
+      {
+        "links": footer_primary_links
+      }
+    ],
+    socialmedia: {
+      "headline": "Stay informed"|t,
+      "icons": [
+        {
+          "icon": "x",
+          "label": "X",
+          "url": "https://x.com/ilo"
+        },
+        {
+          "icon": "facebook",
+          "label": "Facebook",
+          "url": "https://www.facebook.com/ilo.org"
+        },
+        {
+          "icon": "linkedin",
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/company/international-labour-organization-ilo"
+        },
+        {
+          "icon": "instagram",
+          "label": "Instagram",
+          "url": "https://www.instagram.com/ilo.org/"
+        },
+        {
+          "icon": "tiktok",
+          "label": "TikTok",
+          "url": "https://www.tiktok.com/@ilo"
+        },
+        {
+          "icon": "flickr",
+          "label": "Flickr",
+          "url": "https://www.flickr.com/photos/ilopictures/albums"
+        },
+        {
+          "icon": "youtube",
+          "label": "YouTube",
+          "url": "https://www.youtube.com/channel/UCrlcu5KChYyHwXlIeD7oLUg"
+        }
+      ]
+    },
+    subscribe: {
+      "label": "Subscribe for updates"|t,
+      "url": subscribe_link
+    },
+    legal: "© 1996-#{'now'|date('Y')} International Labour Organization (ILO)",
+    secondarylinks: footer_secondary_links,
+    anchorlink: {
+      "label": "Back to top"|t,
+      "href": "#main-content"
+    }
+  }) }}
+{% endblock %}

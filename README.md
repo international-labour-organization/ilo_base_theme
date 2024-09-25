@@ -221,6 +221,15 @@ Development can be set up via [Makefile](Makefile)'s targets, as follows:
   - Install the Design System
   - Expose the site on [http://localhost:8081](http://localhost:8081)
 
+**Please note:** project files and directories are symlinked within the target site by using the
+[OpenEuropa Task Runner's Drupal project symlink](https://github.com/openeuropa/task-runner-drupal-project-symlink) command.
+
+If you add a new file or directory in the root of the project, you need run:
+
+```
+$ ./vendor/bin/run drupal:symlink-project
+```
+
 When working on the theme you might want to enable Drupal Twig debugging by running:
 
 ```

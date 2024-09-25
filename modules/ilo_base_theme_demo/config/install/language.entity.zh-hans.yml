@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: zh-hans
+label: 'Chinese'
+direction: ltr
+weight: 14
+locked: false

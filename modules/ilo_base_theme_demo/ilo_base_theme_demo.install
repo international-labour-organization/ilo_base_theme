@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Install file.
+ */
+
+declare(strict_types=1);
+
+use Drupal\user\RoleInterface;
+
+/**
+ * Implements hook_install().
+ */
+function ilo_base_theme_demo_install() {
+  // Enable default demo permissions.
+  user_role_grant_permissions(RoleInterface::ANONYMOUS_ID, [
+    'access patterns page',
+    'view style guides',
+  ]);
+  user_role_grant_permissions(RoleInterface::AUTHENTICATED_ID, [
+    'access patterns page',
+    'view style guides',
+  ]);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function ilo_base_theme_demo_uninstall() {
+  // Remove default demo permissions.
+  user_role_revoke_permissions(RoleInterface::ANONYMOUS_ID, [
+    'access patterns page',
+    'view style guides',
+  ]);
+  user_role_revoke_permissions(RoleInterface::AUTHENTICATED_ID, [
+    'access patterns page',
+    'view style guides',
+  ]);
+}

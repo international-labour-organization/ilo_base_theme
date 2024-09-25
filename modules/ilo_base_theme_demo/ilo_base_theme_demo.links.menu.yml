@@ -1,0 +1,118 @@
+ilo_base_theme_demo.main.home:
+  title: 'Home'
+  route_name: "<front>"
+  menu_name: "main"
+  weight: 0
+
+ilo_base_theme_demo.main.about:
+  title: 'About'
+  route_name: "<none>"
+  menu_name: "main"
+  expanded: true
+  weight: 1
+
+ilo_base_theme_demo.main.topics:
+  title: 'Topics'
+  route_name: "<none>"
+  menu_name: "main"
+  weight: 2
+
+ilo_base_theme_demo.main.countries:
+  title: 'Countries'
+  route_name: "<none>"
+  menu_name: "main"
+  weight: 3
+
+ilo_base_theme_demo.main.research:
+  title: 'Research'
+  route_name: "<none>"
+  menu_name: "main"
+  weight: 4
+
+ilo_base_theme_demo.main.data:
+  title: 'Data'
+  route_name: "<none>"
+  menu_name: "main"
+  weight: 5
+
+ilo_base_theme_demo.main.standards:
+  title: 'Standards'
+  route_name: "<none>"
+  menu_name: "main"
+  weight: 6
+
+ilo_base_theme_demo.main.partnerships:
+  title: 'Partnerships'
+  route_name: "<none>"
+  menu_name: "main"
+  weight: 7
+
+ilo_base_theme_demo.main.more.newsroom:
+  title: 'Newsroom'
+  route_name: "<none>"
+  menu_name: "main"
+  parent: ilo_base_theme_companion.main.more
+  weight: 1
+
+ilo_base_theme_demo.main.more.meetings_events:
+  title: 'Meetings and Events'
+  route_name: "<none>"
+  menu_name: "main"
+  parent: ilo_base_theme_companion.main.more
+  weight: 2
+
+ilo_base_theme_demo.main.more.international_labour_conference:
+  title: 'International Labour Conference'
+  route_name: "<none>"
+  menu_name: "main"
+  parent: ilo_base_theme_companion.main.more
+  weight: 3
+
+ilo_base_theme_demo.main.more.governing_body:
+  title: 'Governing Body'
+  route_name: "<none>"
+  menu_name: "main"
+  parent: ilo_base_theme_companion.main.more
+  weight: 4
+
+ilo_base_theme_demo.main.more.industries_sectors:
+  title: 'Industries and Sectors'
+  route_name: "<none>"
+  menu_name: "main"
+  parent: ilo_base_theme_companion.main.more
+  weight: 5
+
+ilo_base_theme_demo.main.more.ilo_director_general:
+  title: 'ILO Director-General'
+  route_name: "<none>"
+  menu_name: "main"
+  parent: ilo_base_theme_companion.main.more
+  weight: 6
+
+ilo_base_theme_demo.main.more.bureau_employers_activities:
+  title: "Bureau for Employers' Activities"
+  route_name: "<none>"
+  menu_name: "main"
+  parent: ilo_base_theme_companion.main.more
+  weight: 7
+
+ilo_base_theme_demo.main.more.bureau_workers_activities:
+  title: "Bureau for Workers' Activities"
+  route_name: "<none>"
+  menu_name: "main"
+  parent: ilo_base_theme_companion.main.more
+  weight: 8
+
+ilo_base_theme_demo.main.more.ilostat:
+  title: 'ILOSTAT'
+  route_name: "<none>"
+  menu_name: "main"
+  parent: ilo_base_theme_companion.main.more
+  weight: 9
+
+ilo_base_theme_demo.main.more.ilo_live:
+  title: 'ILO Live'
+  route_name: "<none>"
+  menu_name: "main"
+  parent: ilo_base_theme_companion.main.more
+  weight: 10

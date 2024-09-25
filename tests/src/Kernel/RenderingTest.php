@@ -50,7 +50,7 @@ class RenderingTest extends AbstractKernelTestBase implements FormInterface {
    * @return array
    *   The form structure.
    */
-  public function buildForm(array $form, FormStateInterface $form_state, array $structure = NULL): array {
+  public function buildForm(array $form, FormStateInterface $form_state, array $structure = []): array {
     $form['test'] = $structure;
 
     return $form;

@@ -17,6 +17,7 @@ drupal:
     - "./vendor/bin/drush en styleguide -y"
     - "./vendor/bin/drush en ilo_base_theme_companion -y"
     - "./vendor/bin/drush en ilo_base_theme_preview -y"
+    - "./vendor/bin/drush en ilo_base_theme_demo -y"
     - "./vendor/bin/drush theme:enable ilo_base_theme -y"
     - "./vendor/bin/drush theme:enable claro -y"
     - "./vendor/bin/drush config-set system.theme default ilo_base_theme -y"
@@ -34,12 +35,18 @@ drupal:
         - "vendor"
         - "${drupal.root}"
       file_private_path: 'sites/default/files/private'
-    config:
-      system.logging:
-        error_level: 'verbose'
-      system.performance:
-        css: { preprocess: false }
-        js: { preprocess: false }
+# To disable caching copy runner.yml.dist to runner.yml and uncomment these lines.
+#      cache:
+#        bins:
+#          render: 'cache.backend.null'
+#          page: 'cache.backend.null'
+#          dynamic_page_cache: 'cache.backend.null'
+#    config:
+#      system.logging:
+#        error_level: 'verbose'
+#      system.performance:
+#        css: { preprocess: false }
+#        js: { preprocess: false }
 
 commands:
   drupal:site-setup:
@@ -49,6 +56,20 @@ commands:
     # Generate settings.testing.php, it will be used when running functional tests.
     - { task: "process-php", type: "write", config: "drupal.settings", source: "${drupal.root}/sites/default/default.settings.php", destination: "${drupal.root}/sites/default/settings.testing.php", override: true }
     - { task: "run", command: "setup:phpunit" }
+    - { task: "remove", file: "${drupal.root}/sites/default/services.yml" }
+# To disable caching copy runner.yml.dist to runner.yml and uncomment these lines.
+#    - task: "append"
+#      file: "${drupal.root}/sites/default/services.yml"
+#      text: |
+#        parameters:
+#          http.response.debug_cacheability_headers: true
+#          twig.config:
+#            debug: true
+#            auto_reload: true
+#            cache: false
+#        services:
+#          cache.backend.null:
+#            class: Drupal\Core\Cache\NullBackendFactory
   drupal:fix-perms:
     - "chmod -R 775 web/sites/default/files"
     - "chown -R www-data:www-data web/sites/default/files"

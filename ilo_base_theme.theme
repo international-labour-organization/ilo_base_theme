@@ -5,6 +5,130 @@
  * Theme file.
  */
 
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Language\LanguageInterface;
+use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_preprocess().
+ */
+function ilo_base_theme_preprocess(&$variables) {
+  $variables['ilo_asset_path'] = base_path() . \Drupal::service('extension.list.theme')->getPath('ilo_base_theme') . '/dist/assets';
+  $variables['current_language_id'] = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  $logo_languages = [
+    'ar' => 'ar',
+    'de' => 'de',
+    'en' => 'en',
+    'es' => 'es',
+    'fr' => 'fr',
+    'it' => 'it',
+    'ja' => 'ja',
+    'nl' => 'nl',
+    'pt' => 'pt',
+    'ru' => 'ru',
+    'tr' => 'tr',
+    'uk' => 'uk',
+    'vi' => 'vi',
+    'zh-hans' => 'zh'
+  ];
+  $variables['ilo_logo_language'] = array_key_exists($variables['current_language_id'], $logo_languages) ? $logo_languages[$variables['current_language_id']] : 'en';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.
+ */
+function ilo_base_theme_preprocess_pattern_navigation(&$variables) {
+  /** @var \Drupal\Core\Menu\MenuLinkTreeInterface $menu_link_tree */
+  $menu_link_tree = \Drupal::service('menu.link_tree');
+  $parameters = new MenuTreeParameters();
+  $parameters->setMinDepth(1);
+  $parameters->setMaxDepth(3);
+  $parameters->onlyEnabledLinks();
+  $manipulators = [
+    ['callable' => 'menu.default_tree_manipulators:checkAccess'],
+    ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
+  ];
+  $tree = $menu_link_tree->load('main', $parameters);
+  $tree = $menu_link_tree->transform($tree, $manipulators);
+  $menu = $menu_link_tree->build($tree);
+
+  // Extract cache metadata from main menu.
+  $cache = CacheableMetadata::createFromRenderArray($menu);
+  $cache->addCacheTags(['menu_link_content_list']);
+
+  // Process current menu links and pass them to the pattern primary nav field.
+  $variables['primarynav']['items'] = array_map(function ($item) {
+    return [
+      'label' => $item['title'],
+      'link' => $item['url'],
+    ];
+  }, $menu['#items']);
+
+  // Process "More" expandable items  and pass them to the pattern field.
+  if (!empty($menu['#items']['ilo_base_theme_companion.main.more']['below'])) {
+    $variables['subnav'] = [
+      'navlabel' => t("Secondary Navigation"),
+      'buttonlabel' => t("More"),
+      'mobilecloselabel' => t("Close"),
+      'mobilebacklabel' => t("Menu Home"),
+      'items' => array_map(function ($item) {
+        return [
+          'label' => $item['title'],
+          'link' => $item['url'],
+        ];
+      }, $menu['#items']['ilo_base_theme_companion.main.more']['below']),
+    ];
+  }
+
+  // Always remove the convenience "More" menu link.
+  unset($variables['primarynav']['items']['ilo_base_theme_companion.main.more']);
+
+  // The following code is inspired by Drupal core's language switcher block.
+  // @see \Drupal\language\Plugin\Block\LanguageBlock::build().
+  /** @var \Drupal\Core\Language\LanguageManagerInterface $language_manager */
+  $language_manager = \Drupal::service('language_manager');
+  $cache->addCacheTags(['config:configurable_language_list']);
+  if ($language_manager->isMultilingual()) {
+    $route_match = \Drupal::routeMatch();
+    // If there is no route match, for example when creating blocks on 404 pages
+    // for logged-in users with big_pipe enabled using the front page instead.
+    if (\Drupal::service('path.matcher')->isFrontPage() || !$route_match->getRouteObject()) {
+      // We are skipping the route match on both 404 and front page.
+      // Example: If on front page, there is no route match like when creating
+      // blocks on 404 pages for logged-in users with big_pipe enabled, use the
+      // front page.
+      $url = Url::fromRoute('<front>');
+    }
+    else {
+      $url = Url::fromRouteMatch($route_match);
+    }
+    $links = $language_manager->getLanguageSwitchLinks(LanguageInterface::TYPE_INTERFACE, $url);
+    $variables['languagelabel'] = $language_manager->getCurrentLanguage()->getName();
+    $variables['languagecontextmenu'] = [
+      'links' => [],
+    ];
+    foreach ($links->links as $language_id => $link) {
+      // Do not print link to current language.
+      if ($language_id === $variables['current_language_id']) {
+        continue;
+      }
+      $link['url']->setOption('language', $link['language']);
+      // Bubble up all cache metadata and add it to the current render array.
+      $url = $link['url']->toString(TRUE);
+      $cache->addCacheableDependency($url);
+      $variables['languagecontextmenu']['links'][] = [
+        'label' => $link['title'],
+        'url' => $link['url'],
+      ];
+    }
+  }
+
+  // Add language cache context and apply it to the current render array.
+  $cache->addCacheContexts(['languages:' . LanguageInterface::TYPE_INTERFACE]);
+  $cache->applyTo($variables);
+}
+
 /**
  * Implements hook_theme_suggestions_HOOK_alter() for form_element.
  */
