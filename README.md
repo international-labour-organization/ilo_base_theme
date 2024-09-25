@@ -143,13 +143,25 @@ make build-dist
 
 The demo site is also published in the GitHub Docker registry. To run the site use the following command:
 
-```
-docker run -p 8082:80 ghcr.io/international-labour-organization/ilo_base_theme:0.x
+```shell
+docker run --rm -p 8082:80 ghcr.io/international-labour-organization/ilo_base_theme:0.x
 ```
 
 The site will then be available at http://localhost:8082.
 
 In order to run the command above, you need to be authenticated, please check the related [documentation][8].
+
+**Note**: To get the most up-to-date version of `0.x`, make sure to remove any pre-existing images by running the following command:
+
+```shell
+docker rmi -f ghcr.io/international-labour-organization/ilo_base_theme:0.x
+```
+
+If you need to log onto the container, run:
+
+```shell
+docker run -ti --rm ghcr.io/international-labour-organization/ilo_base_theme:0.x bash
+```
 
 ## Render patterns on demand
 

@@ -93,6 +93,7 @@ release:
     - { task: "remove", file: "ilo_base_theme/runner.yml.dist" }
     - { task: "remove", file: "ilo_base_theme/modules/ilo_base_theme_preview" }
     - { task: "copy", from: "modules/ilo_base_theme_companion/dist", to: "ilo_base_theme/modules/ilo_base_theme_companion/dist" }
+    - { task: "copy", from: "dist", to: "ilo_base_theme/dist" }
     - task: "append"
       file: "ilo_base_theme/ilo_base_theme.info.yml"
       text: |
