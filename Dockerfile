@@ -8,6 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 COPY .env.dist ./
 COPY Makefile ./
+COPY ./patches ./patches
 
 # Install npm dependencies.
 RUN npm install
@@ -61,11 +62,13 @@ FROM base as dist
 COPY ./css ./css
 COPY ./modules ./modules
 COPY ./templates ./templates
-COPY /tests ./tests
+COPY ./tests ./tests
+COPY ./patches ./patches
 COPY .env.dist .
 COPY composer.json .
 COPY ilo_base_theme.info.yml .
 COPY ilo_base_theme.libraries.yml .
+COPY ilo_base_theme.theme .
 COPY logo.png .
 COPY Makefile .
 COPY runner.yml.dist .
@@ -75,6 +78,7 @@ COPY phpcs.xml.dist .
 
 # Copy design system assets to the working directory.
 COPY --from=builder /app/modules/ilo_base_theme_companion/dist ./modules/ilo_base_theme_companion/dist
+COPY --from=builder /app/dist ./dist
 
 RUN composer install
 RUN ./vendor/bin/run drupal:site-install
