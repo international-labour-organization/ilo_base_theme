@@ -1,0 +1,48 @@
+diff --git a/node_modules/@ilo-org/twig/dist/components/cardgroup/cardgroup.component.yml b/node_modules/@ilo-org/twig/dist/components/cardgroup/cardgroup.component.yml
+index 61bc94e..bab68f0 100644
+--- a/node_modules/@ilo-org/twig/dist/components/cardgroup/cardgroup.component.yml
++++ b/node_modules/@ilo-org/twig/dist/components/cardgroup/cardgroup.component.yml
+@@ -81,6 +81,7 @@ cardgroup:
+       type: object
+       label: Group of cards
+       description: "The group of cards. Each card can be one of the following types: multilink, feature, detail, graphicpromo, stat, graphic, factlist, data."
++      escape: false
+       preview:
+         - eyebrow: "Press release"
+           title: "ILO welcomes first global agreement on working conditions and rights of professional football players"
+diff --git a/node_modules/@ilo-org/twig/dist/components/hero/hero.component.yml b/node_modules/@ilo-org/twig/dist/components/hero/hero.component.yml
+index ec595bd..de9f573 100644
+--- a/node_modules/@ilo-org/twig/dist/components/hero/hero.component.yml
++++ b/node_modules/@ilo-org/twig/dist/components/hero/hero.component.yml
+@@ -8,6 +8,7 @@ hero:
+       label: Image
+       type: object
+       description: The image to display in the hero. The image will be cropped to fit the hero's aspect ratio.
++      escape: false
+       preview:
+         alt: Lorem ipsum
+         loading: lazy
+@@ -19,6 +20,7 @@ hero:
+     breadcrumb:
+       label: Bread crumbs
+       description: The breadcrumb navigation to display in the hero.
++      escape: false
+       type: object
+       preview:
+         home:
+@@ -41,6 +43,7 @@ hero:
+       label: Hero Card
+       type: object
+       description: The hero card to display in the hero. See docs on the Hero Card component for more information about the fields.
++      escape: false
+       preview:
+         title: "Child labour"
+         theme: "dark"
+@@ -61,6 +64,7 @@ hero:
+     caption:
+       label: Caption
+       type: object
++      escape: false
+       description: The credit and caption information about the image. Appears as a tooltip.
+       preview:
+         label: A metalurgy worker at a manufacturing plant in Viet Nam. © ILO/Minh Quang
