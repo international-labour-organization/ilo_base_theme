@@ -84,26 +84,42 @@ function ilo_base_theme_preprocess_pattern_navigation(&$variables) {
   // Always remove the convenience "More" menu link.
   unset($variables['primarynav']['items']['ilo_base_theme_companion.main.more']);
 
-  // Only show language switcher if there is more than 1 language enabled.
+  // The following code is inspired by Drupal core's language switcher block.
+  // @see \Drupal\language\Plugin\Block\LanguageBlock::build().
   /** @var \Drupal\Core\Language\LanguageManagerInterface $language_manager */
   $language_manager = \Drupal::service('language_manager');
-  $languages = $language_manager->getLanguages();
-  if (count($languages) > 1) {
+  $cache->addCacheTags(['config:configurable_language_list']);
+  if ($language_manager->isMultilingual()) {
+    $route_match = \Drupal::routeMatch();
+    // If there is no route match, for example when creating blocks on 404 pages
+    // for logged-in users with big_pipe enabled using the front page instead.
+    if (\Drupal::service('path.matcher')->isFrontPage() || !$route_match->getRouteObject()) {
+      // We are skipping the route match on both 404 and front page.
+      // Example: If on front page, there is no route match like when creating
+      // blocks on 404 pages for logged-in users with big_pipe enabled, use the
+      // front page.
+      $url = Url::fromRoute('<front>');
+    }
+    else {
+      $url = Url::fromRouteMatch($route_match);
+    }
+    $links = $language_manager->getLanguageSwitchLinks(LanguageInterface::TYPE_INTERFACE, $url);
     $variables['languagelabel'] = $language_manager->getCurrentLanguage()->getName();
     $variables['languagecontextmenu'] = [
       'links' => [],
     ];
-    foreach ($languages as $language) {
+    foreach ($links->links as $language_id => $link) {
       // Do not print link to current language.
-      if ($language->getId() === $variables['current_language_id']) {
+      if ($language_id === $variables['current_language_id']) {
         continue;
       }
+      $link['url']->setOption('language', $link['language']);
+      // Bubble up all cache metadata and add it to the current render array.
+      $url = $link['url']->toString(TRUE);
+      $cache->addCacheableDependency($url);
       $variables['languagecontextmenu']['links'][] = [
-        'label' => $language->getName(),
-        // @todo: use the actual language switcher here.
-        'url' => Url::fromRoute('<front>', [], [
-          'language' => $language,
-        ]),
+        'label' => $link['title'],
+        'url' => $link['url'],
       ];
     }
   }
