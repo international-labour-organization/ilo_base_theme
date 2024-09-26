@@ -2,6 +2,7 @@
   "name": "ilo_base_theme",
   "description": "Scaffolding tools for ILO Base Theme.",
   "version": "1.0.0",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/international-labour-organization/ilo_base_theme"
