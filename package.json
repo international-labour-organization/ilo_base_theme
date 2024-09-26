@@ -24,6 +24,9 @@
     "theme:build": "webpack --config=webpack.config.dev.js",
     "theme:dist": "webpack --config=webpack.config.prod.js --mode=production"
   },
+  "engines": {
+    "node": ">=20.16.0"
+  },
   "dependencies": {
     "@ilo-org/twig": "1.2.4",
     "patch-package": "^8.0.0"
