@@ -16,4 +16,5 @@ yarn-error.log
 *.zip
 
 /modules/ilo_base_theme_companion/dist/
+/dist/
 /ilo_base_theme/
