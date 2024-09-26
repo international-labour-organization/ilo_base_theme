@@ -17,9 +17,6 @@ const components = glob.sync('./templates/**/*.{scss,js}', {
   ]}
 );
 
-// Declare an entry object that will be assigned as value to the webpack 'entry' key:
-const entry = {};
-
 const allMatches = [...globals, ...components];
 
 const localOutputPath = (filePath) => {
@@ -42,10 +39,11 @@ const localOutputPath = (filePath) => {
   return fileName + '/' + fileExtensionDir + fileName + '.processed';
 };
 
-allMatches.forEach((match) => {
-  let entryKey = localOutputPath(match);
-  entry[entryKey] = match;
-});
+// Create an entry object that will be assigned as value to the webpack 'entry' key:
+const entry = allMatches.reduce((acc, match) => {
+  acc[localOutputPath(match)] = match;
+  return acc;
+}, {});
 
 const config = {
 
