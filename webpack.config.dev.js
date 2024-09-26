@@ -1,4 +1,4 @@
-const commonConfig = require("./webpack.config.common.js");
+import commonConfig from "./webpack.config.common.js";
 
 const config = {
   ...commonConfig,
@@ -12,4 +12,4 @@ const config = {
   },
 };
 
-module.exports = config;
+export default config;

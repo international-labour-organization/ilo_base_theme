@@ -1,6 +1,6 @@
-const commonConfig = require("./webpack.config.common.js");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
+import commonConfig from "./webpack.config.common.js";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
+import TerserPlugin from "terser-webpack-plugin";
 
 const config = {
   ...commonConfig,
@@ -33,4 +33,4 @@ const config = {
   },
 };
 
-module.exports = config;
+export default config;

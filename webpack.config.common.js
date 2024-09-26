@@ -1,10 +1,11 @@
-const path = require('path');
-const glob = require('glob');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
-const PostCSSAssetsPlugin = require('postcss-assets-webpack-plugin');
+import path from 'path';
+import { glob } from 'glob';
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
+import RemoveEmptyScriptsPlugin from 'webpack-remove-empty-scripts';
+import PostCSSAssetsPlugin from 'postcss-assets-webpack-plugin';
+import sortMediaQueries from 'postcss-sort-media-queries';
 
-const rootDir = path.resolve(__dirname);
+const rootDir = path.resolve(import.meta.dirname);
 const buildDir = 'dist/code-assets';
 
 // Define all entries:
@@ -123,7 +124,7 @@ const config = {
   resolve: {
     extensions: [".js"],
     alias: {
-      Components: path.resolve(__dirname, "templates/"),
+      Components: path.resolve(import.meta.dirname, "templates/"),
     },
   },
 
@@ -141,7 +142,7 @@ const config = {
       test: /\.css$/,
       log: false,
       plugins: [
-        require('postcss-sort-media-queries')
+        sortMediaQueries
       ]
     }),
   ],
@@ -153,4 +154,4 @@ const config = {
 
 };
 
-module.exports = config;
+export default config;
