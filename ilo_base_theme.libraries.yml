@@ -1,23 +1,23 @@
 global:
   css:
     base:
-      dist/code-assets/global/css/global.processed.css: { minified: true }
+      dist/styles/global/css/global.processed.css: { minified: true }
 
 # Components:
 component.page-title:
   version: VERSION
   css:
     component:
-      dist/code-assets/page-title/css/page-title.processed.css: { minified: true }
+      dist/styles/page-title/css/page-title.processed.css: { minified: true }
 
 component.local-tasks:
   version: VERSION
   css:
     component:
-      dist/code-assets/local-tasks/css/local-tasks.processed.css: { minified: true }
+      dist/styles/local-tasks/css/local-tasks.processed.css: { minified: true }
 
 component.password-confirm:
   version: VERSION
   css:
     component:
-      dist/code-assets/password-confirm/css/password-confirm.processed.css: { minified: true }
+      dist/styles/password-confirm/css/password-confirm.processed.css: { minified: true }

@@ -8,17 +8,18 @@
     "url": "https://github.com/international-labour-organization/ilo_base_theme"
   },
   "scripts": {
-    "postinstall": "npm-run-all patch theme:dist install-design-system",
+    "postinstall": "npm-run-all --serial make:clear-dist patch make:install-design-system theme:dist",
     "theme:watch": "webpack --config=webpack.config.dev.js --watch",
     "theme:build": "webpack --config=webpack.config.dev.js",
     "theme:dist": "webpack --config=webpack.config.prod.js --mode=production",
-    "patch": "patch-package",
-    "install-design-system": "make install-design-system"
+    "make:install-design-system": "make install-design-system",
+    "make:clear-dist": "make clear-dist",
+    "patch": "patch-package"
   },
   "engines": {
     "node": ">=20.16.0"
   },
-  "dependencies": {
+  "devDependencies": {
     "@ilo-org/twig": "1.2.4",
     "patch-package": "^8.0.0",
     "@babel/core": "^7.25.2",
