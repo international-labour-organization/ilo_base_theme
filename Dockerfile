@@ -1,14 +1,11 @@
 # Use Node image to install dependencies.
-FROM node:latest AS builder
+FROM node:20 AS node
 
 # Set working directory
 WORKDIR /app
 
-# Copy necessary files to the container.
-COPY package*.json ./
-COPY .env.dist ./
-COPY Makefile ./
-COPY ./patches ./patches
+# Copy files to the container.
+COPY . .
 
 # Install npm dependencies.
 RUN npm install
@@ -77,8 +74,8 @@ COPY phpunit.xml.dist .
 COPY phpcs.xml.dist .
 
 # Copy design system assets to the working directory.
-COPY --from=builder /app/modules/ilo_base_theme_companion/dist ./modules/ilo_base_theme_companion/dist
-COPY --from=builder /app/dist ./dist
+COPY --from=node /app/modules/ilo_base_theme_companion/dist ./modules/ilo_base_theme_companion/dist
+COPY --from=node /app/dist ./dist
 
 RUN composer install
 RUN ./vendor/bin/run drupal:site-install
