@@ -20,19 +20,21 @@
     }
   ],
   "scripts": {
-    "postinstall": "patch-package && make install-design-system",
+    "postinstall": "npm-run-all --serial make:clear-dist patch:apply make:install-design-system theme:dist",
     "theme:watch": "webpack --config=webpack.config.dev.js --watch",
     "theme:build": "webpack --config=webpack.config.dev.js",
-    "theme:dist": "webpack --config=webpack.config.prod.js --mode=production"
+    "theme:dist": "webpack --config=webpack.config.prod.js --mode=production",
+    "make:install-design-system": "make install-design-system",
+    "make:clear-dist": "make clear-dist",
+    "patch:generate": "patch-package @ilo-org/twig",
+    "patch:apply": "patch-package"
   },
   "engines": {
     "node": ">=20.16.0"
   },
-  "dependencies": {
-    "@ilo-org/twig": "1.2.4",
-    "patch-package": "^8.0.0"
-  },
   "devDependencies": {
+    "@ilo-org/twig": "1.2.4",
+    "patch-package": "^8.0.0",
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.4",
     "autoprefixer": "^10.4.20",
@@ -42,6 +44,7 @@
     "file-loader": "^6.2.0",
     "glob": "^11.0.0",
     "mini-css-extract-plugin": "^2.9.1",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.47",
     "postcss-assets-webpack-plugin": "^4.1.2",
     "postcss-loader": "^8.1.1",
