@@ -27,20 +27,25 @@ build/composer:
 	@echo "Building $(PROJECT_NAME) project development environment..."
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "composer install"
 
+# Clear dist directories.
+## clear-dist	: Clear dist directories.
+.PHONY: clear-dist
+clear-dist:
+	rm -rf ./modules/ilo_base_theme_companion/dist
+	mkdir -p ./modules/ilo_base_theme_companion/dist
+	rm -rf ./dist
+	mkdir -p ./dist
+
 # Install design system assets
 ## install-design-system	: Copy design system assets in the designated directory.
 .PHONY: install-design-system
 install-design-system:
-	rm -rf ./modules/ilo_base_theme_companion/dist
-	mkdir -p ./modules/ilo_base_theme_companion/dist
 	mkdir -p ./modules/ilo_base_theme_companion/dist/fonts
 	cp -r ./node_modules/@ilo-org/twig/dist/components ./modules/ilo_base_theme_companion/dist
 	cp ./node_modules/@ilo-org/styles/css/index.css ./modules/ilo_base_theme_companion/dist
 	cp ./node_modules/@ilo-org/styles/css/global.css ./modules/ilo_base_theme_companion/dist
 	cp -r ./node_modules/@ilo-org/fonts/assets ./modules/ilo_base_theme_companion/dist/fonts
 	cp -r ./node_modules/@ilo-org/fonts/font-css ./modules/ilo_base_theme_companion/dist/fonts
-	rm -rf ./dist
-	mkdir -p ./dist
 	cp -r ./node_modules/@ilo-org/brand-assets/dist/assets ./dist/assets
 
 # Install test site.
@@ -194,6 +199,27 @@ twig-debug-off:
 theme-install:
 	@echo "Install all tools for $(PROJECT_NAME) theme development..."
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) node npm install
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) node npm run theme:dist
+	@$(MAKE) --no-print-directory cr
+
+## theme-watch	: Launch the watcher for theme development.
+.PHONY: theme-watch
+theme-watch:
+	@echo "Launch the watcher for $(PROJECT_NAME) theme development..."
+	@$(DOCKER_COMPOSE) $(DOCKER_CMD) node npm run theme:watch
+
+## theme-build	: Compile a development version of the theme for debug purposes.
+.PHONY: theme-build
+theme-build:
+	@echo "Compile a development version of $(PROJECT_NAME) theme for debug purposes..."
+	@$(DOCKER_COMPOSE) $(DOCKER_CMD) node npm run theme:build
+	@$(MAKE) --no-print-directory cr
+
+## theme-dist	: Compile and optimize a production-ready theme.
+.PHONY: theme-dist
+theme-dist:
+	@echo "Compile and optimize a production-ready theme for $(PROJECT_NAME)..."
+	@$(DOCKER_COMPOSE) $(DOCKER_CMD) node npm run theme:dist
 	@$(MAKE) --no-print-directory cr
 
 # https://stackoverflow.com/a/6273809/1826109

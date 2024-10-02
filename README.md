@@ -231,6 +231,7 @@ Development can be set up via [Makefile](Makefile)'s targets, as follows:
   - Install the target site
   - Install NodeJS dependencies by running `npm install` in the node container.
   - Install the Design System
+  - Build a production ready version of the Drupal Theme
   - Expose the site on [http://localhost:8081](http://localhost:8081)
 
 **Please note:** project files and directories are symlinked within the target site by using the

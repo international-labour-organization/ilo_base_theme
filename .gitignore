@@ -7,7 +7,6 @@ yarn.lock
 runner.yml
 .idea
 .DS_Store
-package-lock.json
 phpunit.xml
 .stylelintrc.json
 docker-compose.override.yml
