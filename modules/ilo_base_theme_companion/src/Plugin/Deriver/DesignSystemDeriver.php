@@ -174,8 +174,8 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
    *   Base URL.
    */
   private function appendImageBaseUrl(&$preview, string $base_url) {
-    if (is_scalar($preview) && (str_starts_with($preview, 'images/') || str_starts_with($preview, 'brand-assets/'))) {
-      $preview = "$base_url/$preview";
+    if (is_scalar($preview) && (str_starts_with($preview, '/images/') || str_starts_with($preview, '/brand-assets/'))) {
+      $preview = $base_url . $preview;
     }
     elseif (is_array($preview)) {
       foreach ($preview as &$value) {

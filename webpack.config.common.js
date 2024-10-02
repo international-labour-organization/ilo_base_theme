@@ -6,7 +6,7 @@ import PostCSSAssetsPlugin from 'postcss-assets-webpack-plugin';
 import sortMediaQueries from 'postcss-sort-media-queries';
 
 const rootDir = path.resolve(import.meta.dirname);
-const buildDir = 'dist/styles';
+const buildDir = 'dist/artefacts';
 
 // Define all entries:
 const globals = ['./css/global.scss'];

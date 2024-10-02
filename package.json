@@ -7,14 +7,27 @@
     "type": "git",
     "url": "https://github.com/international-labour-organization/ilo_base_theme"
   },
+  "contributors": [
+    {
+      "name": "Antonio De Marco",
+      "email": "antonio@nuvole.org",
+      "url": "https://www.nuvole.org"
+    },
+    {
+      "name": "Massimo Altafini",
+      "email": "massimo@nuvole.org",
+      "url": "https://www.drupal.org/u/mxt"
+    }
+  ],
   "scripts": {
-    "postinstall": "npm-run-all --serial make:clear-dist patch make:install-design-system theme:dist",
+    "postinstall": "npm-run-all --serial make:clear-dist patch:apply make:install-design-system theme:dist",
     "theme:watch": "webpack --config=webpack.config.dev.js --watch",
     "theme:build": "webpack --config=webpack.config.dev.js",
     "theme:dist": "webpack --config=webpack.config.prod.js --mode=production",
     "make:install-design-system": "make install-design-system",
     "make:clear-dist": "make clear-dist",
-    "patch": "patch-package"
+    "patch:generate": "patch-package @ilo-org/twig",
+    "patch:apply": "patch-package"
   },
   "engines": {
     "node": ">=20.16.0"
