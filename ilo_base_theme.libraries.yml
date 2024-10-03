@@ -4,6 +4,12 @@ global:
       dist/artefacts/global/css/global.processed.css: { minified: true }
 
 # Components:
+component.patterns-overview:
+  version: VERSION
+  css:
+    component:
+      dist/artefacts/patterns-overview/css/patterns-overview.processed.css: { minified: true }
+
 component.page-title:
   version: VERSION
   css:

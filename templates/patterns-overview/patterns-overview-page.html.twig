@@ -4,8 +4,10 @@
  * UI Pattern library page template, override this in your theme.
  */
 #}
-
 {% if patterns is not empty %}
+
+  {{ attach_library('ilo_base_theme/component.patterns-overview') }}
+
   <h2 class="ilo--h2">{{ "Available patterns"|t }}</h2>
 
   {# List of available patterns with anchor links. #}
