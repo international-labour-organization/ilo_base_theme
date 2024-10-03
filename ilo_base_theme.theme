@@ -39,6 +39,10 @@ function ilo_base_theme_preprocess(&$variables) {
  * Implements hook_preprocess_HOOK() for page.
  */
 function ilo_base_theme_preprocess_pattern_navigation(&$variables) {
+  // Ignore preprocess when printing a preview.
+  if ($variables['context']->isOfType('preview')) {
+    return;
+  }
   /** @var \Drupal\Core\Menu\MenuLinkTreeInterface $menu_link_tree */
   $menu_link_tree = \Drupal::service('menu.link_tree');
   $parameters = new MenuTreeParameters();
