@@ -13,3 +13,7 @@ dependencies:
 libraries:
   - 'ilo_base_theme/global'
   - 'ilo_base_theme_companion/global'
+
+config_devel:
+  optional:
+    - block.block.ilo_base_theme_breadcrumbs
