@@ -61,6 +61,7 @@ COPY ./modules ./modules
 COPY ./templates ./templates
 COPY ./tests ./tests
 COPY ./patches ./patches
+COPY ./config ./config
 COPY .env.dist .
 COPY composer.json .
 COPY ilo_base_theme.info.yml .

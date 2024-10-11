@@ -2,7 +2,7 @@ name: ILO base theme
 type: theme
 description: Drupal base theme for the International Labour Organization.
 base theme: false
-core_version_requirement: '^9 || ^10'
+core_version_requirement: '^9 || ^10 || ^11'
 
 logo: logo.png
 screenshot: screenshot.png
@@ -13,3 +13,13 @@ dependencies:
 libraries:
   - 'ilo_base_theme/global'
   - 'ilo_base_theme_companion/global'
+
+regions:
+  breadcrumb: Breadcrumb
+  content: Content
+
+config_devel:
+  optional:
+    - block.block.ilo_base_theme_breadcrumbs
+    - block.block.ilo_base_theme_pagetitle
+    - block.block.ilo_base_theme_tabs

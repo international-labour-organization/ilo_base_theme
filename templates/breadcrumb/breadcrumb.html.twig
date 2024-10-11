@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Theme override for a breadcrumb trail.
+ *
+ * Available variables:
+ * - breadcrumb: Breadcrumb trail items.
+ */
+#}
+{% if breadcrumb %}
+
+  {% set links = [] %}
+  {% for item in breadcrumb %}
+    {% set links = links|merge([{ label: item.text, url: item.url }]) %}
+  {% endfor %}
+
+  {{ pattern('breadcrumb', {
+    buttonlabel: "Toggle links"|t,
+    links: links
+  }) }}
+{% endif %}
