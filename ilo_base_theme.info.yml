@@ -14,6 +14,12 @@ libraries:
   - 'ilo_base_theme/global'
   - 'ilo_base_theme_companion/global'
 
+regions:
+  breadcrumb: Breadcrumb
+  content: Content
+
 config_devel:
   optional:
     - block.block.ilo_base_theme_breadcrumbs
+    - block.block.ilo_base_theme_pagetitle
+    - block.block.ilo_base_theme_tabs
