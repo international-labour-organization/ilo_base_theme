@@ -6,7 +6,7 @@ dependencies:
 id: ilo_base_theme_tabs
 theme: ilo_base_theme
 region: content
-weight: 1
+weight: -10
 provider: null
 plugin: local_tasks_block
 settings:
