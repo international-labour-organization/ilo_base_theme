@@ -1,7 +1,7 @@
 name: ILO Base Theme Demo
 description: Provides menus and other initial content to showcase the ILO Base theme.
 type: module
-core_version_requirement: '^9 || ^10'
+core_version_requirement: '^9 || ^10 || ^11'
 package: ILO
 dependencies:
   - drupal:block

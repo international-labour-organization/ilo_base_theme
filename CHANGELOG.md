@@ -1,6 +1,7 @@
 ## Release 1.0.0 (TBD)
 
 - [GH-33](https://github.com/international-labour-organization/ilo_base_theme/issues/33): Added Webpack scaffolding to compile SASS
+- [GH-40](https://github.com/international-labour-organization/ilo_base_theme/issues/40): Integrate breadcrumb with Design System
 
 ## Release 0.5.0 (25-09-2024)
 

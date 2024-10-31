@@ -36,7 +36,32 @@ function ilo_base_theme_preprocess(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_HOOK() for page.
+ * Implements hook_preprocess_HOOK().
+ */
+function ilo_base_theme_preprocess_pattern_hero(&$variables) {
+  // Ignore preprocess when printing a preview.
+  if ($variables['context']->isOfType('preview')) {
+    return;
+  }
+  // Get the breadcrumb for the current route.
+  $route_match = \Drupal::service('current_route_match');
+  $breadcrumb = \Drupal::service('breadcrumb')->build($route_match);
+
+  // Add links to the breadcrumb field.
+  /** @var \Drupal\Core\Link $link */
+  $variables['breadcrumb']['links'] = [];
+  foreach ($breadcrumb->getLinks() as $link) {
+    $variables['breadcrumb']['links'][] = [
+      'url' => $link->getUrl(),
+      'label' => $link->getText(),
+    ];
+  }
+  // Make sure that the cache metadata from the breadcrumb is not lost.
+  CacheableMetadata::createFromObject($breadcrumb)->applyTo($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
  */
 function ilo_base_theme_preprocess_pattern_navigation(&$variables) {
   // Ignore preprocess when printing a preview.
