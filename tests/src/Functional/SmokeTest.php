@@ -20,7 +20,7 @@ class SmokeTest extends BrowserTestBase {
 
     $this->drupalLogin($user);
     $session = $this->getSession();
-    $session->visit('/patterns');
+    $session->visit('/admin/appearance/ui/patterns');
     $this->assertEquals(200, $session->getStatusCode());
 
     $content = $session->getPage()->getContent();
@@ -29,7 +29,7 @@ class SmokeTest extends BrowserTestBase {
     // Assert that "ilo" prefix and "theme" (dark/light) are correctly handled.
     $this->assertStringContainsString('<div class="ilo--card ilo--card__type__feature ilo--card__action ilo--card__theme__dark ilo--card__size__standard', $content);
     // Assert that forms are not loaded as patterns.
-    $session->visit('/patterns/checkbox');
+    $session->visit('/admin/appearance/ui/patterns/checkbox');
     $this->assertEquals(500, $session->getStatusCode());
   }
 

@@ -7,12 +7,12 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.1",
-        "cweagans/composer-patches": "~1.4",
-        "drupal/components": "^3.0@beta",
+        "cweagans/composer-patches": "~1.7",
+        "drupal/components": "^3.1",
         "drupal/twig_tweak": "^3.4",
-        "drupal/ui_patterns": "^1.5",
-        "drupal/ui_patterns_settings": "^2.1",
-        "squirrelphp/twig-php-syntax": "^1.7"
+        "drupal/ui_patterns": "^1.10",
+        "drupal/ui_patterns_settings": "^2.4",
+        "squirrelphp/twig-php-syntax": "^1.8"
     },
     "require-dev": {
         "composer/installers": "~1.5",
