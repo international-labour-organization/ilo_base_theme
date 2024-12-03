@@ -20,31 +20,30 @@
     }
   ],
   "scripts": {
-    "postinstall": "npm-run-all --serial make:clear-dist patch:apply make:install-design-system theme:dist",
-    "theme:watch": "webpack --config=webpack.config.dev.js --watch",
-    "theme:build": "webpack --config=webpack.config.dev.js",
-    "theme:dist": "webpack --config=webpack.config.prod.js --mode=production",
-    "make:install-design-system": "make install-design-system",
-    "make:clear-dist": "make clear-dist",
+    "design-system:dist": "webpack --config=webpack.design-system.js",
+    "theme:dev": "webpack --config=webpack.theme.js --mode=development",
+    "theme:prod": "webpack --config=webpack.theme.js --mode=production",
+    "theme:build": "npm-run-all theme:prod design-system:dist",
     "patch:generate": "patch-package @ilo-org/twig",
-    "patch:apply": "patch-package"
+    "postinstall": "patch-package"
   },
   "engines": {
     "node": ">=20.16.0"
   },
   "devDependencies": {
-    "@ilo-org/twig": "1.2.4",
-    "patch-package": "^8.0.0",
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.4",
+    "@ilo-org/twig": "1.2.4",
     "autoprefixer": "^10.4.20",
     "babel-loader": "^9.2.1",
+    "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.0",
     "file-loader": "^6.2.0",
     "glob": "^11.0.0",
     "mini-css-extract-plugin": "^2.9.1",
     "npm-run-all": "^4.1.5",
+    "patch-package": "^8.0.0",
     "postcss": "^8.4.47",
     "postcss-assets-webpack-plugin": "^4.1.2",
     "postcss-loader": "^8.1.1",

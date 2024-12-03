@@ -27,27 +27,6 @@ build/composer:
 	@echo "Building $(PROJECT_NAME) project development environment..."
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "composer install"
 
-# Clear dist directories.
-## clear-dist	: Clear dist directories.
-.PHONY: clear-dist
-clear-dist:
-	rm -rf ./modules/ilo_base_theme_companion/dist
-	mkdir -p ./modules/ilo_base_theme_companion/dist
-	rm -rf ./dist
-	mkdir -p ./dist
-
-# Install design system assets
-## install-design-system	: Copy design system assets in the designated directory.
-.PHONY: install-design-system
-install-design-system:
-	mkdir -p ./modules/ilo_base_theme_companion/dist/fonts
-	cp -r ./node_modules/@ilo-org/twig/dist/components ./modules/ilo_base_theme_companion/dist
-	cp ./node_modules/@ilo-org/styles/css/index.css ./modules/ilo_base_theme_companion/dist
-	cp ./node_modules/@ilo-org/styles/css/global.css ./modules/ilo_base_theme_companion/dist
-	cp -r ./node_modules/@ilo-org/fonts/assets ./modules/ilo_base_theme_companion/dist/fonts
-	cp -r ./node_modules/@ilo-org/fonts/font-css ./modules/ilo_base_theme_companion/dist/fonts
-	cp -r ./node_modules/@ilo-org/brand-assets/dist/assets ./dist/assets
-
 # Install test site.
 ## build		: Build the development environment.
 .PHONY: install
@@ -55,7 +34,7 @@ install: build
 	@echo "Installing $(PROJECT_NAME)..."
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "./vendor/bin/run drupal:site-install"
 	@$(DOCKER_COMPOSE) up -d --remove-orphans node
-	@$(MAKE) --no-print-directory theme-install
+	@$(MAKE) --no-print-directory theme-build
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "drush uli"
 
 # Build tasks for development.
@@ -75,7 +54,7 @@ build-dist:
 	$(DOCKER_COMPOSE) up -d
 
 .PHONY: release
-release: docker-compose.override.yml up-dev build install-design-system
+release: docker-compose.override.yml up-dev build
 	@echo Building release artifact...
 	$(DOCKER_COMPOSE) exec -T dev ./vendor/bin/run release:ca --tag=$(RELEASE_TAG) --zip
 
@@ -194,19 +173,11 @@ twig-debug-off:
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev drush state:set disable_rendered_output_cache_bins 0 --input-format=integer
 	@$(MAKE) --no-print-directory cr
 
-## theme-install	: Install all tools for theme development.
-.PHONY: theme-install
-theme-install:
-	@echo "Install all tools for $(PROJECT_NAME) theme development..."
-	$(DOCKER_COMPOSE) $(DOCKER_CMD) node npm install
-	$(DOCKER_COMPOSE) $(DOCKER_CMD) node npm run theme:dist
-	@$(MAKE) --no-print-directory cr
-
-## theme-watch	: Launch the watcher for theme development.
-.PHONY: theme-watch
-theme-watch:
+## theme-dev	: Launch the watcher for theme development.
+.PHONY: theme-dev
+theme-dev:
 	@echo "Launch the watcher for $(PROJECT_NAME) theme development..."
-	@$(DOCKER_COMPOSE) $(DOCKER_CMD) node npm run theme:watch
+	@$(DOCKER_COMPOSE) $(DOCKER_CMD) node npm run theme:dev
 
 ## theme-build	: Compile a development version of the theme for debug purposes.
 .PHONY: theme-build
@@ -215,11 +186,11 @@ theme-build:
 	@$(DOCKER_COMPOSE) $(DOCKER_CMD) node npm run theme:build
 	@$(MAKE) --no-print-directory cr
 
-## theme-dist	: Compile and optimize a production-ready theme.
-.PHONY: theme-dist
-theme-dist:
+## theme-prod	: Compile and optimize a production-ready theme.
+.PHONY: theme-prod
+theme-prod:
 	@echo "Compile and optimize a production-ready theme for $(PROJECT_NAME)..."
-	@$(DOCKER_COMPOSE) $(DOCKER_CMD) node npm run theme:dist
+	@$(DOCKER_COMPOSE) $(DOCKER_CMD) node npm run theme:prod
 	@$(MAKE) --no-print-directory cr
 
 # https://stackoverflow.com/a/6273809/1826109
