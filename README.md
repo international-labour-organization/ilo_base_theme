@@ -16,6 +16,7 @@ adopted patterns, allowing for incremental adoption of the base theme's pattern-
 - [Installation](#installation)
   - [Use the base theme](#use-the-base-theme)
   - [Use the components without the base theme](#use-the-components-without-the-base-theme)
+- [How to create a sub-theme](./docs/sub-theme.md)
 - [Development](./docs/development.md)
 - [NPM commands](./docs/npm-commands.md)
 - [Demo site](./docs/demo-site.md)
