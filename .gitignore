@@ -18,3 +18,4 @@ yarn-error.log
 /modules/ilo_base_theme_companion/dist/
 /dist/
 /ilo_base_theme/
+/.ddev/

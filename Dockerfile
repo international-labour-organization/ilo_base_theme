@@ -9,6 +9,7 @@ COPY . .
 
 # Install npm dependencies.
 RUN npm install
+RUN npm run theme:build
 
 # Build base Drupal image.
 FROM drupal:10-php8.2-apache-bookworm as base

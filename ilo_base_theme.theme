@@ -14,7 +14,7 @@ use Drupal\Core\Url;
  * Implements hook_preprocess().
  */
 function ilo_base_theme_preprocess(&$variables) {
-  $variables['ilo_asset_path'] = base_path() . \Drupal::service('extension.list.theme')->getPath('ilo_base_theme') . '/dist/assets';
+  $variables['ilo_asset_path'] = base_path() . \Drupal::service('extension.list.module')->getPath('ilo_base_theme_companion') . '/dist/assets';
   $variables['current_language_id'] = \Drupal::languageManager()->getCurrentLanguage()->getId();
   $logo_languages = [
     'ar' => 'ar',
@@ -33,6 +33,45 @@ function ilo_base_theme_preprocess(&$variables) {
     'zh-hans' => 'zh'
   ];
   $variables['ilo_logo_language'] = array_key_exists($variables['current_language_id'], $logo_languages) ? $logo_languages[$variables['current_language_id']] : 'en';
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function ilo_base_theme_page_attachments_alter(array &$attachments) {
+  $active_theme = \Drupal::theme()->getActiveTheme();
+  if ($active_theme->getName() === 'ilo_base_theme' || array_key_exists('ilo_base_theme', $active_theme->getBaseThemeExtensions())) {
+    $asset_path = base_path() . \Drupal::service('extension.list.module')->getPath('ilo_base_theme_companion') . '/dist/assets/favicon';
+    foreach ($attachments['#attached']['html_head_link'] as &$link) {
+      if ($link[0]['rel'] !== 'icon') {
+        continue;
+      }
+      $link[0]['href'] = $asset_path . '/favicon.ico';
+    }
+    $pngs = [
+      '16x16' => '/favicon-16x16.png',
+      '32x32' => '/favicon-32x32.png',
+      '96x96' => '/favicon-96x96.png',
+      '192x192' => '/android-chrome-192x192.png',
+      '512x512' => '/android-chrome-512x512.png',
+    ];
+    foreach ($pngs as $size => $filename) {
+      $attachments['#attached']['html_head_link'][] = [
+        [
+          'rel' => 'icon',
+          'href' => $asset_path . $filename,
+          'size' => $size,
+          'type' => 'image/png',
+        ],
+      ];
+    }
+    $attachments['#attached']['html_head_link'][] = [
+      [
+        'rel' => 'apple-touch-icon',
+        'href' => $asset_path . '/apple-touch-icon.png',
+      ],
+    ];
+  }
 }
 
 /**
