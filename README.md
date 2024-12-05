@@ -16,10 +16,13 @@ adopted patterns, allowing for incremental adoption of the base theme's pattern-
 - [Installation](#installation)
   - [Use the base theme](#use-the-base-theme)
   - [Use the components without the base theme](#use-the-components-without-the-base-theme)
+  - [Opinionated components](#opinionated-components)
+  - [Patterns and cache metadata](#patterns-and-cache-metadata)
+  - [Handling Forms](#handling-forms)
+- [How to create a sub-theme](./docs/sub-theme.md)
 - [Development](./docs/development.md)
 - [NPM commands](./docs/npm-commands.md)
 - [Demo site](./docs/demo-site.md)
-
 
 ## Installation
 
@@ -85,6 +88,20 @@ without enabling the theme, like so:
 
 The full list of components is available at `/patterns`.
 
+### Opinionated components
+
+#### The `hero` component
+
+The `hero` component generates a breadcrumb trail based on the current route and ensures proper caching for the breadcrumb metadata.
+
+#### The `navigation` component
+
+The ILO base theme has specific conventions for handling the main menu. When the companion module is enabled, a "More"
+link is automatically created. This menu link serves to group all links under the header's expandable "More" panel.
+If the "More" link does not contain any child items, it will not be displayed.
+
+In case of a multilingual site, the `navigation` component also includes a multilingual language switcher links.
+
 ### Patterns and cache metadata
 
 Displaying render arrays using patterns requires a careful handing of the render array's cache metadata. For example,
@@ -116,8 +133,15 @@ You can do that by using the `|cache_metadata` filter exposed by the [Twig Tweak
 Another recommended module to keep in mind, when working with patterns, is the [Twig Field Value][7], which can help with
 accessing properties and subfields of render arrays and entities when passing them over to patterns.
 
+### Handling Forms
 
-[1]: https://github.com/international-labour-organization/designsystem
+The [ILO Design System][1] includes comprehensive styles for [forms](./templates/forms) to ensure consistency and usability across the platform.
+However, due to the internal workings of Drupal's Form API, UI Patterns cannot be directly used to style forms.
+
+Instead, the ILO Base Theme adopts a traditional Drupal templating approach to style forms, this involves applying
+relevant ILO Design System classes directly to Drupal form templates.
+
+[1]: https://twig.ui.ilo.org
 [2]: https://www.drupal.org/project/ui_patterns
 [3]: https://www.drupal.org/project/ui_patterns_settings
 [4]: https://getcomposer.org/
