@@ -15,7 +15,7 @@ yarn-error.log
 *.tar.gz
 *.zip
 
-/dist
-/modules/ilo_base_theme_companion/dist
+/modules/ilo_base_theme_companion/dist/
+/dist/
 /ilo_base_theme/
 /.ddev/
