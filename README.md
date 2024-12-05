@@ -18,11 +18,11 @@ adopted patterns, allowing for incremental adoption of the base theme's pattern-
   - [Use the components without the base theme](#use-the-components-without-the-base-theme)
   - [Opinionated components](#opinionated-components)
   - [Patterns and cache metadata](#patterns-and-cache-metadata)
+  - [Handling Forms](#handling-forms)
 - [How to create a sub-theme](./docs/sub-theme.md)
 - [Development](./docs/development.md)
 - [NPM commands](./docs/npm-commands.md)
 - [Demo site](./docs/demo-site.md)
-
 
 ## Installation
 
@@ -133,8 +133,15 @@ You can do that by using the `|cache_metadata` filter exposed by the [Twig Tweak
 Another recommended module to keep in mind, when working with patterns, is the [Twig Field Value][7], which can help with
 accessing properties and subfields of render arrays and entities when passing them over to patterns.
 
+### Handling Forms
 
-[1]: https://github.com/international-labour-organization/designsystem
+The [ILO Design System][1] includes comprehensive styles for [forms](./templates/forms) to ensure consistency and usability across the platform.
+However, due to the internal workings of Drupal's Form API, UI Patterns cannot be directly used to style forms.
+
+Instead, the ILO Base Theme adopts a traditional Drupal templating approach to style forms, this involves applying
+relevant ILO Design System classes directly to Drupal form templates.
+
+[1]: https://twig.ui.ilo.org
 [2]: https://www.drupal.org/project/ui_patterns
 [3]: https://www.drupal.org/project/ui_patterns_settings
 [4]: https://getcomposer.org/
