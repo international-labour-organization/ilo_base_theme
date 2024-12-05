@@ -2,6 +2,9 @@
 
 - [GH-33](https://github.com/international-labour-organization/ilo_base_theme/issues/33): Added Webpack scaffolding to compile SASS
 - [GH-40](https://github.com/international-labour-organization/ilo_base_theme/issues/40): Integrate breadcrumb with Design System
+- [GH-47](https://github.com/international-labour-organization/ilo_base_theme/issues/47): Review and improve documentation
+- [GH-48](https://github.com/international-labour-organization/ilo_base_theme/issues/48): Consolidate frontend build tooling into Webpack
+- [GH-51](https://github.com/international-labour-organization/ilo_base_theme/issues/51): Update Design System to 1.3.1
 
 ## Release 0.5.0 (25-09-2024)
 
