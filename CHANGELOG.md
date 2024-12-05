@@ -5,6 +5,7 @@
 - [GH-47](https://github.com/international-labour-organization/ilo_base_theme/issues/47): Review and improve documentation
 - [GH-48](https://github.com/international-labour-organization/ilo_base_theme/issues/48): Consolidate frontend build tooling into Webpack
 - [GH-51](https://github.com/international-labour-organization/ilo_base_theme/issues/51): Update Design System to 1.3.1
+- [GH-11](https://github.com/international-labour-organization/ilo_base_theme/issues/11): Use the CSS files from the twig package
 
 ## Release 0.5.0 (25-09-2024)
 
