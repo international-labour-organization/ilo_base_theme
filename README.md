@@ -16,6 +16,8 @@ adopted patterns, allowing for incremental adoption of the base theme's pattern-
 - [Installation](#installation)
   - [Use the base theme](#use-the-base-theme)
   - [Use the components without the base theme](#use-the-components-without-the-base-theme)
+  - [Opinionated components](#opinionated-components)
+  - [Patterns and cache metadata](#patterns-and-cache-metadata)
 - [How to create a sub-theme](./docs/sub-theme.md)
 - [Development](./docs/development.md)
 - [NPM commands](./docs/npm-commands.md)
@@ -85,6 +87,20 @@ without enabling the theme, like so:
 ```
 
 The full list of components is available at `/patterns`.
+
+### Opinionated components
+
+#### The `hero` component
+
+The `hero` component generates a breadcrumb trail based on the current route and ensures proper caching for the breadcrumb metadata.
+
+#### The `navigation` component
+
+The ILO base theme has specific conventions for handling the main menu. When the companion module is enabled, a "More"
+link is automatically created. This menu link serves to group all links under the header's expandable "More" panel.
+If the "More" link does not contain any child items, it will not be displayed.
+
+In case of a multilingual site, the `navigation` component also includes a multilingual language switcher links.
 
 ### Patterns and cache metadata
 
