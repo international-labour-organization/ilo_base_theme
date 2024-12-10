@@ -86,7 +86,7 @@ without enabling the theme, like so:
 ./vendor/bin/drush en ilo_base_theme_companion
 ```
 
-The full list of components is available at `/patterns`.
+The full list of components is available at `/admin/appearance/ui/patterns`.
 
 ### Opinionated components
 
