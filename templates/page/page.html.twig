@@ -74,15 +74,19 @@
     },
   }) }}
 {% endblock %}
-<div class="ilo--container">
-  {{ page.breadcrumb }}
-  <main role="main">
-    <a id="main-content" tabindex="-1"></a>
-    <div>
-      {{ page.content }}
-    </div>
-  </main>
-</div>
+{% block body %}
+  <div class="ilo--container">
+    {{ page.breadcrumb }}
+    {% block content %}
+      <main role="main">
+        <a id="main-content" tabindex="-1"></a>
+        <div>
+          {{ page.content }}
+        </div>
+      </main>
+    {% endblock %}
+  </div>
+{% endblock %}
 {% block footer %}
   {% set footer_primary_links = footer_primary_links|default([
     {
