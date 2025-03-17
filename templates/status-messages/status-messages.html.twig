@@ -1,0 +1,75 @@
+{#
+/**
+ * @file
+ * Theme override for status messages.
+ *
+ * Displays status, error, and warning messages, grouped by type.
+ *
+ * An invisible heading identifies the messages for assistive technology.
+ * Sighted users see a colored box. See http://www.w3.org/TR/WCAG-TECHS/H69.html
+ * for info.
+ *
+ * Add an ARIA label to the contentinfo area so that assistive technology
+ * user agents will better describe this landmark.
+ *
+ * Available variables:
+ * - message_list: List of messages to be displayed, grouped by type.
+ * - status_headings: List of all status types.
+ * - attributes: HTML attributes for the element, including:
+ *   - class: HTML classes.
+ */
+#}
+<div data-drupal-messages>
+  {% block messages %}
+    {% for type, messages in message_list %}
+      {%
+        set classes = [
+          'messages',
+          'messages--' ~ type,
+        ]
+      %}
+      <div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
+        {% if type == 'error' %}
+          <div role="alert">
+        {% endif %}
+          {% if status_headings[type] %}
+            <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
+          {% endif %}
+          {% if messages|length > 1 %}
+            {% set content %}
+{#              NOTE: ILO DS copy paramenter expects a single message so it uses <p> as a wrapper.#}
+{#              Drupal instead groups messages by type and prints them in a list.#}
+{#              Since HTML can't accept a list inside a paragraph, for now we will use BRs to divide the various messages,
+{#              and print a hyphen as a prefix for each message.#}
+{#              @TODO: This needs to be addressed in ILO DS#}
+{#              <ul class="messages__list">#}
+{#                {% for message in messages %}#}
+{#                  <li class="messages__item">{{ message }}</li>#}
+{#                {% endfor %}#}
+{#              </ul>#}
+                {% for message in messages %}
+                  - {{ message }}<br>
+                {% endfor %}
+            {% endset %}
+          {% else %}
+            {% set content %}
+              {{ messages|first }}
+            {% endset %}
+          {% endif %}
+          {% set _type = type == 'status' ? 'success' : type  %}
+          {{ pattern('notification', {
+            closelabel: "Close"|t,
+            copy: { '#markup': content },
+            headline: _type|capitalize,
+            placement: "inline",
+            type: _type
+          }) }}
+        {% if type == 'error' %}
+          </div>
+        {% endif %}
+      </div>
+      {# Remove type specific classes. #}
+      {% set attributes = attributes.removeClass(classes) %}
+    {% endfor %}
+  {% endblock messages %}
+</div>
