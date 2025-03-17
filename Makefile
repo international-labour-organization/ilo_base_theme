@@ -33,6 +33,7 @@ build/composer:
 install: build
 	@echo "Installing $(PROJECT_NAME)..."
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "./vendor/bin/run drupal:site-install"
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) node npm install
 	@$(MAKE) --no-print-directory theme-build
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "drush uli"
 
