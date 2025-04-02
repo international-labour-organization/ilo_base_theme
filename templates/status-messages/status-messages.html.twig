@@ -59,7 +59,7 @@
           {{ pattern('notification', {
             closelabel: "Close"|t,
             copy: { '#markup': content },
-            headline: status_headings[type],
+            headline: status_headline[type],
             placement: "dialog",
             type: type == 'status' ? 'success' : type
           }) }}
