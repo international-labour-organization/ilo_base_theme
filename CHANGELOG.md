@@ -1,3 +1,7 @@
+## Release 1.1.0 (11-12-2024)
+
+- [GH-60](https://github.com/international-labour-organization/ilo_base_theme/issues/60): Theme Drupal messages using the 'notification' component
+
 ## Release 1.0.0 (11-12-2024)
 
 - [GH-33](https://github.com/international-labour-organization/ilo_base_theme/issues/33): Added Webpack scaffolding to compile SASS
