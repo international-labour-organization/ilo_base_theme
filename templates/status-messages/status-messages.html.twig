@@ -48,7 +48,7 @@
 {#                {% endfor %}#}
 {#              </ul>#}
                 {% for message in messages %}
-                  - {{ message }}<br>
+                  {{ message }}<br>
                 {% endfor %}
             {% endset %}
           {% else %}
@@ -56,13 +56,12 @@
               {{ messages|first }}
             {% endset %}
           {% endif %}
-          {% set _type = type == 'status' ? 'success' : type  %}
           {{ pattern('notification', {
             closelabel: "Close"|t,
             copy: { '#markup': content },
-            headline: _type|capitalize,
-            placement: "inline",
-            type: _type
+            headline: status_headings[type],
+            placement: "dialog",
+            type: type == 'status' ? 'success' : type
           }) }}
         {% if type == 'error' %}
           </div>
