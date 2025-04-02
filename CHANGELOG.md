@@ -1,4 +1,4 @@
-## Release 1.1.0 (11-12-2024)
+## Release 1.1.0 (TBD)
 
 - [GH-56](https://github.com/international-labour-organization/ilo_base_theme/issues/56): Add Twig blocks to page.html.twig to allow extending only the body of the page
 - [GH-60](https://github.com/international-labour-organization/ilo_base_theme/issues/60): Theme Drupal messages using the 'notification' component
