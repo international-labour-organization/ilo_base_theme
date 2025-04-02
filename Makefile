@@ -33,7 +33,7 @@ build/composer:
 install: build
 	@echo "Installing $(PROJECT_NAME)..."
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "./vendor/bin/run drupal:site-install"
-	@$(DOCKER_COMPOSE) up -d --remove-orphans node
+	$(DOCKER_COMPOSE) $(DOCKER_CMD) node npm install
 	@$(MAKE) --no-print-directory theme-build
 	$(DOCKER_COMPOSE) $(DOCKER_CMD) dev bash -c "drush uli"
 
@@ -67,8 +67,9 @@ up: .env
 ## up-dev		: Start dev container.
 .PHONY: up-dev
 up-dev: .env
-	@echo "Starting dev container for $(PROJECT_NAME)..."
+	@echo "Starting dev and node containers for $(PROJECT_NAME)..."
 	@$(DOCKER_COMPOSE) up -d --remove-orphans dev
+	@$(DOCKER_COMPOSE) up -d --remove-orphans node
 
 ## up-dist	: Start dist container.
 .PHONY: up-dist
