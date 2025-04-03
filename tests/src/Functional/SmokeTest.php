@@ -27,7 +27,7 @@ class SmokeTest extends BrowserTestBase {
     // Assert that global index.css is correctly loaded.
     $this->assertStringContainsString('<link rel="stylesheet" media="all" href="/themes/custom/ilo_base_theme/modules/ilo_base_theme_companion/dist/css/index.css', $content);
     // Assert that "ilo" prefix and "theme" (dark/light) are correctly handled.
-    $this->assertStringContainsString('<div class="ilo--card ilo--card__type__feature ilo--card__action ilo--card__theme__dark ilo--card__size__standard', $content);
+    $this->assertStringContainsString('<div class="ilo--card ilo--card__type__feature ilo--card__theme__dark ilo--card__size__standard   ilo--card__linklist ">', $content);
     // Assert that forms are not loaded as patterns.
     $session->visit('/admin/appearance/ui/patterns/checkbox');
     $this->assertEquals(500, $session->getStatusCode());

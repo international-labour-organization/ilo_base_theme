@@ -1,8 +1,21 @@
+diff --git a/node_modules/@ilo-org/twig/dist/components/accordion/accordion-item.twig b/node_modules/@ilo-org/twig/dist/components/accordion/accordion-item.twig
+index 8ce28ea..b6f2b14 100644
+--- a/node_modules/@ilo-org/twig/dist/components/accordion/accordion-item.twig
++++ b/node_modules/@ilo-org/twig/dist/components/accordion/accordion-item.twig
+@@ -9,7 +9,7 @@
+ 
+ <li class="ilo--accordion--item" id="{{ id }}">
+ 	<div class="ilo--h3">
+-		<button class="ilo--accordion--button ilo--accordion--button__{{ size|default('small') }}" aria-expanded="{{ defaultExpanded }}" aria-controls="{{ panel_id }}" id="{{ button_id }}">
++    <button class="ilo--accordion--button ilo--accordion--button__{{ size|default('small') }}" aria-expanded="{{ defaultExpanded ? 'true' : 'false' }}" aria-controls="{{ panel_id }}" id="{{ button_id }}">
+ 			<span class="ilo--accordion--label">{{label}}</span>
+ 			<span class="ilo--accordion--icon"></span>
+ 		</button>
 diff --git a/node_modules/@ilo-org/twig/dist/components/cardgroup/cardgroup.component.yml b/node_modules/@ilo-org/twig/dist/components/cardgroup/cardgroup.component.yml
-index 61bc94e..bab68f0 100644
+index 86c9b41..2f743a5 100644
 --- a/node_modules/@ilo-org/twig/dist/components/cardgroup/cardgroup.component.yml
 +++ b/node_modules/@ilo-org/twig/dist/components/cardgroup/cardgroup.component.yml
-@@ -81,6 +81,7 @@ cardgroup:
+@@ -82,6 +82,7 @@ cardgroup:
        type: object
        label: Group of cards
        description: "The group of cards. Each card can be one of the following types: multilink, feature, detail, graphicpromo, stat, graphic, factlist, data."
