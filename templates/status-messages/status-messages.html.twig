@@ -19,6 +19,9 @@
  *   - class: HTML classes.
  */
 #}
+
+{{ attach_library('ilo_base_theme/component.status-messages') }}
+
 <div data-drupal-messages>
   {% block messages %}
     {% for type, messages in message_list %}
