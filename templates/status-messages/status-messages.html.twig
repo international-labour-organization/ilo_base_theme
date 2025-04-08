@@ -41,14 +41,14 @@
 {#              Drupal instead groups messages by type and prints them in a list.#}
 {#              Since HTML can't accept a list inside a paragraph, for now we will use BRs to divide the various messages,
 {#              and print a hyphen as a prefix for each message.#}
-{#              @TODO: This needs to be addressed in ILO DS#}
+{#              @TODO: Fix this after the following ticket gets released: https://github.com/international-labour-organization/designsystem/issues/1391#}
 {#              <ul class="messages__list">#}
 {#                {% for message in messages %}#}
 {#                  <li class="messages__item">{{ message }}</li>#}
 {#                {% endfor %}#}
 {#              </ul>#}
                 {% for message in messages %}
-                  - {{ message }}<br>
+                  {{ message }}<br>
                 {% endfor %}
             {% endset %}
           {% else %}
@@ -56,13 +56,12 @@
               {{ messages|first }}
             {% endset %}
           {% endif %}
-          {% set _type = type == 'status' ? 'success' : type  %}
           {{ pattern('notification', {
             closelabel: "Close"|t,
             copy: { '#markup': content },
-            headline: _type|capitalize,
-            placement: "inline",
-            type: _type
+            headline: status_headline[type],
+            placement: "dialog",
+            type: type == 'status' ? 'success' : type
           }) }}
         {% if type == 'error' %}
           </div>

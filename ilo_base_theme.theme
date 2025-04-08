@@ -231,3 +231,14 @@ function ilo_base_theme_preprocess_form_element__password(&$variables) {
     $variables['attributes']['class'][] = 'password-confirm__confirm';
   }
 }
+
+/**
+ * Implements hook_preprocess_HOOK() for status_messages.
+ */
+function ilo_base_theme_preprocess_status_messages(&$variables) {
+  $variables['status_headline'] = [
+    'status' => t('Success'),
+    'error' => t('Error'),
+    'warning' => t('Warning'),
+  ];
+}
