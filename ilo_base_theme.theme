@@ -83,9 +83,16 @@ function ilo_base_theme_preprocess_pattern_hero(&$variables) {
     return;
   }
   // Get the breadcrumb for the current route.
+  /** @var \Drupal\Core\Routing\CurrentRouteMatch $route_match */
   $route_match = \Drupal::service('current_route_match');
   $breadcrumb = \Drupal::service('breadcrumb')->build($route_match);
+  // Make sure that the cache metadata from the breadcrumb is not lost.
+  CacheableMetadata::createFromObject($breadcrumb)->applyTo($variables);
 
+  // Do not display the breadcrumb if on the homepage.
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
+    return;
+  }
   // Add links to the breadcrumb field.
   /** @var \Drupal\Core\Link $link */
   $variables['breadcrumb']['links'] = [];
@@ -95,8 +102,6 @@ function ilo_base_theme_preprocess_pattern_hero(&$variables) {
       'label' => $link->getText(),
     ];
   }
-  // Make sure that the cache metadata from the breadcrumb is not lost.
-  CacheableMetadata::createFromObject($breadcrumb)->applyTo($variables);
 }
 
 /**
