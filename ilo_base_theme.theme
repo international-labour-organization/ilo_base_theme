@@ -89,8 +89,29 @@ function ilo_base_theme_preprocess_pattern_hero(&$variables) {
   // Make sure that the cache metadata from the breadcrumb is not lost.
   CacheableMetadata::createFromObject($breadcrumb)->applyTo($variables);
 
+  // We cannot simply use \Drupal::service('path.matcher')->isFrontPage()
+  // to determine whether we are on the front page or not.
+  // Instead, we will use the same logic implemented in
+  // \Drupal\system\Plugin\Condition\RequestPath::evaluate().
+  // For more details about the issue, see:
+  // https://www.drupal.org/project/drupal/issues/1503146
+  $request_stack = \Drupal::requestStack();
+  /** @var \Drupal\Core\Path\PathMatcher $path_matcher */
+  $path_matcher = \Drupal::service('path.matcher');
+  /** @var \Drupal\path_alias\AliasManagerInterface $alias_manager */
+  $alias_manager = \Drupal::service('path_alias.manager');
+  /** @var \Drupal\Core\Path\CurrentPathStack $current_path */
+  $current_path = \Drupal::service('path.current');
+  $request = $request_stack->getCurrentRequest();
+  // Compare the lowercase path alias (if any) and internal path.
+  $path = $current_path->getPath($request);
+  // Do not trim a trailing slash if that is the complete path.
+  $path = $path === '/' ? $path : rtrim($path, '/');
+  $path_alias = mb_strtolower($alias_manager->getAliasByPath($path));
+  $is_front = $path_matcher->matchPath($path_alias, '<front>') || (($path != $path_alias) && $path_matcher->matchPath($path, '<front>'));
+
   // Do not display the breadcrumb if on the homepage.
-  if (\Drupal::service('path.matcher')->isFrontPage()) {
+  if ($is_front) {
     return;
   }
   // Add links to the breadcrumb field.
