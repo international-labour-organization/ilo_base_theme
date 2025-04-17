@@ -143,7 +143,6 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
     return $patterns;
   }
 
-
   /**
    * Process definition fields.
    */
