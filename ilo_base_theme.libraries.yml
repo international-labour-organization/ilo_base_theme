@@ -27,3 +27,9 @@ component.password-confirm:
   css:
     component:
       dist/password-confirm/css/password-confirm.processed.css: { minified: true }
+
+component.status-messages:
+  version: VERSION
+  css:
+    component:
+      dist/status-messages/css/status-messages.processed.css: { minified: true }
