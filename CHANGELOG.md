@@ -2,6 +2,7 @@
 
 - [GH-66](https://github.com/international-labour-organization/ilo_base_theme/pull/66): Make sure hero doesn't display the breadcrumb when placed on the homepage.
 - [GH-60](https://github.com/international-labour-organization/ilo_base_theme/issues/60): Fix Drupal messages spacing.
+- [GH-67](https://github.com/international-labour-organization/ilo_base_theme/issues/67): Icon library should be loaded as a dependency on several components.
 
 ## Release 1.1.0 (03-04-2025)
 
