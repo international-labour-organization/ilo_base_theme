@@ -11,6 +11,46 @@ index 8ce28ea..b6f2b14 100644
  			<span class="ilo--accordion--label">{{label}}</span>
  			<span class="ilo--accordion--icon"></span>
  		</button>
+diff --git a/node_modules/@ilo-org/twig/dist/components/button/button.component.yml b/node_modules/@ilo-org/twig/dist/components/button/button.component.yml
+index e4a30c3..4831d9e 100644
+--- a/node_modules/@ilo-org/twig/dist/components/button/button.component.yml
++++ b/node_modules/@ilo-org/twig/dist/components/button/button.component.yml
+@@ -108,3 +108,5 @@ button:
+       preview: false
+       required: false
+   visibility: storybook
++  libraries:
++    - ui_patterns/icon.icon
+diff --git a/node_modules/@ilo-org/twig/dist/components/card/card.component.yml b/node_modules/@ilo-org/twig/dist/components/card/card.component.yml
+index ace2568..83f593d 100644
+--- a/node_modules/@ilo-org/twig/dist/components/card/card.component.yml
++++ b/node_modules/@ilo-org/twig/dist/components/card/card.component.yml
+@@ -238,3 +238,5 @@ card:
+       label: Stat Card
+       settings:
+         type: stat
++  libraries:
++    - ui_patterns/icon.icon
+diff --git a/node_modules/@ilo-org/twig/dist/components/card_detail/card_detail.component.yml b/node_modules/@ilo-org/twig/dist/components/card_detail/card_detail.component.yml
+index 4b65c81..a97e756 100644
+--- a/node_modules/@ilo-org/twig/dist/components/card_detail/card_detail.component.yml
++++ b/node_modules/@ilo-org/twig/dist/components/card_detail/card_detail.component.yml
+@@ -81,3 +81,5 @@ detailcard:
+         h3: h3
+         h4: h4
+         h5: h5
++  libraries:
++    - ui_patterns/icon.icon
+diff --git a/node_modules/@ilo-org/twig/dist/components/card_score/card_score.component.yml b/node_modules/@ilo-org/twig/dist/components/card_score/card_score.component.yml
+index c8694e4..5e1acaf 100644
+--- a/node_modules/@ilo-org/twig/dist/components/card_score/card_score.component.yml
++++ b/node_modules/@ilo-org/twig/dist/components/card_score/card_score.component.yml
+@@ -100,3 +100,5 @@ scorecard:
+         h3: h3
+         h4: h4
+         h5: h5
++  libraries:
++    - ui_patterns/icon.icon
 diff --git a/node_modules/@ilo-org/twig/dist/components/cardgroup/cardgroup.component.yml b/node_modules/@ilo-org/twig/dist/components/cardgroup/cardgroup.component.yml
 index 86c9b41..2f743a5 100644
 --- a/node_modules/@ilo-org/twig/dist/components/cardgroup/cardgroup.component.yml
@@ -94,3 +134,27 @@ index 47ce318..3c829ed 100644
          alt: Logo
      siteurl:
        type: string
+diff --git a/node_modules/@ilo-org/twig/dist/components/profile/profile.component.yml b/node_modules/@ilo-org/twig/dist/components/profile/profile.component.yml
+index 4202de9..5a6546e 100644
+--- a/node_modules/@ilo-org/twig/dist/components/profile/profile.component.yml
++++ b/node_modules/@ilo-org/twig/dist/components/profile/profile.component.yml
+@@ -52,5 +52,6 @@ profile:
+       options:
+         small: Small
+         large: Large
+-
+   visibility: storybook
++  libraries:
++    - ui_patterns/icon.icon
+diff --git a/node_modules/@ilo-org/twig/dist/components/tabs/tabs.component.yml b/node_modules/@ilo-org/twig/dist/components/tabs/tabs.component.yml
+index ab53138..cd33201 100644
+--- a/node_modules/@ilo-org/twig/dist/components/tabs/tabs.component.yml
++++ b/node_modules/@ilo-org/twig/dist/components/tabs/tabs.component.yml
+@@ -43,5 +43,6 @@ tabs:
+     default:
+       label: Default
+       description: the default settings for the Tabs
+-
+   visibility: storybook
++  libraries:
++    - ui_patterns/icon.icon
