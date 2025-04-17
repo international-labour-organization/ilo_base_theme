@@ -1,3 +1,8 @@
+## Release 1.1.1 (TBD)
+
+- [GH-66](https://github.com/international-labour-organization/ilo_base_theme/pull/66): Make sure hero doesn't display the breadcrumb when placed on the homepage.
+- [GH-60](https://github.com/international-labour-organization/ilo_base_theme/issues/60): Fix Drupal messages spacing.
+
 ## Release 1.1.0 (03-04-2025)
 
 - [GH-56](https://github.com/international-labour-organization/ilo_base_theme/issues/56): Add Twig blocks to page.html.twig to allow extending only the body of the page
