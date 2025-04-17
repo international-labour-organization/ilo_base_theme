@@ -1,4 +1,4 @@
-## Release 1.1.1 (TBD)
+## Release 1.1.1 (17-04-2025)
 
 - [GH-66](https://github.com/international-labour-organization/ilo_base_theme/pull/66): Make sure hero doesn't display the breadcrumb when placed on the homepage.
 - [GH-60](https://github.com/international-labour-organization/ilo_base_theme/issues/60): Fix Drupal messages spacing.
