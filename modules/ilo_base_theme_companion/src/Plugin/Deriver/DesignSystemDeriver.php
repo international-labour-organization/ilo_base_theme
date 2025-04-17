@@ -95,28 +95,46 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
   public function getPatterns() {
     $patterns = [];
     $directory = $this->componentsLocator->getComponentDirectory();
+
     foreach (array_keys($this->fileScanDirectory($directory)) as $file_path) {
       $content = file_get_contents($file_path);
+
       foreach (Yaml::decode($content) as $id => $definition) {
         // Skip forms definitions as forms cannot be handled by UI Patterns.
         if ($definition['namespace'] == 'Components/Forms') {
           continue;
         }
+
         $definition['id'] = $id;
         $definition['base path'] = dirname($file_path);
         $definition['file name'] = basename($file_path);
         $definition['provider'] = 'ilo_base_theme_companion';
-        $definition['libraries'] = [];
-        $definition['libraries'][0][$id]['dependencies'] = [
-          'ilo_base_theme_companion/global',
+
+        // Ensure libraries key is initialized as an array if not already set.
+        if (!isset($definition['libraries']) || !is_array($definition['libraries'])) {
+          $definition['libraries'] = [];
+        }
+
+        // Build the new library structure.
+        $new_library = [
+          $id => [
+            'dependencies' => ['ilo_base_theme_companion/global'],
+          ],
         ];
-        if (file_exists($definition['base path'] . DIRECTORY_SEPARATOR . $id . '.behavior.js')) {
-          $definition['libraries'][0][$id]['js'] = [
+
+        // If a behavior JS file exists, add it and extra dependencies.
+        $behavior_path = $definition['base path'] . DIRECTORY_SEPARATOR . $id . '.behavior.js';
+        if (file_exists($behavior_path)) {
+          $new_library[$id]['js'] = [
             $id . '.behavior.js' => NULL,
           ];
-          $definition['libraries'][0][$id]['dependencies'][] = 'core/drupal';
-          $definition['libraries'][0][$id]['dependencies'][] = 'core/drupalSettings';
+          $new_library[$id]['dependencies'][] = 'core/drupal';
+          $new_library[$id]['dependencies'][] = 'core/drupalSettings';
         }
+
+        // Append the new library definition.
+        $definition['libraries'][] = $new_library;
+
         $this->processFields($definition);
         $patterns[] = $this->getPatternDefinition($definition);
       }
