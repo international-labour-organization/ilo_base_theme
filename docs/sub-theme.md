@@ -33,3 +33,35 @@ drush theme:enable my_sub_theme
 drush config:set system.theme default my_sub_theme
 drush cr
 ```
+
+## Extending and overriding header variables in a sub-theme
+
+When using the `nav` pattern in the base theme’s header block, you can expose variables such as logo paths, branding tags,
+or the search form action so they can be overridden easily in a sub-theme.
+
+To support this, the base template uses Twig’s `default` filter to define fallback values. For example:
+
+```twig
+{% set logo_main = logo_main|default(ilo_asset_path ~ "/logo_" ~ ilo_logo_language ~ "_horizontal_white.svg") %}
+{% set tag_main = tag_main|default("Advancing social justice, promoting decent work"|t) %}
+{% set search_form_action = search_form_action|default('/search') %}
+```
+
+Then, in your sub-theme, you can override these variables by setting them earlier in the render process.
+
+For example, inside `page.html.twig`:
+
+```twig
+{% set logo_main = '/themes/custom/my_sub-theme/images/custom-logo.svg' %}
+{% set tag_main = 'Empowering people through work'|t %}
+{% set search_form_action = '/custom-search' %}
+```
+
+You can also override variables directly in block-level templates:
+
+```twig
+{% block header %}
+  {% set tag_sub = 'A new vision for social justice'|t %}
+  {{ parent() }}
+{% endblock %}
+```

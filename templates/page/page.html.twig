@@ -44,34 +44,52 @@
  */
 #}
 {% block header %}
+  {# Allow override of search form action URL in subtheme. #}
   {% set search_form_action = search_form_action|default('/search') %}
-  {{ pattern('navigation', {
-    logo: {
-      "image": ilo_asset_path ~ "/logo_" ~ ilo_logo_language ~ "_horizontal_white.svg",
-      "alt": "ILO Logo"|t,
-    },
-    mobilelogo: {
-      "image": ilo_asset_path ~ "/logo_" ~ ilo_logo_language ~ "_horizontal_blue.svg",
-      "alt": "ILO Logo"|t,
-    },
-    siteurl: path('<front>'),
-    tagline: {
-      "tag": "Advancing social justice, promoting decent work"|t,
-      "small": "ILO is a specialized agency of the United Nations"|t
-    },
-    menulabel: "Menu"|t,
-    menucloselabel: "Close"|t,
-    searchlabel: "Search"|t,
-    searchfield: {
-      "action": search_form_action,
-      "input": {
-        "label": "",
-        "helper": "",
-        "name": "text",
-        "placeholder": "Search"|t,
-        "type": "text"
+
+  {# Allow override of branding elements in subtheme. #}
+  {% set logo_main = logo_main|default(ilo_asset_path ~ "/logo_" ~ ilo_logo_language ~ "_horizontal_blue.svg") %}
+  {% set logo_mobile = logo_mobile|default(ilo_asset_path ~ "/logo_" ~ ilo_logo_language ~ "_horizontal_white.svg") %}
+  {% set logo_drawer = logo_drawer|default(ilo_asset_path ~ "/logo_" ~ ilo_logo_language ~ "_horizontal_blue.svg") %}
+  {% set logo_alt = logo_alt|default("ILO Logo"|t) %}
+
+  {# Allow override of taglines in subtheme. #}
+  {% set tag_main = tag_main|default("Advancing social justice, promoting decent work"|t) %}
+  {% set tag_sub = tag_sub|default("ILO is a specialized agency of the United Nations"|t) %}
+
+  {{ pattern('nav', {
+    branding: {
+      logo: {
+        main: logo_main,
+        mobile: logo_mobile,
+        drawer: logo_drawer,
+        alt: logo_alt
+      },
+      tag: {
+        main: tag_main,
+        sub: tag_sub
       }
     },
+    widgets: {
+      search: {
+        label: "Search"|t,
+        url: search_form_action
+      },
+      link: {
+        href: "https://www.ilo.org",
+        label: "Go to main ILO website"|t
+      },
+      language: {
+        label: "Language"|t,
+        language: current_language_name,
+        links: language_switch_links
+      }
+    },
+    labels: {
+      more: "More"|t,
+      language: "Language"|t,
+      home: "Menu home"|t
+    }
   }) }}
 {% endblock %}
 {% block content_container %}
