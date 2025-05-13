@@ -1,3 +1,7 @@
+## Release 1.2.0 (13-05-2025)
+
+- [GH-70](https://github.com/international-labour-organization/ilo_base_theme/issues/70): Update to @ilo-org/twig 1.8.0 and use new nav component for default header
+
 ## Release 1.1.1 (17-04-2025)
 
 - [GH-66](https://github.com/international-labour-organization/ilo_base_theme/pull/66): Make sure hero doesn't display the breadcrumb when placed on the homepage.

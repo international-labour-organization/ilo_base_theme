@@ -1,16 +1,3 @@
-diff --git a/node_modules/@ilo-org/twig/dist/components/accordion/accordion-item.twig b/node_modules/@ilo-org/twig/dist/components/accordion/accordion-item.twig
-index 8ce28ea..b6f2b14 100644
---- a/node_modules/@ilo-org/twig/dist/components/accordion/accordion-item.twig
-+++ b/node_modules/@ilo-org/twig/dist/components/accordion/accordion-item.twig
-@@ -9,7 +9,7 @@
- 
- <li class="ilo--accordion--item" id="{{ id }}">
- 	<div class="ilo--h3">
--		<button class="ilo--accordion--button ilo--accordion--button__{{ size|default('small') }}" aria-expanded="{{ defaultExpanded }}" aria-controls="{{ panel_id }}" id="{{ button_id }}">
-+    <button class="ilo--accordion--button ilo--accordion--button__{{ size|default('small') }}" aria-expanded="{{ defaultExpanded ? 'true' : 'false' }}" aria-controls="{{ panel_id }}" id="{{ button_id }}">
- 			<span class="ilo--accordion--label">{{label}}</span>
- 			<span class="ilo--accordion--icon"></span>
- 		</button>
 diff --git a/node_modules/@ilo-org/twig/dist/components/button/button.component.yml b/node_modules/@ilo-org/twig/dist/components/button/button.component.yml
 index e4a30c3..4831d9e 100644
 --- a/node_modules/@ilo-org/twig/dist/components/button/button.component.yml
@@ -112,6 +99,23 @@ index 3601ff4..faebe77 100644
          alt: Logo
      siteurl:
        type: string
+diff --git a/node_modules/@ilo-org/twig/dist/components/nav/nav.component.yml b/node_modules/@ilo-org/twig/dist/components/nav/nav.component.yml
+index aa80c8d..5db37c3 100644
+--- a/node_modules/@ilo-org/twig/dist/components/nav/nav.component.yml
++++ b/node_modules/@ilo-org/twig/dist/components/nav/nav.component.yml
+@@ -11,9 +11,9 @@ nav:
+       required: true
+       preview:
+         logo:
+-          main: "images/ilo-live-logo-en-dark.png"
+-          mobile: "images/ilo-live-logo-en-light.png"
+-          drawer: "images/ilo-live-logo-en-dark.png"
++          main: "/images/ilo-live-logo-en-dark.png"
++          mobile: "/images/ilo-live-logo-en-light.png"
++          drawer: "/images/ilo-live-logo-en-dark.png"
+           alt: "ILO Logo"
+         tag:
+           main: "Advancing social justice, promoting decent work"
 diff --git a/node_modules/@ilo-org/twig/dist/components/navigation/navigation.component.yml b/node_modules/@ilo-org/twig/dist/components/navigation/navigation.component.yml
 index 47ce318..3c829ed 100644
 --- a/node_modules/@ilo-org/twig/dist/components/navigation/navigation.component.yml
