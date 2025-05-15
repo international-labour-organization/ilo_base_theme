@@ -100,7 +100,7 @@ index 3601ff4..faebe77 100644
      siteurl:
        type: string
 diff --git a/node_modules/@ilo-org/twig/dist/components/nav/nav.component.yml b/node_modules/@ilo-org/twig/dist/components/nav/nav.component.yml
-index aa80c8d..5db37c3 100644
+index 86b4a35..353b787 100644
 --- a/node_modules/@ilo-org/twig/dist/components/nav/nav.component.yml
 +++ b/node_modules/@ilo-org/twig/dist/components/nav/nav.component.yml
 @@ -11,9 +11,9 @@ nav:
@@ -114,8 +114,8 @@ index aa80c8d..5db37c3 100644
 +          mobile: "/images/ilo-live-logo-en-light.png"
 +          drawer: "/images/ilo-live-logo-en-dark.png"
            alt: "ILO Logo"
-         tag:
-           main: "Advancing social justice, promoting decent work"
+           link:
+             href: "https://live.ilo.org"
 diff --git a/node_modules/@ilo-org/twig/dist/components/navigation/navigation.component.yml b/node_modules/@ilo-org/twig/dist/components/navigation/navigation.component.yml
 index 47ce318..3c829ed 100644
 --- a/node_modules/@ilo-org/twig/dist/components/navigation/navigation.component.yml
