@@ -1,4 +1,4 @@
-## Release 1.2.1 (TDB)
+## Release 1.2.1 (15-05-2025)
 
 - [GH-72](https://github.com/international-labour-organization/ilo_base_theme/issues/72): Pattern preview for subsite nav ignores params
 
