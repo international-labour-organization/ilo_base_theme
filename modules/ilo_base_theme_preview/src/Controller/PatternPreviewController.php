@@ -43,6 +43,9 @@ class PatternPreviewController extends ControllerBase {
       '#type' => 'pattern',
       '#id' => $id,
       '#fields' => $decoded_fields,
+      '#context' => [
+        'type' => 'preview',
+      ],
     ];
 
     if ($request->query->has('variant')) {

@@ -1,3 +1,7 @@
+## Release 1.2.1 (TDB)
+
+- [GH-72](https://github.com/international-labour-organization/ilo_base_theme/issues/72): Pattern preview for subsite nav ignores params
+
 ## Release 1.2.0 (13-05-2025)
 
 - [GH-70](https://github.com/international-labour-organization/ilo_base_theme/issues/70): Update to @ilo-org/twig 1.8.0 and use new nav component for default header
