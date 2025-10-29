@@ -29,7 +29,7 @@ a {
     @include globaltransition("color, background-color, border-color");
     // We assign the medium size by default to buttons:
     padding: spacing(2) spacing(5);
-    @include font-styles("button-medium");
+    @include typography("highlight-medium-bold");
     /* Btw take in account that to reach the correct spacing,
        button labels needs to be wrapped in a span, for example:
        <a class="ilo--button">
@@ -62,7 +62,7 @@ a {
     // .ilo--button__small to .button--small
     &--small {
       padding: spacing(1) spacing(4);
-      @include font-styles("button-small");
+      @include typography("highlight-small-bold");
     }
   }
 }
