@@ -1,3 +1,7 @@
+## Release 1.3.0 (29-10-2025)
+
+- [GH-77](https://github.com/international-labour-organization/ilo_base_theme/issues/77): Upgrade @ilo-org/twig to 1.9.0.
+
 ## Release 1.2.2 (15-05-2025)
 
 - [GH-75](https://github.com/international-labour-organization/ilo_base_theme/issues/75): Link header logo to homepage
