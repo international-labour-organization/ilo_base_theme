@@ -1,6 +1,6 @@
 ## Release 1.4.0 (27-11-2025)
 
-- [GH-83](https://github.com/international-labour-organization/ilo_base_theme/issues/83): Upgrade @ilo-org/twig to 1.10.0.
+- [GH-83](https://github.com/international-labour-organization/ilo_base_theme/issues/83): Upgrade @ilo-org/twig to 1.11.0.
 
 ## Release 1.3.0 (14-11-2025)
 
