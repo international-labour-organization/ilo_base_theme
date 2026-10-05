@@ -22,20 +22,20 @@ diff --git a/node_modules/@ilo-org/twig/dist/components/card_detail/card_detail.
 index 4b65c81..a97e756 100644
 --- a/node_modules/@ilo-org/twig/dist/components/card_detail/card_detail.component.yml
 +++ b/node_modules/@ilo-org/twig/dist/components/card_detail/card_detail.component.yml
-@@ -81,3 +81,5 @@ detailcard:
-         h3: h3
+@@ -91,3 +91,5 @@ detailcard:
          h4: h4
          h5: h5
+       preview: "p"
 +  libraries:
 +    - ui_patterns/icon.icon
 diff --git a/node_modules/@ilo-org/twig/dist/components/card_score/card_score.component.yml b/node_modules/@ilo-org/twig/dist/components/card_score/card_score.component.yml
 index c8694e4..5e1acaf 100644
 --- a/node_modules/@ilo-org/twig/dist/components/card_score/card_score.component.yml
 +++ b/node_modules/@ilo-org/twig/dist/components/card_score/card_score.component.yml
-@@ -100,3 +100,5 @@ scorecard:
-         h3: h3
+@@ -101,3 +101,5 @@ scorecard:
          h4: h4
          h5: h5
+       preview: "p"
 +  libraries:
 +    - ui_patterns/icon.icon
 diff --git a/node_modules/@ilo-org/twig/dist/components/cardgroup/cardgroup.component.yml b/node_modules/@ilo-org/twig/dist/components/cardgroup/cardgroup.component.yml
@@ -61,8 +61,8 @@ index ec595bd..de9f573 100644
 +      escape: false
        preview:
          alt: Lorem ipsum
-         loading: lazy
-@@ -19,6 +20,7 @@ hero:
+         url:
+@@ -18,6 +19,7 @@ hero:
      breadcrumb:
        label: Bread crumbs
        description: The breadcrumb navigation to display in the hero.
@@ -70,7 +70,7 @@ index ec595bd..de9f573 100644
        type: object
        preview:
          home:
-@@ -41,6 +43,7 @@ hero:
+@@ -40,6 +42,7 @@ hero:
        label: Hero Card
        type: object
        description: The hero card to display in the hero. See docs on the Hero Card component for more information about the fields.
@@ -78,7 +78,7 @@ index ec595bd..de9f573 100644
        preview:
          title: "Child labour"
          theme: "dark"
-@@ -61,6 +64,7 @@ hero:
+@@ -60,6 +63,7 @@ hero:
      caption:
        label: Caption
        type: object
@@ -154,7 +154,7 @@ diff --git a/node_modules/@ilo-org/twig/dist/components/tabs/tabs.component.yml 
 index ab53138..cd33201 100644
 --- a/node_modules/@ilo-org/twig/dist/components/tabs/tabs.component.yml
 +++ b/node_modules/@ilo-org/twig/dist/components/tabs/tabs.component.yml
-@@ -43,5 +43,6 @@ tabs:
+@@ -44,5 +44,6 @@ tabs:
      default:
        label: Default
        description: the default settings for the Tabs
