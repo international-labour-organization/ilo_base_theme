@@ -14,6 +14,10 @@ libraries:
   - 'ilo_base_theme/global'
   - 'ilo_base_theme_companion/global'
 
+libraries-extend:
+  ui_patterns/nav.nav:
+    - ilo_base_theme/component.languagetoggle
+
 regions:
   breadcrumb: Breadcrumb
   content: Content
