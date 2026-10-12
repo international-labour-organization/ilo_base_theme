@@ -1,3 +1,13 @@
+diff --git a/node_modules/@ilo-org/twig/dist/components/audioplayer/audioplayer.component.yml b/node_modules/@ilo-org/twig/dist/components/audioplayer/audioplayer.component.yml
+index ea40be7..70e2f92 100644
+--- a/node_modules/@ilo-org/twig/dist/components/audioplayer/audioplayer.component.yml
++++ b/node_modules/@ilo-org/twig/dist/components/audioplayer/audioplayer.component.yml
+@@ -32,3 +32,5 @@ audioplayer:
+   variants:
+     default:
+       label: Default
++  libraries:
++    - ui_patterns/icon.icon
 diff --git a/node_modules/@ilo-org/twig/dist/components/button/button.component.yml b/node_modules/@ilo-org/twig/dist/components/button/button.component.yml
 index e4a30c3..4831d9e 100644
 --- a/node_modules/@ilo-org/twig/dist/components/button/button.component.yml
