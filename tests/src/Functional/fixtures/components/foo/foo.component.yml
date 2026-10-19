@@ -14,3 +14,12 @@ foo:
       type: image
       label: Image
       preview: '/images/foo.png'
+
+foo_secondary:
+  namespace: Components/Test
+  label: Foo secondary
+  fields:
+    label:
+      type: string
+      label: Label
+      preview: 'Label'

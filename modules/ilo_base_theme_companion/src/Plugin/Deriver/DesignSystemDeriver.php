@@ -123,10 +123,13 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
         ];
 
         // If a behavior JS file exists, add it and extra dependencies.
-        $behavior_path = $definition['base path'] . DIRECTORY_SEPARATOR . $id . '.behavior.js';
-        if (file_exists($behavior_path)) {
+        // A component file can declare more than one pattern (e.g. "video"
+        // and "youtube_video" in video.component.yml), sharing the behavior
+        // named after the component file: use it as fallback.
+        $behavior_file = $this->getBehaviorFile($definition['base path'], $id, basename($file_path, '.component.yml'));
+        if ($behavior_file !== NULL) {
           $new_library[$id]['js'] = [
-            $id . '.behavior.js' => NULL,
+            $behavior_file => NULL,
           ];
           $new_library[$id]['dependencies'][] = 'core/drupal';
           $new_library[$id]['dependencies'][] = 'core/drupalSettings';
@@ -141,6 +144,28 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
     }
 
     return $patterns;
+  }
+
+  /**
+   * Get the behavior JS file of a pattern, if any.
+   *
+   * @param string $base_path
+   *   Directory containing the component file.
+   * @param string $id
+   *   Pattern ID.
+   * @param string $component_name
+   *   Component file name, without the ".component.yml" extension.
+   *
+   * @return string|null
+   *   Behavior file name, relative to the base path, or NULL if none exists.
+   */
+  private function getBehaviorFile(string $base_path, string $id, string $component_name): ?string {
+    foreach (array_unique([$id, $component_name]) as $name) {
+      if (file_exists($base_path . DIRECTORY_SEPARATOR . $name . '.behavior.js')) {
+        return $name . '.behavior.js';
+      }
+    }
+    return NULL;
   }
 
   /**
