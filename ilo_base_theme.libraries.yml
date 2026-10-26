@@ -33,3 +33,7 @@ component.status-messages:
   css:
     component:
       dist/status-messages/css/status-messages.processed.css: { minified: true }
+
+component.languagetoggle:
+  dependencies:
+    - ui_patterns/languagetoggle.languagetoggle
