@@ -8,6 +8,8 @@ use Drupal\Core\Extension\ExtensionDiscovery;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Extension\ThemeHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\TypedData\TypedDataManager;
@@ -44,6 +46,13 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
   protected string $previewImageBaseUrl;
 
   /**
+   * Logger channel.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelInterface
+   */
+  protected LoggerChannelInterface $logger;
+
+  /**
    * Constructor.
    *
    * @param string $base_plugin_id
@@ -60,12 +69,15 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
    *   List of fields that must be considered as markup on previews.
    * @param string $preview_image_base_url
    *   Base URL for image previews.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
+   *   Logger channel factory.
    */
-  public function __construct($base_plugin_id, TypedDataManager $typed_data_manager, MessengerInterface $messenger, FileSystemInterface $file_system, ComponentsLocatorInterface $components_locator, array $markup_preview_fields, string $preview_image_base_url) {
+  public function __construct($base_plugin_id, TypedDataManager $typed_data_manager, MessengerInterface $messenger, FileSystemInterface $file_system, ComponentsLocatorInterface $components_locator, array $markup_preview_fields, string $preview_image_base_url, LoggerChannelFactoryInterface $logger_factory) {
     parent::__construct($base_plugin_id, $typed_data_manager, $messenger, $file_system);
     $this->componentsLocator = $components_locator;
     $this->previewMarkupFields = $markup_preview_fields;
     $this->previewImageBaseUrl = $preview_image_base_url;
+    $this->logger = $logger_factory->get('ilo_base_theme_companion');
   }
 
   /**
@@ -79,7 +91,8 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
       $container->get('file_system'),
       $container->get('ilo_base_theme_companion.components_locator'),
       $container->getParameter('ilo_base_theme_companion.preview_fields_as_markup'),
-      $container->getParameter('ilo_base_theme_companion.preview_image_base_url')
+      $container->getParameter('ilo_base_theme_companion.preview_image_base_url'),
+      $container->get('logger.factory')
     );
   }
 
@@ -184,9 +197,14 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
       foreach ($directories as $directory) {
         foreach ($ids[$directory] ?? [] as $dependency) {
           // Skip cycles: Drupal can't resolve circular library dependencies.
-          if (!$this->dependsOn($dependencies, $dependency, $id)) {
-            $dependencies[$id][] = $dependency;
+          if ($this->dependsOn($dependencies, $dependency, $id)) {
+            $this->logger->warning('Circular dependency skipped: "@dependency" already includes "@id".', [
+              '@id' => $id,
+              '@dependency' => $dependency,
+            ]);
+            continue;
           }
+          $dependencies[$id][] = $dependency;
         }
       }
       sort($dependencies[$id]);
