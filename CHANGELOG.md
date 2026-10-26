@@ -1,3 +1,7 @@
+## Release 1.6.0 (05-10-2025)
+
+- [GH-82](https://github.com/international-labour-organization/ilo_base_theme/issues/82): Automatically attach libraries of components included by pattern templates.
+
 ## Release 1.5.1 (07-10-2026)
 
 - [GH-85](https://github.com/international-labour-organization/ilo_base_theme/issues/85): Fix language dropdown missing library dependency in the nav component
