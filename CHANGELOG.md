@@ -1,6 +1,7 @@
 ## Release 1.5.1 (07-10-2026)
 
 - [GH-85](https://github.com/international-labour-organization/ilo_base_theme/issues/85): Fix language dropdown missing library dependency in the nav component
+- [GH-78](https://github.com/international-labour-organization/ilo_base_theme/issues/78): Fix missing video library when embedding the youtube_video pattern.
 
 ## Release 1.5.0 (05-10-2026)
 
