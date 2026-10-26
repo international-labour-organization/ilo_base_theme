@@ -34,13 +34,16 @@ class DesignSystemDeriverTest extends BrowserTestBase {
     $patterns = $deriver->getPatterns();
     $this->assertCount(2, $patterns);
 
-    // Assert "bar" component.
+    // Assert "bar" component, which depends on "foo" since one of its
+    // templates includes it. References to its own templates and to
+    // components that are not patterns are ignored.
     $definition = $patterns[0]->toArray();
     $this->assertEquals($definition['libraries'], [
       [
         'bar' => [
           'dependencies' => [
             'ilo_base_theme_companion/global',
+            'ui_patterns/foo.foo',
           ],
         ],
       ],

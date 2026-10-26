@@ -1,7 +1,10 @@
+## Release 1.6.0 (05-10-2025)
+
+- [GH-82](https://github.com/international-labour-organization/ilo_base_theme/issues/82): Automatically attach libraries of components included by pattern templates.
+-
 ## Release 1.5.0 (05-10-2025)
 
 - [GH-87](https://github.com/international-labour-organization/ilo_base_theme/issues/87): Upgrade @ilo-org/twig to 1.17.1.
-- [GH-82](https://github.com/international-labour-organization/ilo_base_theme/issues/82): Include Icon library for audioplayer component.
 
 ## Release 1.4.0 (27-11-2025)
 
