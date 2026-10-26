@@ -13,6 +13,7 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\TypedData\TypedDataManager;
 use Drupal\ilo_base_theme_companion\ComponentsLocator;
 use Drupal\ilo_base_theme_companion\ComponentsLocatorInterface;
+use Drupal\ui_patterns\Definition\PatternDefinition;
 use Drupal\ui_patterns\Plugin\Deriver\AbstractYamlPatternsDeriver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -94,6 +95,7 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
    */
   public function getPatterns() {
     $patterns = [];
+    $definitions = [];
     $directory = $this->componentsLocator->getComponentDirectory();
 
     foreach (array_keys($this->fileScanDirectory($directory)) as $file_path) {
@@ -109,38 +111,48 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
         $definition['base path'] = dirname($file_path);
         $definition['file name'] = basename($file_path);
         $definition['provider'] = 'ilo_base_theme_companion';
-
-        // Ensure libraries key is initialized as an array if not already set.
-        if (!isset($definition['libraries']) || !is_array($definition['libraries'])) {
-          $definition['libraries'] = [];
-        }
-
-        // Build the new library structure.
-        $new_library = [
-          $id => [
-            'dependencies' => ['ilo_base_theme_companion/global'],
-          ],
-        ];
-
-        // If a behavior JS file exists, add it and extra dependencies.
-        // A component file can declare more than one pattern (e.g. "video"
-        // and "youtube_video" in video.component.yml), sharing the behavior
-        // named after the component file: use it as fallback.
-        $behavior_file = $this->getBehaviorFile($definition['base path'], $id, basename($file_path, '.component.yml'));
-        if ($behavior_file !== NULL) {
-          $new_library[$id]['js'] = [
-            $behavior_file => NULL,
-          ];
-          $new_library[$id]['dependencies'][] = 'core/drupal';
-          $new_library[$id]['dependencies'][] = 'core/drupalSettings';
-        }
-
-        // Append the new library definition.
-        $definition['libraries'][] = $new_library;
-
-        $this->processFields($definition);
-        $patterns[] = $this->getPatternDefinition($definition);
+        $definitions[$id] = $definition;
       }
+    }
+
+    $dependencies = $this->getComponentDependencies($definitions);
+
+    foreach ($definitions as $id => $definition) {
+      // Ensure libraries key is initialized as an array if not already set.
+      if (!isset($definition['libraries']) || !is_array($definition['libraries'])) {
+        $definition['libraries'] = [];
+      }
+
+      // Build the new library structure.
+      $new_library = [
+        $id => [
+          'dependencies' => ['ilo_base_theme_companion/global'],
+        ],
+      ];
+
+      // If a behavior JS file exists, add it and extra dependencies.
+      // A component file can declare more than one pattern (e.g. "video"
+      // and "youtube_video" in video.component.yml), sharing the behavior
+      // named after the component file: use it as fallback.
+      $behavior_file = $this->getBehaviorFile($definition['base path'], $id, basename($definition['file name'], '.component.yml'));
+      if ($behavior_file !== NULL) {
+        $new_library[$id]['js'] = [
+          $behavior_file => NULL,
+        ];
+        $new_library[$id]['dependencies'][] = 'core/drupal';
+        $new_library[$id]['dependencies'][] = 'core/drupalSettings';
+      }
+
+      // Depend on the libraries of the components included in the templates.
+      foreach ($dependencies[$id] as $dependency) {
+        $new_library[$id]['dependencies'][] = PatternDefinition::LIBRARY_PREFIX . '/' . $dependency . '.' . $dependency;
+      }
+
+      // Append the new library definition.
+      $definition['libraries'][] = $new_library;
+
+      $this->processFields($definition);
+      $patterns[] = $this->getPatternDefinition($definition);
     }
 
     return $patterns;
@@ -166,6 +178,71 @@ class DesignSystemDeriver extends AbstractYamlPatternsDeriver {
       }
     }
     return NULL;
+  }
+
+  /**
+   * Get the components included in each component's templates.
+   *
+   * @param array $definitions
+   *   Component definitions.
+   *
+   * @return array
+   *   IDs of the included components.
+   */
+  private function getComponentDependencies(array $definitions): array {
+    // Map component directories to the IDs they define.
+    $ids = [];
+    foreach ($definitions as $id => $definition) {
+      $ids[basename($definition['base path'])][] = $id;
+    }
+
+    $dependencies = [];
+    foreach ($definitions as $id => $definition) {
+      $directories = [];
+      foreach (array_keys($this->fileSystem->scanDirectory($definition['base path'], '/\.twig$/')) as $template) {
+        preg_match_all('/@components\/([\w-]+)\//', file_get_contents($template), $matches);
+        $directories = array_merge($directories, $matches[1]);
+      }
+      $directories = array_diff(array_unique($directories), [basename($definition['base path'])]);
+
+      $dependencies[$id] = [];
+      foreach ($directories as $directory) {
+        foreach ($ids[$directory] ?? [] as $dependency) {
+          // Skip cycles: Drupal can't resolve circular library dependencies.
+          if (!$this->dependsOn($dependencies, $dependency, $id)) {
+            $dependencies[$id][] = $dependency;
+          }
+        }
+      }
+      sort($dependencies[$id]);
+    }
+
+    return $dependencies;
+  }
+
+  /**
+   * Check whether a component is, or depends on, another component.
+   *
+   * @param array $dependencies
+   *   IDs of the included components.
+   * @param string $id
+   *   Component ID.
+   * @param string $other_id
+   *   Other component ID.
+   *
+   * @return bool
+   *   TRUE if the component is, or depends on, the other component.
+   */
+  private function dependsOn(array $dependencies, string $id, string $other_id): bool {
+    if ($id === $other_id) {
+      return TRUE;
+    }
+    foreach ($dependencies[$id] ?? [] as $dependency) {
+      if ($this->dependsOn($dependencies, $dependency, $other_id)) {
+        return TRUE;
+      }
+    }
+    return FALSE;
   }
 
   /**
