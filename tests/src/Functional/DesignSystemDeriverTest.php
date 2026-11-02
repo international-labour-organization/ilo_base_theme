@@ -32,7 +32,7 @@ class DesignSystemDeriverTest extends BrowserTestBase {
 
     $deriver = DesignSystemDeriver::create($this->container, '');
     $patterns = $deriver->getPatterns();
-    $this->assertCount(2, $patterns);
+    $this->assertCount(3, $patterns);
 
     // Assert "bar" component.
     $definition = $patterns[0]->toArray();
@@ -90,6 +90,24 @@ class DesignSystemDeriverTest extends BrowserTestBase {
         'description' => NULL,
         'escape' => TRUE,
         'additional' => [],
+      ],
+    ]);
+
+    // Assert "foo_secondary" component, declared in foo.component.yml, falls
+    // back to the component file's behavior.
+    $definition = $patterns[2]->toArray();
+    $this->assertEquals($definition['libraries'], [
+      [
+        'foo_secondary' => [
+          'dependencies' => [
+            'ilo_base_theme_companion/global',
+            'core/drupal',
+            'core/drupalSettings',
+          ],
+          'js' => [
+            'foo.behavior.js' => NULL,
+          ],
+        ],
       ],
     ]);
   }
