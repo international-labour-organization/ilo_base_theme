@@ -32,14 +32,13 @@ class DesignSystemDeriverTest extends BrowserTestBase {
     };
     $this->container->set('ilo_base_theme_companion.components_locator', $locator);
 
-    // "foo" includes "bar", which already depends on "foo": expect a warning.
+    $warnings = [];
     $logger = $this->createMock(LoggerChannelInterface::class);
-    $logger->expects($this->once())
-      ->method('warning')
-      ->with($this->stringContains('Circular dependency skipped'), [
-        '@id' => 'foo',
-        '@dependency' => 'bar',
-      ]);
+    $logger->method('warning')
+      ->willReturnCallback(function (string $message, array $context) use (&$warnings): void {
+        $this->assertStringContainsString('Circular dependency skipped', $message);
+        $warnings[] = $context;
+      });
     $logger_factory = $this->createMock(LoggerChannelFactoryInterface::class);
     $logger_factory->method('get')
       ->with('ilo_base_theme_companion')
@@ -52,6 +51,13 @@ class DesignSystemDeriverTest extends BrowserTestBase {
     $this->container->set('logger.factory', $original_logger_factory);
     $patterns = $deriver->getPatterns();
     $this->assertCount(3, $patterns);
+
+    // "foo" and "foo_secondary" share a directory whose template includes
+    // "bar", which already depends on both of them.
+    $this->assertSame([
+      ['@id' => 'foo', '@dependency' => 'bar'],
+      ['@id' => 'foo_secondary', '@dependency' => 'bar'],
+    ], $warnings);
 
     // Assert "bar" component, which depends on "foo" and "foo_secondary" since
     // one of its templates includes a template from their directory.
