@@ -2,6 +2,7 @@
 
 - [GH-78](https://github.com/international-labour-organization/ilo_base_theme/issues/78): Fix missing video library when embedding the youtube_video pattern.
 - [GH-82](https://github.com/international-labour-organization/ilo_base_theme/issues/82): Include Icon library for audioplayer component.
+- [GH-81](https://github.com/international-labour-organization/ilo_base_theme/issues/81): Serve design system static assets.
 
 ## Release 1.5.1 (07-10-2026)
 
