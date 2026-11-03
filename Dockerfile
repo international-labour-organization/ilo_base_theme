@@ -29,10 +29,14 @@ RUN	apt update; \
     git
 
 # Remove stock Drupal codebase.
-RUN rm -rf /opt/drupal && \
+RUN rm -rf /opt/drupal && \ 
     mkdir -p /opt/drupal
 
 RUN git config --global --add safe.directory /opt/drupal
+
+# Serve design system static assets (images, videos, etc.) from a mountable folder.
+COPY docker/apache/public-assets.conf /etc/apache2/conf-available/ilo-public-assets.conf
+RUN sed -i 's#</VirtualHost>#\tInclude conf-available/ilo-public-assets.conf\n</VirtualHost>#' /etc/apache2/sites-available/000-default.conf
 
 FROM base as dev
 

@@ -87,6 +87,7 @@ release:
     - { task: "remove", file: "ilo_base_theme/docker-compose.dev.yml" }
     - { task: "remove", file: "ilo_base_theme/docker-compose.yml" }
     - { task: "remove", file: "ilo_base_theme/Dockerfile" }
+    - { task: "remove", file: "ilo_base_theme/docker" }
     - { task: "remove", file: "ilo_base_theme/Makefile" }
     - { task: "remove", file: "ilo_base_theme/phpcs.xml.dist" }
     - { task: "remove", file: "ilo_base_theme/phpunit.xml.dist" }

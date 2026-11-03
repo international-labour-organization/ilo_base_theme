@@ -44,6 +44,29 @@ In order to run the command above, you need to be authenticated, please check th
 docker rmi -f ghcr.io/international-labour-organization/ilo_base_theme:1.x
 ```
 
+### Serve design system static assets
+
+Some design system components use static assets, such as images, videos and audio files, referenced from the site
+root (e.g. `/images/hero.jpg`), the same way Storybook does. To make these available, for example when running
+end-to-end tests against the demo site, mount the `public` folder of the `@ilo-org/twig` package at
+`/opt/drupal/modules/ilo_base_theme_companion/public`:
+
+```shell
+docker run --rm -p 8082:80 -v ./public:/opt/drupal/modules/ilo_base_theme_companion/public ghcr.io/international-labour-organization/ilo_base_theme:1.x
+```
+
+Or, using Docker Compose:
+
+```yaml
+services:
+  backend:
+    image: "ghcr.io/international-labour-organization/ilo_base_theme:1.x"
+    ports:
+      - 8082:80
+    volumes:
+      - ./public:/opt/drupal/modules/ilo_base_theme_companion/public
+```
+
 If you need to log onto the container, run:
 
 ```shell
