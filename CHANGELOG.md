@@ -1,3 +1,7 @@
+## Release 1.7.0 (27-11-2026)
+
+- [GH-93](https://github.com/international-labour-organization/ilo_base_theme/issues/93): Upgrade @ilo-org/twig to 1.19.0.
+
 ## Release 1.6.0 (02-11-2026)
 
 - [GH-78](https://github.com/international-labour-organization/ilo_base_theme/issues/78): Fix missing video library when embedding the youtube_video pattern.
